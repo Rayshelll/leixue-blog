@@ -1,0 +1,87 @@
+---
+title: js数组与字符串之间的种种
+date: 2019-08-16 13:17:23
+tags: JavaScript
+categories: 前端学习
+---
+#### js常用数组的方法：
+##### [数组](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)
+`toString()`
+
+`toLocalString()` 数组转字符串
+
+`concat()` 返回一个由当前数组和其它若干个数组或者若干个非数组值组合而成的新数组
+
+`join("连接符")` 连接所有数组元素组成一个字符串。
+
+`slice(start,end)` 从start开始切割，没有参数复制一个数组
+
+`reverse()` 颠倒数组中元素的排列顺序
+<!-- more -->
+`pop()` 删除数组的最后一个元素，并返回这个元素。
+
+`shift()` 删除数组的第一个元素，并返回这个元素。
+
+`push('element')` 添加元素到数组的末尾
+
+`unshift()` 在数组的开头增加一个或多个元素，并返回数组的新长度。
+
+`splice(pos, n)` 通过索引pos删除n个元素
+
+`sort()` 对数组元素进行排序，并返回当前数组。
+
+`indexOf()` 返回数组中第一个与指定值相等的元素的索引，如果找不到这样的元素，则返回 -1
+
+`fill(0, 2, 4))` 将数组中指定区间2-4的所有元素的值，都替换成某个固定的值0
+
+`some()` 如果数组中至少有一个元素满足测试函数，则返回 true，否则返回 false。
+
+`includes()` 判断当前数组是否包含某指定的值，如果是返回 true，否则返回 false。
+
+#### 字符串方法：
+##### [字符串](https://www.w3school.com.cn/js/js_obj_string.asp)
+`str.charAt()`	返回在指定位置的字符。
+
+`str.concat(str1)`	连接字符串。
+
+`str.match(regExp)`	找到一个或多个正则表达式的匹配。
+
+`str.replace(regExp,"替换字符")`	替换与正则表达式匹配的子串。
+
+`str.replace(/\s/g,'%20')`\s 匹配任何空白字符
+
+`str.search(regexp)` 	检索与正则表达式相匹配的值。
+
+`str.split("分隔符")` 分割
+
+`str.slice(start,end)`	提取字符串的片断，并在新的字符串中返回被提取的部分。
+
+`str.substr(start,length)`	从起始索引号提取字符串中指定数目的字符。
+
+`str.substring(start,stop)`	提取字符串中两个指定的索引号之间的字符，不接受负数。
+
+`toLocaleLowerCase()`	把字符串转换为小写。
+
+`toLocaleUpperCase()`	把字符串转换为大写。
+
+`toLowerCase()`	把字符串转换为小写。
+
+`toUpperCase()`	把字符串转换为大写。
+
+`toString()`   返回字符串
+
+`valueOf()`	返回某个字符串对象的原始值。
+
+#### 数字、字符串、数组
+是不是数字：`Number.isInteger(3)`/`Number(str)`/ !`isNaN(str)`
+
+数字转字符串：`x.toString()`
+
+字符串转数字：`parseInt(str)`
+
+字符串转数组：`str.split("")`
+
+数组转字符串：`arr.join("")`/`arr+=''`
+
+字符串可以以数组的形式取里面的字符，字符串也是对象
+
