@@ -1,7 +1,8 @@
 ---
 title: js相关知识
 date: 2019-08-19 16:04:14
-tags: JavaScript
+tags: 
+- JavaScript
 ---
 ### [JS作用域和作用域链](https://www.cnblogs.com/hfxm/p/5547922.html)
 #### 作用域就是变量和函数的可访问范围，或者说变量或函数起作用的区域。

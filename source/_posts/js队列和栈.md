@@ -1,7 +1,8 @@
 ---
 title: js队列和栈
 date: 2019-08-16 13:16:30
-tags: JavaScript
+tags: 
+- JavaScript
 categories: 前端学习
 ---
 #### [js队列和栈](<https://segmentfault.com/a/1190000007360621>)
@@ -22,7 +23,9 @@ categories: 前端学习
 ##### 栈
 * push: 尾，在数组的中末尾添加元素，（入队，入栈）并返回新的**长度**
 * pop: 尾，从数组中把最后一个元素删除，（出栈）并返回这个**元素的值**。
+
 <!-- more -->
+
 ##### 通过javascript提供的API，实现栈
 ``` js
 function Stack() {

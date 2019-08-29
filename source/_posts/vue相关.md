@@ -1,13 +1,15 @@
 ---
 title: vue相关
 date: 2019-08-19 16:12:22
-tags: Vue
+tags: 
+- Vue
 ---
 ### 难点
 1. vue-resource数据请求
 2. promise回调
 3. props、`watch`监听属性变化
 4. render
+
 <!-- more -->
 
 #### 子组件向父组件传值

@@ -7,7 +7,9 @@ tags:
 异步的javascript和xml  
 AJAX 是一种用于创建快速动态网页的技术。  
 ajax用来与后台交互
+
 <!-- more -->
+
 #### 2. 原生js ajax请求有几个步骤？分别是什么
 ``` js
 //创建 XMLHttpRequest 对象

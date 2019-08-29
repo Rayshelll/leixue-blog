@@ -1,7 +1,8 @@
 ---
 title: react相关
 date: 2019-08-16 13:18:12
-tags: React
+tags: 
+- React
 categories: 前端学习
 ---
 #### react框架
@@ -21,7 +22,9 @@ const myh1 = <h1 id="myh1" title="my is a div">this h1 content</h1>
 ``` jsx
 React.render(myh1, document.getElementById('app'))
 ```
+
 <!-- more -->
+
 #### react生命周期
 - 组件创建阶段：一辈子只执行一次
     - `componentWillMount()`

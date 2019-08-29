@@ -1,7 +1,8 @@
 ---
 title: css
 date: 2019-08-19 16:10:39
-tags: CSS
+tags: 
+- CSS
 ---
 ### CSS行内元素在块状元素中水平垂直居中
 1. 块状元素：
@@ -23,7 +24,9 @@ tags: CSS
         1. 父元素：`position: relative; ` 子元素：`position: absolute; top: 50%; left: 50%; margin-top=-height（子）/2; margin-right=-width/2;(已知块级元素的宽和高)`
         2. 父元素：`position:relative` 子元素：`position: absolute; top:0; left:0; bottom:0; right:0; margin:auto;`
         3. 父元素：`display:flex; `子元素：`margin:auto;`
+
 <!-- more -->
+
 2. 行内元素：
     - `display:inline;`
     - a、b、span、img、input、strong、select、label、em、button、textarea（字体、input类、span）等；

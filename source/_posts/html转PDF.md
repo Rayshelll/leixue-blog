@@ -1,7 +1,8 @@
 ---
 title: html转PDF
 date: 2019-08-15 12:54:45
-tags: React
+tags: 
+- React
 categories: 前端学习
 ---
 ### 方法一：[html2canvas](https://github.com/niklasvh/html2canvas) + [jspdf](https://github.com/mrrio/jspdf)

@@ -1,7 +1,8 @@
 ---
 title: js遍历
 date: 2019-08-16 13:09:54
-tags: JavaScript
+tags: 
+- JavaScript
 categories: 前端学习
 ---
 #### js遍历

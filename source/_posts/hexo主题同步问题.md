@@ -4,6 +4,10 @@ date: 2019-08-29 16:17:38
 tags:
 ---
 目前hexo主题都是通过git clone的方式克隆到本地来的，然而在提交站点源码到远程仓库时，themes文件夹下的主题文件是不会提交到仓库里的，因此我们如果更改了主题文件下的一些设置，这部分设置由于没有提交会被丢失，这带来了极大的不便。为此，我们决定采用官方推荐的`fork+subtree`的方式来管理主题。
+(可以现将自己已有的theme文件夹备份)
+
+<!-- more -->
+
 1. 删除themes目录下的next文件夹，并将修改push到github
 ``` git
 git add .
@@ -28,3 +32,12 @@ git subtree pull --prefix=themes/next next master --squash
 ``` git
 git subtree push --prefix=themes/next next master
 ```
+
+6. 提交并发布本地修改到远程仓库
+``` git
+git add .
+git commit -m "next theme"
+git push
+git push origin hexo -f
+```
+现在再去远程仓库看themes/next/就有内容了，并且跟子项目的远程仓库可以保持更新，在主项目中修改也可以push到子项目的远程。这样就不必担心主题配置丢失了。

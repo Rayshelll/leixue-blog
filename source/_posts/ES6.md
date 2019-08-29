@@ -2,6 +2,7 @@
 title: ES6
 date: 2019-08-19 16:05:58
 tags:
+- JavaScript
 ---
 ### JS ES6简介
 ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在2015年6月正式发布。
@@ -13,7 +14,9 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
     - 不允许重复声明
     - 函数可以在块级里声明，加‘use strict’就不行了
 2. `import`导入模块、`export`导出模块
+
 <!-- more -->
+
 3. ES6引入`class`(构造函数）、`extends`(继承)、`super`(原型)
     ``` js
     class Rectangle {

@@ -1,7 +1,8 @@
 ---
 title: js数组操作
 date: 2019-08-16 13:17:01
-tags: JavaScript
+tags: 
+- JavaScript
 categories: 前端学习
 ---
 #### js去重

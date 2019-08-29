@@ -1,7 +1,8 @@
 ---
 title: js数组与字符串之间的种种
 date: 2019-08-16 13:17:23
-tags: JavaScript
+tags: 
+- JavaScript
 categories: 前端学习
 ---
 #### js常用数组的方法：
@@ -17,7 +18,9 @@ categories: 前端学习
 `slice(start,end)` 从start开始切割，没有参数复制一个数组
 
 `reverse()` 颠倒数组中元素的排列顺序
+
 <!-- more -->
+
 `pop()` 删除数组的最后一个元素，并返回这个元素。
 
 `shift()` 删除数组的第一个元素，并返回这个元素。

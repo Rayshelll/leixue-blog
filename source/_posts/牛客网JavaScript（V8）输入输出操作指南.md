@@ -2,6 +2,7 @@
 title: 牛客网JavaScript（V8）输入输出操作指南
 date: 2019-08-25 21:28:15
 tags:
+- 编程
 ---
 ### JavaScript（V8）引擎操作指南
 1. 单行输入：

@@ -1,7 +1,8 @@
 ---
 title: Git常用命令集合整理
 date: 2019-08-08 18:02:44
-tags: Git
+tags: 
+- Git
 ---
 `git init` 初始化项目
 

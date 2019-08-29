@@ -1,7 +1,8 @@
 ---
 title: js中的树
 date: 2019-08-16 13:17:50
-tags: JavaScript
+tags: 
+- JavaScript
 categories: 前端学习
 ---
 #### [js树](https://juejin.im/entry/59979aaaf265da24817a5928)
