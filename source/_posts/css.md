@@ -106,7 +106,7 @@ div {
 ### 盒模型
 - 标准W3C盒子模型：
     1. width = content；
-    2. box-sizing: content-box；
+    2. box-sizing: content-box；(默认)
     3. 渲染wh受 padding border 等属性影响，动态大小
 
 - IE盒子模型中：

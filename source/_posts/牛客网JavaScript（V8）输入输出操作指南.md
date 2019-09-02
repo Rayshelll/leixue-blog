@@ -29,8 +29,9 @@ eg: q w e
 
 // 输入固定行数
 var lineNum = paresInt(readline()); // 输入行数
+var lines = [];
 for (var i=0; i<lineNum; i++){
-    var lines = readline();
+    var lines = lines.push(readline());
 }
 /* 输入：
 eg: 3
@@ -42,8 +43,9 @@ eg: 3
 
 // 输入矩阵
 var lineNum = paresInt(readline()); // 输入行数
+var lines = [];
 for (var i=0; i<lineNum; i++){
-    var lines = readline().split(" ");
+    var lines = lines.push(readline().split(" "));
 }
 /* 输入：
 eg: 3

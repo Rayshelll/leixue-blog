@@ -7,6 +7,8 @@ categories: 前端学习
 ---
 #### js常用数组的方法：
 ##### [数组](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)
+不会改变原来数组的有：
+
 `toString()`
 
 `toLocalString()` 数组转字符串
@@ -17,9 +19,23 @@ categories: 前端学习
 
 `slice(start,end)` 从start开始切割，没有参数复制一个数组
 
-`reverse()` 颠倒数组中元素的排列顺序
+`indexOf()` 返回数组中第一个与指定值相等的元素的索引，如果找不到这样的元素，则返回 -1
+
+`fill(0, 2, 4))` 将数组中指定区间2-4的所有元素的值，都替换成某个固定的值0
+
+`some()` 如果数组中至少有一个元素满足测试函数，则返回 true，否则返回 false。
+
+`includes()` 判断当前数组是否包含某指定的值，如果是返回 true，否则返回 false。
+
+`every()`---检测数组元素的每个元素是否都符合条件。
+
+`some()`---检测数组元素中是否有元素符合指定条件。
+
+`filter()`---检测数组元素，并返回符合条件所有元素的数组。
 
 <!-- more -->
+
+会改变原来数组的有：
 
 `pop()` 删除数组的最后一个元素，并返回这个元素。
 
@@ -33,13 +49,8 @@ categories: 前端学习
 
 `sort()` 对数组元素进行排序，并返回当前数组。
 
-`indexOf()` 返回数组中第一个与指定值相等的元素的索引，如果找不到这样的元素，则返回 -1
+`reverse()` 颠倒数组中元素的排列顺序
 
-`fill(0, 2, 4))` 将数组中指定区间2-4的所有元素的值，都替换成某个固定的值0
-
-`some()` 如果数组中至少有一个元素满足测试函数，则返回 true，否则返回 false。
-
-`includes()` 判断当前数组是否包含某指定的值，如果是返回 true，否则返回 false。
 
 #### 字符串方法：
 ##### [字符串](https://www.w3school.com.cn/js/js_obj_string.asp)

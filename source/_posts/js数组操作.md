@@ -109,9 +109,9 @@ function reduceArr(arr){
 ``` js
 let arr = [3, ['a', [0, 1], null], [4, '4j', [3]], -2]
 function reduceArr(arr){
-    arr += '';//多维数组变字符串3,a,0,1,,4,4j,3,-2
-    arr = arr.split(',');//把一个字符串分割成字符串数组
-    return arr
+    arr = arr.join(' ').split(',');//多维数组变字符串3,a,0,1,,4,4j,3,-2，再变字符串数组
+    // 如果数组为数字数组 var newarr = arr.map(x => Number(x));//字符串数组变数字数组
+    return arr;
 }
 console.log(reduceArr(arr))
 ```
