@@ -117,7 +117,9 @@ console.log(reduceArr(arr))
 ```
 ##### 多维数组变成一维数组，es6新增的flat方法
 ``` js
+let arr = [3, ['a', [0, 1], null], [4, '4j', [3]], -2]
 function reduceArr(arr){
     return arr.flat(3); 
 }
+console.log(reduceArr(arr))
 ```

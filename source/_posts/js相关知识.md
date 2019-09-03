@@ -122,17 +122,6 @@ function Cat(name){
 5. 寄生式继承
 es5实现继承
 
-
-### js同步和异步的区别
-javascript语言是一门“单线程”的语言，所谓单线程就是按次序执行，执行完一个任务再执行下一个。同步和异步的差别就在于这单线程上各个流程的`执行顺序不同`。
-- 同步：在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；
-- 异步：不进入主线程、而进入"任务队列"（task queue）的任务，自己做自己的任务，只有等主线程任务执行完毕，自己下面的任务也做完了，"任务队列"开始通知主线程，请求执行任务，该任务才会进入主线程执行。
-- 在JS中，异步编程只有四种情况：
-    - 定时器都是异步编程的，setTimeout和setInterval函数；setTimeout(function(){ alert("Hello"); }, 3000);
-    - 所有的事件绑定都是异步编程的，click事件等；
-    - Ajax读取数据都是异步编程的，我们一般设置为异步编程；
-    - 回调函数callback都是异步编程的；
-
 ### 深拷贝与浅拷贝
 浅拷贝：是指只复制一层对象，当对象的属性是引用类型时，实质复制的是其引用，当引用指向的值改变时也会跟着变化（`就是假设B复制了A，当修改A时，B也变化了）`
 深拷贝：是指复制对象的所有层级`（当修改A时，B没变化）`。
@@ -273,5 +262,84 @@ dom标准事件流的触发的先后顺序为：先捕获再冒泡，即当触�
     //注意：普通函数可以在任意位置调用，匿名函数只能在函数声明之后调用
     ```
 
+### js同步和异步的区别
+javascript语言是一门“单线程”的语言，所谓单线程就是按次序执行，执行完一个任务再执行下一个。同步和异步的差别就在于这单线程上各个流程的`执行顺序不同`。
+- 同步任务：在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；
+- 异步任务：不进入主线程、而进入"任务队列"（task queue）的任务，自己做自己的任务，只有等主线程任务执行完毕，自己下面的任务也做完了，"任务队列"开始通知主线程，请求执行任务，该任务才会进入主线程执行。
+- 在JS中，异步编程只有四种情况：
+    - 定时器都是异步编程的，setTimeout和setInterval函数；setTimeout(function(){ alert("Hello"); }, 3000);
+    - 所有的事件绑定都是异步编程的，click事件等；
+    - Ajax读取数据都是异步编程的，我们一般设置为异步编程；
+    - 回调函数callback都是异步编程的；
 
+#### javascript的执行机制new Promise和setTimeout执行顺序
+`setTimeout`和`Promise`调用的都是异步任务，都是通过任务队列进行管理／调度，任务队列分为：`MacroTask Queue(宏任务队列)`和`MicroTask Queue(微任务队列)`
+宏任务队列主要包括`setTimeout`,`setInterval`, `setImmediate`, `requestAnimationFrame`, NodeJS中的`I/O`等
+微任务队列主要包括两类：
+独立回调microTask：如`Promise`，其成功／失败回调函数相互独立；
+复合回调microTask：如 Object.observe, MutationObserver 和NodeJs中的 `process.nextTick` ，不同状态回调在同一函数体；
+`先执行微任务，再执行宏任务`
+``` js
+setTimeout(function() {
+    console.log(1)
+}, 0)
+new Promise(function executor(resolve) {
+    console.log(2)
+    for (var i=0; i< 10000; i += 1){
+        i == 9999 && resolve()
+    }
+    console.log(3)
+}).then(function() {
+    console.log(4)
+})
+process.nextTick(function() {
+    console.log(6);
+})
+console.log(5)
+// 2 3 5 6 4 1
+```
+- 这段代码作为宏任务进入主线程，首先会遇到`setTimeout`，将其回调函数分发到宏任务的`event queue`上；
+- 然后回到`promise`，`new promise`会立即执行，`then`函数分发到微任务的`event queue`中， 记为`process 2`； process.nextTick 永远大于 promise.then
+- 接下来`process.nextTick`分发到微任务的`event queue`中，记为`process 1`；
+- 接下来遇到`console.log（）`立即执行；
+- 然后，整体script代码作为第一个宏任务执行结束，接下来判断是否有微任务，我们发现then在微任务event queue里，执行；
+- 第一轮循环事件结束，开始第二轮循环，当然是从宏任务的event queue开始，我们发现了宏任务event queue中的`setTimeout`对应的回调函数，则立即执行。
+``` js
+console.log('1'); 
 
+setTimeout(function() {
+    console.log('2');
+    process.nextTick(function() {
+        console.log('3');
+    })
+    new Promise(function(resolve) {
+        console.log('4');
+        resolve();
+    }).then(function() {
+        console.log('5')
+    })
+})
+process.nextTick(function() {
+    console.log('6');
+})
+new Promise(function(resolve) {
+    console.log('7');
+    resolve();
+}).then(function() {
+    console.log('8')
+})
+
+setTimeout(function() {
+    console.log('9');
+    process.nextTick(function() {
+        console.log('10');
+    })
+    new Promise(function(resolve) {
+        console.log('11');
+        resolve();
+    }).then(function() {
+        console.log('12')
+    })
+})
+// 1 7 6 8     2 4 3 5    9 11 10 12
+```

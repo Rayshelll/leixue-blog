@@ -51,7 +51,6 @@ categories: 前端学习
 
 `reverse()` 颠倒数组中元素的排列顺序
 
-
 #### 字符串方法：
 ##### [字符串](https://www.w3school.com.cn/js/js_obj_string.asp)
 `str.charAt()`	返回在指定位置的字符。
@@ -87,7 +86,29 @@ categories: 前端学习
 `valueOf()`	返回某个字符串对象的原始值。
 
 #### 数字、字符串、数组
-是不是数字：`Number.isInteger(3)`/`Number(str)`/ !`isNaN(str)`
+判断数据类型：`typeof()` `number` `string` `boolean` `function` `undefined`  `object`
+``` js
+typeof(NaN) //number
+```
+判断类型： `a instanceof b` 就是判断一个实例是否属于某种类型，`instanceof` 可以在继承关系中用来判断一个实例是否属于它的父类型
+``` js
+function Foo(){}
+function Bar(){}
+Bar.prototype = new Foo()
+let obj = new Bar()
+obj instanceof Bar //true
+obj instanceof Foo //true
+
+Number instanceof Number //false
+String instanceof String //false
+Object instanceof Object //true
+Function instanceof Function //true
+Function instanceof Object //true
+function Foo(){};
+Foo instanceof Function //true
+Foo instanceof Foo //false
+```
+是不是数字：`Number(str)`/ `!isNaN(str)`
 
 数字转字符串：`x.toString()`
 
