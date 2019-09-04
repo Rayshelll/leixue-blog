@@ -6,82 +6,82 @@ tags:
 ---
 1. 跳台阶、矩形覆盖
 - 题目：一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法。
-- 分析：青蛙每次只有一阶或者两阶两种跳法，找规律，那么：
-f(1) = 1; f(2) = 2; f(3) = 3; f(4) = 5....
-``` js
-// 最终得出的是一个斐波那契数列：
-        |  1，n = 1
-f(n) =  |  2, n = 2
-        |  f(n-1) + f(n -2), n >= 3
-```
-
-``` js
-// 动态规则实现： 
-function jumpFloor(number)
-{
-    // 跳台阶，找规律，斐波那契数列1，2，3，5，8
-    if (number < 3){
-        return number
-    }else {
-        var f0 = 1, f1 = 2;
-        var f2 = f0 + f1;
-        for (var i=3; i<=number; i++){
-            f2 = f0 + f1;
-            f0 = f1;
-            f1 = f2;
+- 分析：青蛙每次只有一阶或者两阶两种跳法，找规律，那么：f(1) = 1; f(2) = 2; f(3) = 3; f(4) = 5....
+    ``` js
+    // 最终得出的是一个斐波那契数列：
+            |  1，n = 1
+    f(n) =  |  2, n = 2
+            |  f(n-1) + f(n -2), n >= 3
+    ```
+    ``` js
+    // 动态规则实现： 
+    function jumpFloor(number)
+    {
+        // 跳台阶，找规律，斐波那契数列1，2，3，5，8
+        if (number < 3){
+            return number
+        }else {
+            var f0 = 1, f1 = 2;
+            var f2 = f0 + f1;
+            for (var i=3; i<=number; i++){
+                f2 = f0 + f1;
+                f0 = f1;
+                f1 = f2;
+            }
+            return f2;
         }
-        return f2;
     }
-}
-// 递归方法实现：
-function jumpFloor(number)
-{
-    // 跳台阶，找规律，斐波那契数列1，2，3，5，8
-    if (number < 3){
-        return number
-    }else {
-        return jumpFloor(number - 1) + jumpFloor(number - 2);
+    // 递归方法实现：
+    function jumpFloor(number)
+    {
+        // 跳台阶，找规律，斐波那契数列1，2，3，5，8
+        if (number < 3){
+            return number
+        }else {
+            return jumpFloor(number - 1) + jumpFloor(number - 2);
+        }
     }
-}
-```
+    ```
+
+<!-- more -->
 
 2. 变态跳台阶问题
 - 题目：一个台阶总共有n级，如果一次可以跳1级，也可以跳2级......它也可以跳上n级。此时该青蛙跳上一个n级的台阶总共有多少种跳法？
 - 分析：f(1) = 1; f(2) = 2; f(3) = 4; f(4) = 8; f(5) = 16....
-``` js
-// 最终得出的：
-        |  1，n = 1
-f(n) =  |  2, n = 2
-        |  2 * f(n-1), n >= 3
-```
+    ``` js
+    // 最终得出的：
+            |  1，n = 1
+    f(n) =  |  2, n = 2
+            |  2 * f(n-1), n >= 3
+    ```
 
-``` js
-// 动态规则实现： 
-function jumpFloorII(number)
-{
-    if (number < 3){
-        return number
-    }else {
-        var f2 = 2;
-        var f3 = 2 * f2;
-        for (var i=3; i<=number; i++){
-            f3 = 2 * f2;
-            f2 = f3;
+    ``` js
+    // 动态规则实现： 
+    function jumpFloorII(number)
+    {
+        if (number < 3){
+            return number
+        }else {
+            var f2 = 2;
+            var f3 = 2 * f2;
+            for (var i=3; i<=number; i++){
+                f3 = 2 * f2;
+                f2 = f3;
+            }
+            return f3;
         }
-        return f3;
     }
-}
 
-// 递归方法实现：
-function jumpFloorII(number)
-{
-    if (number < 3){
-        return number
-    }else {
-        return 2 * jumpFloorII(number-1)
+    // 递归方法实现：
+    function jumpFloorII(number)
+    {
+        if (number < 3){
+            return number
+        }else {
+            return 2 * jumpFloorII(number-1)
+        }
     }
-}
-```
+    ```
 3. 输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。
 ``` js
 // 位运算
@@ -151,3 +151,4 @@ function maxInWindows(num, size)
     return arr;
 }
 ```
+5. 出现数字超过一半、中位数、寻找第k大的数（计算数组中每个元素出现的次数）

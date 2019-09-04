@@ -4,11 +4,10 @@ date: 2019-08-19 16:07:05
 tags:
 ---
 #### 1. 什么是ajax？ajax作用是什么？
-AJAX = Asynchronous JavaScript And XML.(异步的javascript和xml)
-AJAX 不刷新页面更新网页。  
+AJAX = Asynchronous JavaScript And XML(异步的javascript和xml)。`AJAX`不刷新页面更新网页。
 工作流程：
 1. 网页中发生一个事件（页面加载、按钮点击）
-2. 由 JavaScript 创建 XMLHttpRequest 对象
+2. 由 JavaScript 创建 `XMLHttpRequest` 对象
 3. XMLHttpRequest 对象向 web 服务器发送请求
 4. 服务器处理该请求
 5. 服务器将响应发送回网页

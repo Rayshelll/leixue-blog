@@ -177,6 +177,8 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
         ["age", 26]
     ]);
 
+    //Map set方法
+    map.set(key, value)
     map.forEach(function(value, key, source) {
         console.log(`${key}的值是${value}`);
         console.log(source === map);

@@ -6,8 +6,8 @@ tags:
 ---
 ### JavaScript（V8）引擎操作指南
 1. 单行输入：
-牛客网V8引擎是利用了readline()接收输入的每一行，该行字符数不能超过1024个，否则会报错。
-赛码网是read_line()
+牛客网V8引擎是利用了`readline()`接收输入的每一行，该行字符数不能超过1024个，否则会报错。
+赛码网是`read_line()`
 ``` js
 var str = readline(); // 输入字符串
 var num = paresInt(readline()); // 输入数字

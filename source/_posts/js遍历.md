@@ -71,7 +71,7 @@ console.log( mul ); //求乘积，24
     - 计算数组中每个元素出现的次数
     ``` js
     let names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
-
+    // 初始值为{}
     let nameNum = names.reduce((pre, cur)=>{
     if(cur in pre){
         pre[cur]++
@@ -79,7 +79,7 @@ console.log( mul ); //求乘积，24
         pre[cur] = 1 
     }
     return pre
-    }, [])
+    }, {})
     console.log(nameNum); //{Alice: 2, Bob: 1, Tiff: 1, Bruce: 1}
     ```
 
