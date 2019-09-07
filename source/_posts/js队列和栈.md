@@ -62,6 +62,11 @@ function Stack() {
     this.toString = function(){
         return items.toString();
     };
+
+    this.min = function(){
+    // 栈中所含最小元素
+    return Math.min.apply(this, items)
+    }
 }
 ```
 ##### 通过javascript提供的API，实现队列

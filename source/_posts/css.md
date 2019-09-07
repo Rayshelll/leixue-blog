@@ -24,6 +24,8 @@ tags:
         1. 父元素：`position: relative; ` 子元素：`position: absolute; top: 50%; left: 50%; margin-top=-height（子）/2; margin-right=-width/2;(已知块级元素的宽和高)`
         2. 父元素：`position:relative` 子元素：`position: absolute; top:0; left:0; bottom:0; right:0; margin:auto;`
         3. 父元素：`display:flex; `子元素：`margin:auto;`
+        4. `display: flex;justify-content: center;align-items: center;`
+        5. 父元素： `display: table;` 子元素：`display: table-cell; vertical-align: middle;`
 
 <!-- more -->
 
@@ -168,4 +170,33 @@ div {
     flex: none(0 0 auto) / auto(1 1 auto)/*默认值为0 1 auto*/
     align-self: auto / flex-start / flex-end / center / baseline / stretch; /*默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。*/
 }
+```
+
+#### css sprites 
+`CSS Sprites`其实就是把网页中一些背景图片整合到一张图片文件中，再利用CSS的`background-image`，`background- repeat`，`background-position`的组合进行背景定位，background-position可以用数字能精确的定位出背景图片的位置。CSS Sprites为一些大型的网站节约了带宽，让提高了用户的加载速度和用户体验，不需要加载更多的图片
+``` css
+background-image:url(images/minibar.png);                /*显示小图*/
+background-repeat:none;
+background-position:2px -55px; /*left top*/ /*定位小图*/
+```
+
+#### css清除浮动的几种方式
+浮动：子盒子里使用了`float`浮动属性，导致父级对象盒子不能被撑开，这样CSS float浮动就产生了。副作用：背景不能显示；边框不能撑开；margin padding设置值不能正确显示
+清除浮动的方式：
+1. 对父级设置适合height
+2. `clear:both`清除浮动：在父级结束前引入加入样式`clear: both`的<div>
+3. 父级div定义 `overflow:hidden`
+4. 父级div加class类，使用after伪元素清除浮动（推荐使用）
+``` css
+.clearfix:after{
+    content:"";
+    clear:both;
+    display:block;
+    height:0;
+    overflow:hidden;
+    visibility:hidden;
+}
+.clearfix{
+    *zoom: 1;/*兼容 IE6，7 同样需要配合zoom使用，zoom缩放比，*号只有IE6-IE7执行，其他浏览器不执行*/
+    }
 ```

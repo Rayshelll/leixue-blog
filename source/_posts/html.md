@@ -58,6 +58,7 @@ tags:
     - 图片优化，压缩，css样式替换icon
     - CSS 文件放在 head 中
     - 将 script 标签放在 body 底部，因为 JS 文件执行会阻塞渲染。最后加载
+
 #### 从输入URL到页面渲染完成
 从输入URL到渲染出整个页面的过程包括三个部分：
 1. DNS解析URL的过程
@@ -79,3 +80,6 @@ tags:
     5. 遍历render树并调用硬件API绘制所有节点（重绘）
 4. 关闭TCP连接或继续保持连接（四次挥手）
     - 通过四次挥手关闭连接(FIN ACK, ACK, FIN ACK, ACK)。
+
+#### HTML5那些新增属性
+html5新增：`canvas`绘画，本地离线存储`localStorage`，`sessionStorage`，`video`和`audio`元素，语义化元素，表单类型（`date`，`time`，`email`等），地理定位等等
