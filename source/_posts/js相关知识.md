@@ -267,12 +267,12 @@ javascript语言是一门“单线程”的语言，所谓单线程就是按次�
 - 同步任务：在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；
 - 异步任务：不进入主线程、而进入"任务队列"（task queue）的任务，自己做自己的任务，只有等主线程任务执行完毕，自己下面的任务也做完了，"任务队列"开始通知主线程，请求执行任务，该任务才会进入主线程执行。
 - 在JS中，异步编程只有四种情况：
-    - 定时器都是异步编程的，setTimeout和setInterval函数；setTimeout(function(){ alert("Hello"); }, 3000);
-    - 所有的事件绑定都是异步编程的，click事件等；
-    - Ajax读取数据都是异步编程的，我们一般设置为异步编程；
-    - 回调函数callback都是异步编程的；
+    - 定时器都是异步编程的，`setTimeout`和`setInterval`函数；setTimeout(function(){ alert("Hello"); }, 3000);
+    - 所有的事件绑定都是异步编程的，`click`事件等；
+    - `Ajax`读取数据都是异步编程的，我们一般设置为异步编程；
+    - 回调函数`callback`都是异步编程的；
 
-#### javascript的执行机制new Promise和setTimeout执行顺序
+### javascript的执行机制new Promise和setTimeout执行顺序
 `setTimeout`和`Promise`调用的都是异步任务，都是通过任务队列进行管理／调度，任务队列分为：`MacroTask Queue(宏任务队列)`和`MicroTask Queue(微任务队列)`
 宏任务队列主要包括`setTimeout`,`setInterval`, `setImmediate`, `requestAnimationFrame`, NodeJS中的`I/O`等
 微任务队列主要包括两类：

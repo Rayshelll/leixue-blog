@@ -62,3 +62,10 @@ function ToUint32(x) {
     return modulo(ToInteger(x), Math.pow(2, 32));
 }
 ```
+
+### js取余（求模运算）
+js中求模运算就是取余数
+``` js
+var  i = 10, j = 3;
+var  yu = i % j;
+```

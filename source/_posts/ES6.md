@@ -85,7 +85,8 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
         }
     }
     ```
-11. `Promise`：用同步的方式去写异步代码 reject(), resolve()
+11. `Promise`：用同步的方式去写异步代码 reject(), resolve()，`Promise`承诺将来的某个时候调用success函数或fail函数。
+    （在JavaScript的世界中，所有代码都是单线程执行的。由于这个“缺陷”，导致JavaScript的所有网络操作，浏览器事件，都必须是异步执行。）
     `Promise` 是一个对象，它代表了一个异步操作的最终完成或者失败
     ``` js
     //Promise构造函数执行时立即调用executor 函数，resolve 和 reject 两个函数作为参数传递给executor
@@ -95,7 +96,7 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
     三种状态：
     1. `pending`: 初始状态，既不是成功，也不是失败状态；
     2. 调用resolve函数来将promise状态改成`fulfilled`；
-    3. 调用reject 函数将promise的状态改为`rejected`。executor函数中抛出一个错误，那么该promise状态为`rejected`
+    3. 调用reject 函数将promise的状态改为`rejected`。executor函数中抛出一个错误，那么该promise状态为`rejected`；
 
     ``` js
     const myFirstPromise = new Promise((resolve, reject) => {
@@ -117,7 +118,7 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
 12. `Generators`：生成器（ generator）是能返回一个迭代器的函数。
 13. `set`与`map`数据集合
     Set是无重复值的有序列表。Set会自动移除重复的值，因此你可以使用它来过滤数组中重复的值并返回结果。
-
+    Set的方法有：`.add(key)` `.has(key)` `.size` `.delete(key)` `.clear()`  `forEach()`
     ``` js
     //Set通过new Set()来创建，调用add()方法就可以向Set中添加项目。检查size属性还能查看其中包含多少项。使用has()方法来测试某个值是否存在于set中
     let set = new Set();
@@ -155,10 +156,10 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
     console.log(arr1);
     ```
 
-    Map是有序的键值对，其中的键允许是任何类型。
+    Map是有序的键值对，其中的键允许是任何类型
+    Map的方法有：`.has(key)` `.get(key)` `.set(key, value)` `.delete(key)` `.clear()` `.size`
 
     ``` js
-    // has(key) delete(key) clear() size
     //Map初始化
     let map = new Map([
         ["name", "cc"],

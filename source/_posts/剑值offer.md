@@ -152,3 +152,90 @@ function maxInWindows(num, size)
 }
 ```
 5. 出现数字超过一半、中位数、寻找第k大的数（计算数组中每个元素出现的次数）
+6. 顺时针打印矩阵：
+    - 方法一：
+    ``` js
+    function printMatrix(matrix)
+    {
+        // 记录top right bottom left的值，依次打印，打印一圈，left++, right--, top++, bottom--;
+        var row = matrix.length;
+        var col = matrix[0].length;
+        var left = 0, right = col - 1, top = 0, bottom = row - 1;
+        var res = [];
+        if (row == 0 || col == 0){
+            return res;
+        }
+        while (left <= right && top <= bottom){
+            // 从左到右打印
+            for (var i = left; i <= right; i++){
+                res.push(matrix[top][i]);
+            }
+            // 从上到下打印
+            for (var i = top + 1; i <= bottom; i++){
+                res.push(matrix[i][right])
+            }
+            // 从右到左打印
+            if (top != bottom){
+                for (var i = right-1; i >= left; i--){
+                    res.push(matrix[bottom][i])
+                }
+            }
+            // 从下到上打印
+            if (left != right){
+                for (var i= bottom - 1; i > top; i--){
+                    res.push(matrix[i][left])
+                }
+            }
+            left++, right--, top++, bottom--;
+        }
+        return res;
+    }
+    ```
+    - 方法二：
+    ``` js
+    // 使用矩阵转置的思想
+    // 顺时针打印矩阵，打印第一排，然后剩下矩阵转置再上下交换，形成新的矩阵，在打印第一排，循环如此
+    // 矩阵转置➕上下交换
+    function reverseMatrix(matrix){
+        // 初始化数组
+        var matrix2=[];
+        // console.log(matrix)
+        for(var i=0;i<matrix[0].length;i++){
+            matrix2[i]=[];
+        }
+        // 矩阵转置
+        for(var i=0;i<matrix.length;i++){
+            for(var j=0;j<matrix[i].length;j++){
+                matrix2[j][i]=matrix[i][j];
+            }
+        }
+        // 初始化
+        var brr = [], len =matrix2.length;
+        for(var i=0;i<matrix2.length;i++){
+            brr[i]=[];
+        }
+        // 数组上下交换
+        for(var i = 0; i < len; i++){
+            for (var j = 0; j < matrix2[i].length; j++){
+                brr[i][j] = matrix2[len-i-1][j]
+            }
+        }
+        return brr;
+    }
+
+    function printMatrix(matrix){
+        var res = [];
+        var brr = matrix;
+        for (var i=0; i<brr[0].length; i++){
+            res.push(brr[0][i]);    
+        }
+        while(brr.length > 1){
+            var crr = brr.slice(1, brr.length);
+            var brr = reverseMatrix(crr); 
+            for (var i=0; i<brr[0].length; i++){
+                res.push(brr[0][i]); 
+            }   
+        }
+        return res  
+    }
+    ```

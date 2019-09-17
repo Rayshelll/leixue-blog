@@ -44,6 +44,7 @@ React.render(myh1, document.getElementById('app'))
 this.setState({comment: 'Hello'});
 ```
 状态更新可能是异步的：状态中使用了props传过来的值increment，让`setState()`来接受一个函数而不是一个对象。 该函数将接收先前的状态作为第一个参数counter，将此次更新被应用时的`props`做为第二个参数：
+
 ``` jsx
 //正确的做法
 this.setState((prevState, props) => ({
@@ -54,7 +55,7 @@ this.setState((prevState, props) => ({
 ##### 无状态组件
 ``` jsx 
 function Header(props){
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 }
 ```
 使用情况：纯粹的渲染 html 内容，不需要对数据进行判断和处理；要么这个组件所需要的数据，都是来自于上层结构（父组件传递下来的数据，或者 `Redux` 的 `store` 中的数据。
