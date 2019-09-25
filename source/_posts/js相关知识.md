@@ -282,9 +282,11 @@ javascript语言是一门“单线程”的语言，所谓单线程就是按次�
     - `Ajax`读取数据都是异步编程的，我们一般设置为异步编程；
     - 回调函数`callback`都是异步编程的；
 
-### javascript的执行机制new Promise和setTimeout执行顺序（浏览器的eventloop）
+### 浏览器的eventloop（javascript的执行机制new Promise和setTimeout执行顺序）
+`event loop`顾名思义就是事件循环，为什么要有事件循环呢？因为javascript是单线程的，即同一时间只能干一件事情，但是呢文件的读取，网络的IO处理是很缓慢的，并且是不确定的,如果同步等待它们响应，效率会很慢。于是我们就把这个事件加入到一个callback queue事件队列里(task), 等到事件完成时，会读取callback queue队列中的函数，进入主线程执行，上述过程会不断重复，也就是常说的Event Loop(事件循环)。
+
 `setTimeout`和`Promise`调用的都是异步任务，都是通过任务队列进行管理／调度，任务队列分为：`MacroTask Queue(宏任务队列)`和`MicroTask Queue(微任务队列)`
-宏任务队列主要包括`setTimeout`,`setInterval`, `setImmediate`, `requestAnimationFrame`, NodeJS中的`I/O`等
+宏任务队列主要包括`setTimeout`,`setInterval`, `setImmediate`, `requestAnimationFrame`, NodeJS中的`I/O`,UI渲染等
 微任务队列主要包括两类：
 独立回调microTask：如`Promise`，其成功／失败回调函数相互独立；
 复合回调microTask：如 Object.observe, MutationObserver 和NodeJs中的 `process.nextTick` ，不同状态回调在同一函数体；
@@ -352,4 +354,154 @@ setTimeout(function() {
     })
 })
 // 1 7 6 8     2 4 3 5    9 11 10 12
+```
+
+#### JavaScript中Null和Undefined的区别
+null: null是js中的关键字，表示空值，null可以看作是object的一个特殊的值，如果一个object值为空，表示这个对象不是有效对象。
+Undefined: undefined不是js中的关键字，其是一个全局变量，是Global的一个属性，以下情况会返回undefined:
+1. 使用了一个未定义的变量；var i;
+2. 使用了已定义但未声明的变量；
+3. 使用了一个对象属性，但该属性不存在或者未赋值；
+4. 调用函数时，该提供的参数没有提供：
+5. 函数没有返回值时，默认返回undefined
+Null和Undefined的区别
+相同点：都是原始类型的值，保存在栈中变量本地
+不同点：
+1. 类型不一样：
+``` js
+console.log(typeOf undefined);//undefined
+console.log(typeOf null);//object
+```
+2. 转化为值时不一样：undefined为NaN ,null为0
+``` js
+console.log(Number(undefined));//NaN
+console.log(Number(10+undefined));//NaN
+ 
+console.log(Number(null));//0
+console.log(Number(10+null));//10
+```
+3. 
+``` js
+console.log(undefined===null);//false
+console.log(undefined==null);//true)
+```
+4. null当使用完一个比较大的对象时，需要对其进行释放内存时，设置为null;
+``` js
+var arr=["aa","bb","cc"];
+arr=null;//释放指向数组的引用
+```
+
+### async/await 来处理异步
+async/是一个立即执行函数
+async/ await来发送异步请求，从服务端请求接口，获取数据。
+async是一个关键字，放到函数前面，用于表示函数是一个异步函数， 异步函数也就意味着该函数的执行不会阻塞后面代码的执行。
+``` js
+async function timeout(){
+    return 'hello'
+}
+timeout();//调用，不影响后面的代码执行；调用了但没执行
+console.log(timeout()) // 返回的是一个promise对象
+console.log('hello,world!')
+//要获取到promise返回值，我们应该用then 方法
+timeout().then(result => {
+    console.log(result)
+})
+
+async function timeout(flag) {
+    if (flag) {
+        return 'hello world' // 返回一个值时，Promise 的 resolve 方法会负责传递这个值
+    } else {
+        throw 'my god, failure' // 抛出异常时，Promise 的 reject 方法也会传递这个异常值
+    }
+}
+console.log(timeout(true))  // 调用Promise.resolve() 返回promise 对象。
+console.log(timeout(false)); // 调用Promise.reject() 返回promise 对象。
+// 抛出错误用.catch()进行捕获
+timeout(false).catch(err => {
+    console.log(err)
+})
+```
+await是等待的意思，能在async或是返回对象是Promise的一个函数里使用，使用await关键字是等待后面的Promise对象执行完毕，然后拿到promise resolve的值并进行返回，返回值拿到之后，它继续向下执行。
+``` js
+// async await promise 执行顺序
+async function async1(){
+    console.log('1')
+    await async2()
+    console.log('2')
+}
+async function async2(){
+    console.log('3')
+}
+console.log('4')
+setTimeout(function(){
+    console.log('5') 
+},0)  
+async1();
+new Promise(function(resolve){
+    console.log('6')
+    resolve();
+}).then(function(){
+    console.log('7')
+})
+console.log('8')
+// 4 1 3 6 8 2 7 5
+```
+
+### 变量提升，函数提升
+变量提升就是把变量的声明提升到所在作用域的顶端，赋值在代码原来的位置。所以var 声明的变量可以先使用再赋值。
+var a = 2;实际上javascript引擎将这个声明分为var a和a = 2两个单独的声明，第一个是编译阶段的任务，而第二个则是执行阶段的任务。
+``` js
+console.log("1", v1);
+var v1 = 100;
+function foo() {
+    console.log("2", v1);
+    var v1 = 200;
+    console.log("3", v1);
+}
+foo();
+console.log("4", v1);
+// 1 undefined
+// 2 undefined  
+// 3 200
+// 4 100
+// 实际执行顺序
+var v1;
+console.log("1", v1); // undefined
+v1 = 100;
+function foo() {
+    var v1
+    console.log("2", v1);// undefined
+    v1 = 200;
+    console.log("3", v1); // 200
+}
+foo();
+console.log("4", v1); //100
+```
+
+函数提升：
+函数提升是整个代码块提升到它所在的作用域的最开始执行；函数提升所指的形式：function fn(){......}；不能是不能是函数表达式的形式
+``` js
+console.log(f1);    //函数提升，整个代码块提升到文件的最开始<br>
+f1();
+console.log(f2);
+
+function f1(){
+  console.log('我是函数f1。。。');
+}
+var f2 = function () {
+  console.log('我是函数f2。。。');
+};
+//函数提升的执行过程
+/*
+function f1(){
+  console.log('我是函数f1。。。');
+}
+var f2;
+
+console.log(f1);
+f1();
+
+f2 = function(){
+  console.log('我是函数f2。。。');
+}*/
 ```

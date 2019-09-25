@@ -86,6 +86,7 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
     }
     ```
 11. `Promise`：用同步的方式去写异步代码 reject(), resolve()，`Promise`承诺将来的某个时候调用success函数或fail函数。
+    Promise是一个立即执行函数，但是他的成功（或失败：reject）的回调函数resolve却是一个异步执行的回调。当执行到resolve()时，这个任务会被放入到回调队列中，等待调用栈有空闲时事件循环再来取走它。
     （在JavaScript的世界中，所有代码都是单线程执行的。由于这个“缺陷”，导致JavaScript的所有网络操作，浏览器事件，都必须是异步执行。）
     `Promise` 是一个对象，它代表了一个异步操作的最终完成或者失败
     ``` js
