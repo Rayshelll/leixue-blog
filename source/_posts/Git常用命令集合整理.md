@@ -90,3 +90,21 @@ tags:
 
 `git revert [提交ID]` 是用一次新的commit来回滚之前的commit
 
+#### `git merge` 和 `git rebase` 的不同
+
+``` js
+// git rebase 过程
+git rebase origin master
+修改内容
+git add .
+git rebase --continue
+
+// git merge 过程
+git fetch
+git merge
+处理冲突
+git add  .
+git push
+```
+什么时候我应该用git merge?
+什么时候我应该用git rebase?
