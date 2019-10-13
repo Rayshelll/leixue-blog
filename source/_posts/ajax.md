@@ -38,10 +38,10 @@ ajax.send();
 ```
 #### 3. json字符串转换集json对象、json对象转换json字符串
 ``` js
-//字符串转json对象
-JSON.parse(str) 
-// json对象转字符串
-JSON.stringify(json)
+//字符串转json对象，反序列化
+JSON.parse(str,t1) //t1是方法
+// json对象转字符串，序列化
+JSON.stringify(json,t1,t2)//t1参数可以是array或是function，t2是分隔符
 ```
 
 #### 4. ajax几种请求方式？他们的优缺点？

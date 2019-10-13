@@ -38,7 +38,7 @@ tags:
     - 能够读取函数内部的变量 
     - 可以使变量长期保存在内存中，生命周期比较长。
 2. 缺点：
-    - 内存消耗：读取的变量一直存在于内存中，不会在调用结束后，被垃圾回收机制回收，内存消耗很大（解决办法是，退出函数之前，将不使用的局部变量删除，将引用变量指向null。）
+    - 内存消耗：读取的变量一直存在于内存中，不会在调用结束后，被垃圾回收机制回收，内存消耗很大（解决办法是，退出函数之前，将不使用的局部变量删除，将引用变量指向null变成垃圾对象，等待回收。）
     - 性能问题：使用闭包时，会涉及到跨作用域访问，每次访问都会导致性能损失。（解决方法：通过把跨作用域变量存储在局部变量中，然后直接访问局部变量，来减轻对执行速度的影响。）
 创建闭包最常见方式，就是在一个函数内部创建另一个函数。
 闭包的简单实例
@@ -172,7 +172,8 @@ click本身是方法作用是触发onclick事件，只要执行了元素的click
     var o = {
         user:"追梦子",
         fn:function(){
-            console.log(this.user);  //追梦子
+            console.log(this.user);  //追梦子 
+            console.log(this);  //this指向o这个对象
         }
     }
     o.fn();
@@ -183,34 +184,37 @@ click本身是方法作用是触发onclick事件，只要执行了元素的click
         user:"追梦子",
         fn:function(){
             console.log(this.user); //追梦子
+            console.log(this);  //this指向o这个对象
         }
     }
     window.o.fn();
     ```
-4. 情况4：如果返回值是一个对象，那么this指向的就是那个返回的对象，如果返回值不是一个对象那么this还是指向函数的实例。
+4. 情况4：如果返回值是一个对象，那么this指向的就是那个返回的对象，如果返回值不是一个对象或者不存在返回对象那么this还是指向函数的实例。
     ``` js
+    //有返回值，返回值不是对象
     function fn()  
     {  
         this.user = '追梦子';  
         return 1;
     }
     var a = new fn;  
-    console.log(a.user); //追梦子
+    console.log(a.user); //追梦子 
 
+    //有返回值，返回值是对象
     function fn()  
     {  
         this.user = '追梦子';  
         return function(){};
     }
     var a = new fn;  
-    console.log(a.user); //undefined
-    ```
-    ``` js
+    console.log(a.user); //undefined 
+
+    //无返回值
     function Fn(){
         this.user = "追梦子";
     }
     var a = new Fn();
-    console.log(a.user); //追梦子
+    console.log(a.user); //追梦子 
     ```
 `补充`：在严格版中的默认的this不再是window，而是undefined。
 
@@ -283,7 +287,7 @@ javascript语言是一门“单线程”的语言，所谓单线程就是按次�
     - 回调函数`callback`都是异步编程的；
 
 ### 浏览器的eventloop（javascript的执行机制new Promise和setTimeout执行顺序）
-`event loop`顾名思义就是事件循环，为什么要有事件循环呢？因为javascript是单线程的，即同一时间只能干一件事情，但是呢文件的读取，网络的IO处理是很缓慢的，并且是不确定的,如果同步等待它们响应，效率会很慢。于是我们就把这个事件加入到一个callback queue事件队列里(task), 等到事件完成时，会读取callback queue队列中的函数，进入主线程执行，上述过程会不断重复，也就是常说的Event Loop(事件循环)。
+`event loop`顾名思义就是事件循环，为什么要有事件循环呢？因为javascript是单线程的，即同一时间只能干一件事情，一般先执行主线程里的同步任务，将异步任务加入到一个callback queue事件队列里(task), 等到同步任务事件完成时，会读取callback queue队列中的函数，进入主线程执行，上述过程会不断重复，也就是常说的Event Loop(事件循环)。
 
 `setTimeout`和`Promise`调用的都是异步任务，都是通过任务队列进行管理／调度，任务队列分为：`MacroTask Queue(宏任务队列)`和`MicroTask Queue(微任务队列)`
 宏任务队列主要包括`setTimeout`,`setInterval`, `setImmediate`, `requestAnimationFrame`, NodeJS中的`I/O`,UI渲染等
