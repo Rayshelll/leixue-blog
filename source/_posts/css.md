@@ -315,3 +315,76 @@ background-position: 2px -55px; /*left top*/ /*定位小图*/
 在浮动布局中，元素首先按照普通流的位置出现，然后根据浮动的方向尽可能的向左边或右边偏移，其效果与印刷排版中的文本环绕相似。
 3. 绝对定位 (absolute positioning)
 在绝对定位布局中，元素会整体脱离普通流，因此绝对定位元素不会对其兄弟元素造成影响，而元素具体的位置由绝对定位的坐标决定。
+
+#### css3新特性
+1. 伪选择器：：
+    `:last-child`选择器选择的是元素的最后一个子元素、
+    `:first-child`选择器选择的是元素的第一个子元素、
+    `:nth-child(n)`选择器用来定位某个父元素的一个或多个特定的子元素
+    `:nth-last-child(n)` CSS3 匹配父元素的倒数第n个子元素E
+2. @Font-face 特性
+    Font-face 可以用来加载字体样式
+    ``` css
+    @font-face { 
+    font-family: BorderWeb; 
+    src:url(BORDERW0.eot); 
+    }
+    ```
+2. 圆角：`border-radius`
+3. animation动画：
+    ``` css
+    .main:hover{
+            animation: myanimations 2s ease 0s;
+        }
+        @keyframes myanimations {
+            0%{
+                left: 10px;
+                opacity: 1;
+            }
+            50%,70%{
+                left: 50%;
+                opacity: .7;
+                margin-left:-150px;
+            }
+            100%{
+                left: 100%;
+                opacity: 0;
+                margin-left:-300px;
+            }
+        }
+    ```
+    Transforms 2D转换效果：主要包括 translate（水平移动）、rotate（旋转）、scale（伸缩）、skew（倾斜）
+    ``` css
+    .main:hover{
+        transform: rotate(180deg);
+    }
+    ```
+
+#### 完美的响应式布局vw+vh+rem
+视口布局的优点：宽度和高度全部自动适应！再加上rem布局的字体适应
+1. px 和 rem
+em是相对长度单位。相对于当前对象内本文的字体尺寸
+rem是相对于根元素<html>的相对字体大小，浏览器默认的字号16px，10px=10/16rem
+``` css
+html{
+    font-size:20px;//1rem = 20px
+}
+```
+``` css
+html{
+    font-size: (vw_fontsize / (vw_design / 2)) * 100vw; // vw_fontsize 可以设为75，vw_design为设计稿宽度
+    @media only screen and (max-width: 1600px) and (min-width: 1280px){
+        font-size: 14px;
+    }
+    @media only screen and (max-width: 1280px) and (min-width: 960px){
+        font-size: 12px;
+    }
+    @media only screen and (max-width: 960px){
+        font-size: 10px;
+    }
+}
+```
+2. vw、vh是基于视口的布局方案，故这个meta元素的视口必须声明。（解决宽高自动适配）
+vw和vh是视口（viewport units）单位，何谓视口，就是根据你浏览器窗口的大小的单位
+`<meta name="viewport" content="width=device-width,initial-scale=1.0">`
+vw是可视窗口的宽度单位，和百分比有点一样，1vw = 可视窗口的宽度的百分之一，50vw代表了 此div占据视口宽度的50%、高度占据视口高度的20%，并且会随着视口的变化，进行自适应;
