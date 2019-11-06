@@ -42,7 +42,7 @@ Array.forEach(item, index, Array){
 }
 Array.forEach(function)
 ```
-#### 返回过滤后条件满足item的条件的新数组
+#### 过滤数据剩下满足item的条件的数据，生成新数组
 ```js
 array.filter(item => item%2==0)
 ```

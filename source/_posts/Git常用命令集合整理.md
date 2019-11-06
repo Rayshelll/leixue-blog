@@ -6,13 +6,13 @@ tags:
 ---
 `git init` 初始化项目
 
-`git config --global user.name "Your Name”` 配置名字
+`git config --global user.name "Your Name"` 配置名字
 
 `git config --global user.email "email@example.com"` 配置邮箱
 
 `git add <file>`、`git add .` 将修改文件放入暂存区
 
-`git commit -m “xx"` 提交文件到版本库里
+`git commit -m "xx"` 提交文件到版本库里
 
 `git status` 查看当前文件状态
 
@@ -82,7 +82,7 @@ tags:
 
 `git rebase b1` rebase 分支b1
 
-`git reset [提交ID]` 回退
+`git reset [提交ID]` 回退，软回退
 
 `git reset --hard [提交ID]` 强回退，直接全部会回退到某个版本，源码也回退到这个版本
 
@@ -107,4 +107,8 @@ git add  .
 git push
 ```
 什么时候我应该用git merge?
+所有提交历史都保留，想要保存项目完整的历史，并且避免重写公共分支上的commit，使用git merge
 什么时候我应该用git rebase?
+丢弃原始提交，形成线性提交历史，想要一个干净的、线性的提交历史，没有不必要的合并提交，使用 git rebase
+1. 不能在公共分支上使用它。比如master，develop。
+2. 通常用在你自己的独享分支上。

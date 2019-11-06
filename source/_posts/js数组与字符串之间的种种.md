@@ -29,7 +29,7 @@ categories: 前端学习
 `shift()` 删除数组的第一个元素，并返回这个元素。
 `push()` 添加元素到数组的末尾，并返回这个元素
 `unshift()` 在数组的开头增加一个或多个元素，并返回数组的新长度。
-`splice(pos, n, item1,.....,itemX)` 通过从索引po开始删除n个元素，在删除位置按顺序添加新元素item1,.....,itemX
+`splice(pos, n, item1,.....,itemX)` 通过从索引pos开始删除n个元素，在删除位置按顺序添加新元素item1,.....,itemX
 `sort()` 对数组元素进行排序，默认升序，并返回当前数组。
 ``` js
 // V8 引擎 sort 函数只给出了两种排序 InsertionSort 和 QuickSort，数量小于10的数组使用 InsertionSort，比10大的数组则使用 QuickSort。

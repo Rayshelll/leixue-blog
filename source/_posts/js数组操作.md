@@ -55,6 +55,19 @@ function unique(arr){
     }
     return newarr
 ```
+##### reduce去重
+``` js
+let arr = [1,2,3,4,4,1]
+let newArr = arr.reduce((pre,cur)=>{
+    if(!pre.includes(cur)){ // 当前值不再前面的数组里
+    return pre.concat(cur)
+    }else{
+    return pre
+    }
+},[])
+console.log(newArr);// [1, 2, 3, 4]
+```
+
 #### js排序
 ##### js数组冒泡排序，相邻元素比较交换
 ``` js
@@ -73,6 +86,7 @@ function bubbleSort(arr){
 }
 console.log(bubbleSort(arr))
 ```
+
 #### js降维
 ##### 二维数组变一维数组，遍历数组两遍，放入新数组
 ``` js
@@ -119,7 +133,7 @@ console.log(reduceArr(arr))
 ``` js
 let arr = [3, ['a', [0, 1], null], [4, '4j', [3]], -2]
 function reduceArr(arr){
-    return arr.flat(3); 
+    return arr.flat(2); 
 }
 console.log(reduceArr(arr))
 ```

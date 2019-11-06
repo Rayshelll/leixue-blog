@@ -62,14 +62,23 @@ JSON.stringify(json,t1,t2)//t1参数可以是array或是function，t2是分隔�
 
 http://www.baidu.com/8080/index.html 协议(http)\域名(www.baidu.com)\端口号(8080)
 
-#### 6. 跨域解决方案有哪些？
+#### 6. [跨域解决方案有哪些](https://segmentfault.com/a/1190000011145364?utm_source=tag-newest)？
+1. 通过jsonp跨域
+2. document.domain + iframe跨域
+3. location.hash + iframe
+4. window.name + iframe跨域
+5. postMessage跨域
+6. 跨域资源共享（CORS）
+7. nginx代理跨域
+8. nodejs中间件代理跨域
+9. WebSocket协议跨域
 ##### 1. jsonp 只能解决get跨域
 - 原理：动态创建一个script标签。利用script标签的src属性不受同源策略限制。因为所有的src属性和href属性都不受同源策略限制。可以请求第三方服务器数据内容。
 - 步骤：
-
     ``` js
     //去创建一个script标签
     var  script = document.createElement("script");
+    script.type = 'text/javascript';
     //script的src属性设置接口地址 并带一个callback回调函数名称(必须要带一个自定义函数名 要不然后台无法返回数据。)
     script.src = "http://127.0.0.1:8888/index.php?callback=jsonpCallback";
     //插入到页面
@@ -77,37 +86,50 @@ http://www.baidu.com/8080/index.html 协议(http)\域名(www.baidu.com)\端口�
     //通过定义回调函数名去接收后台index.php返回数据
     function jsonpCallback(data){
         //注意  jsonp返回的数据是json对象可以直接使用
-        //ajax  取得数据是json字符串需要转换成json对象才可以使用。
+        alert(JSON.stringify(data));
+        //ajax  取得数据是json字符串需要JSON.parse(str)转换成json对象才可以使用。
     }
     ```
+jsonp缺点：只能实现get一种请求。
 
-##### 2. [CORS：跨域资源共享](https://www.jianshu.com/p/98d4bc7565b2)
+##### 2. [设置 document.domain](https://blog.csdn.net/sinat_36422236/article/details/79748688)
+- `document.domain`用来得到当前网页的域名
+- 原理：此方案仅限主域相同，子域不同的跨域应用场景。两个页面都通过js强制设置document.domain为基础主域，就实现了同域;
+- 限制：同域document提供的是页面间的互操作，需要载入iframe页面
+``` js
+// 父窗口：(http://www.domain.com/a.html)
+<iframe id="iframe" src="http://child.domain.com/b.html"></iframe>
+<script>
+    document.domain = 'domain.com';
+    var user = 'admin';
+</script>
+
+// 子窗口：(http://child.domain.com/b.html)
+<script>
+    document.domain = 'domain.com';
+    // 获取父窗口中变量
+    alert('get js data from parent ---> ' + window.parent.user);
+</script>
+```
+
+##### 3. [CORS：跨域资源共享](https://www.jianshu.com/p/98d4bc7565b2)
 - 它允许浏览器向跨源服务器，发出`XMLHttpRequest`请求，从而克服了AJAX只能同源使用的限制。
 - 原理：服务器设置`Access-Control-Allow-Origin`等参数，浏览器将会允许跨域请求
 - 限制：浏览器需要支持HTML5，可以支持POST，PUT等方法兼容ie9以上
+普通跨域请求：只服务端设置Access-Control-Allow-Origin即可，前端无须设置，若要带cookie请求：前后端都需要设置。
+需注意的是：由于同源策略的限制，所读取的cookie为跨域请求接口所在域的cookie，而非当前页。
 ``` js
+// 前端
+var xhr = new XMLHttpRequest(); // IE8/9需用window.XDomainRequest兼容
+// 前端设置是否带cookie
+xhr.withCredentials = true;
+
 //需要后台设置
 Access-Control-Allow-Origin: *              //允许所有域名访问，或者
 Access-Control-Allow-Origin: http://a.com   //只允许所有域名访问
 ```
 
-##### 3. [设置 document.domain](https://blog.csdn.net/sinat_36422236/article/details/79748688)
-- `document.domain`用来得到当前网页的域名
-- 原理：相同主域名不同子域名下的页面，协议，端口都要一致，可以设置document.domain让它们同域，在两个页面中都设置`document.domain = "xxx.com"`;
-- 限制：同域document提供的是页面间的互操作，需要载入iframe页面
-``` js
-// a.html和b.html交互
-document.domain = 'a.com';
-var ifr = document.createElement('iframe');
-ifr.src = 'http://script.a.com/b.html'; 
-ifr.onload = function(){
-    var ifrdoc = ifr.contentDocument || ifr.contentWindow.document;
-    // 在这里操纵b.html
-};
 
-ifr.style.display = 'none';
-document.body.appendChild(ifr);
-```
 
 ##### 4. 用Apache做转发（逆向代理），让跨域变成同域
 

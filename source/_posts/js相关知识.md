@@ -217,6 +217,31 @@ click本身是方法作用是触发onclick事件，只要执行了元素的click
     console.log(a.user); //追梦子 
     ```
 `补充`：在严格版中的默认的this不再是window，而是undefined。
+例题：
+``` js
+var length = 10;
+function fn(){
+    console.log(this.length)
+}
+var obj = {
+    length:5,
+    method:function (fn){
+        fn(); // 这里fn没有被上级调用, this指向window
+        arguments[0]()//调用fn，这里this指向arguments
+    }
+}
+obj.method(fn)
+obj.method(fn,123)
+/*
+arguments = {
+    0: fn, //也就是 functon() {alert(this.length)} 
+    1: 第二个参数, //没有 
+    2: 第三个参数, //没有
+    ..., 
+    length: 1 //只有一个参数
+}
+*/
+```
 
 #### 改变this指向的三种方法：`call()`, `apply()`,`bind()`
 1. bind:不会调用本函数,而是生成一个新的函数,这个函数的代码逻辑和原函数一样,但是this指向不一样，指向`.bind(window)`window

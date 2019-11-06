@@ -92,7 +92,7 @@ div {
 - 优先级算法：
     1. 优先级就近原则，同权重情况下样式定义最近者为准;
     2. 载入样式以最后载入的定位为准;
-    3. !important > 内联> id > class > tag  
+    3. !important > 内联 > id > class > tag  
 - CSS伪类：
     `p:first-of-type` 选择属于其父元素的首个 <p> 元素的每个 <p> 元素。
     `p:last-of-type ` 选择属于其父元素的最后 <p> 元素的每个 <p> 元素。
