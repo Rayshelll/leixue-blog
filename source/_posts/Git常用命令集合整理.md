@@ -16,8 +16,6 @@ tags:
 
 `git status` 查看当前文件状态
 
-<!-- more -->
-
 `git diff file/id` 看出文件或提交的不同
 
 `git log` 打印log信息

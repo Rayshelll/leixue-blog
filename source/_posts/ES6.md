@@ -14,9 +14,6 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
     - 不允许重复声明
     - 函数可以在块级里声明，加‘use strict’就不行了
 2. `import`导入模块、`export`导出模块
-
-<!-- more -->
-
 3. ES6引入`class`(构造函数）、`extends`(继承)、`super`(原型)
     ``` js
     class Rectangle {
@@ -100,14 +97,19 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
     3. 调用reject 函数将promise的状态改为`rejected`。executor函数中抛出一个错误，那么该promise状态为`rejected`；
 
     ``` js
-    const myFirstPromise = new Promise((resolve, reject) => {
-    // 做一些异步操作，最终会调用下面两者之一:
-    //
-    //   resolve(someValue); // fulfilled
-    // 或
-    //   reject("failure reason"); // rejected
+    const promise = new Promise((resolve, reject) => {//该构造函数接收两个函数作为参数，分别是resolve和reject。
+    // do something here ...
+    if (success) {
+        resolve(value); // fulfilled
+    } else {
+        reject(error); // rejected
+    }
     });
-    myFirstPromise.then(fulfilled的回调函数，rejected的回调函数)//then()方法返回一个Promise。它最多需要有两个参数：Promise 的成功和失败情况的回调函数。
+    promise.then(function(value) {
+      // fulfilled时的回调函数
+    }, function(error) {
+        // rejected时的回调函数
+    });
     ```
 
     `async`函数

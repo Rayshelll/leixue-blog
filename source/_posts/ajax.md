@@ -14,8 +14,6 @@ AJAX = Asynchronous JavaScript And XML(异步的javascript和xml)。`AJAX`不刷
 6. 由 JavaScript 读取响应
 7. 由 JavaScript 执行正确的动作（比如更新页面）
 
-<!-- more -->
-
 #### 2. 原生js ajax请求有几个步骤？分别是什么
 ``` js
 //创建 XMLHttpRequest 对象
@@ -72,8 +70,32 @@ http://www.baidu.com/8080/index.html 协议(http)\域名(www.baidu.com)\端口�
 7. nginx代理跨域
 8. nodejs中间件代理跨域
 9. WebSocket协议跨域
-##### 1. jsonp 只能解决get跨域
-- 原理：动态创建一个script标签。利用script标签的src属性不受同源策略限制。因为所有的src属性和href属性都不受同源策略限制。可以请求第三方服务器数据内容。
+
+##### 1. [CORS：跨域资源共享](https://www.jianshu.com/p/98d4bc7565b2)
+- 它允许浏览器向跨源服务器，发出`XMLHttpRequest`请求，从而克服了AJAX只能同源使用的限制。
+- 原理：服务器端对于CORS的支持，主要就是通过设置`Access-Control-Allow-Origin`来进行的。如果浏览器检测到相应的设置，就可以允许Ajax进行跨域的访问。
+- 限制：浏览器需要支持HTML5，可以支持POST，PUT等方法兼容ie9以上
+
+，就可以实现跨域访问了
+普通跨域请求：只需要在后台中加上响应头来允许域请求，在被请求的Response header中加入以下设置，前端无须设置，若要带cookie请求：前后端都需要设置。
+需注意的是：由于同源策略的限制，所读取的cookie为跨域请求接口所在域的cookie，而非当前页。
+``` js
+// 前端
+var xhr = new XMLHttpRequest(); // IE8/9需用window.XDomainRequest兼容
+// 前端设置是否带cookie
+xhr.withCredentials = true;
+
+//需要后台设置
+Access-Control-Allow-Origin: *              //允许所有域名访问，或者
+Access-Control-Allow-Origin: http://a.com   //只允许所有域名访问
+//响应类型
+Access-Control-Allow-Methods:GET,POST
+//响应头设置
+Access-Control-Allow-Headers:x-requested-with,content-type
+```
+
+##### 2. jsonp 只能解决get跨域
+- 原理：动态创建一个script标签。利用script标签的src属性不受同源策略限制。因为所有的src属性和href属性都不受同源策略限制。这个js文件载入成功后会执行我们在url参数中指定的函数，并且会把我们需要的json数据作为参数传入。所以jsonp是需要服务器端的页面进行相应的配合的。（即用JavaScript动态加载一个script文件，同时定义一个callback函数给script执行而已。）
 - 步骤：
     ``` js
     //去创建一个script标签
@@ -90,9 +112,17 @@ http://www.baidu.com/8080/index.html 协议(http)\域名(www.baidu.com)\端口�
         //ajax  取得数据是json字符串需要JSON.parse(str)转换成json对象才可以使用。
     }
     ```
-jsonp缺点：只能实现get一种请求。
+页面使用jquery，那么通过它封装的方法就能很方便的来进行jsonp操作了。jquery会自动生成一个全局函数来替换callback=?中的问号，之后获取到数据后又会自动销毁，实际上就是起一个临时代理函数的作用。$.getJSON方法会自动判断是否跨域，不跨域的话，就调用普通的ajax方法；跨域的话，则会以异步加载js文件的形式来调用jsonp的回调函数。
 
-##### 2. [设置 document.domain](https://blog.csdn.net/sinat_36422236/article/details/79748688)
+    ``` js
+   ​<script type="text/javascript">
+        $.getJSON('http://example.com/data.php?callback=?,function(jsondata)'){
+            //处理获得的json数据
+        });
+    </script>
+    ```
+
+##### 3. [设置 document.domain](https://blog.csdn.net/sinat_36422236/article/details/79748688)
 - `document.domain`用来得到当前网页的域名
 - 原理：此方案仅限主域相同，子域不同的跨域应用场景。两个页面都通过js强制设置document.domain为基础主域，就实现了同域;
 - 限制：同域document提供的是页面间的互操作，需要载入iframe页面
@@ -112,25 +142,31 @@ jsonp缺点：只能实现get一种请求。
 </script>
 ```
 
-##### 3. [CORS：跨域资源共享](https://www.jianshu.com/p/98d4bc7565b2)
-- 它允许浏览器向跨源服务器，发出`XMLHttpRequest`请求，从而克服了AJAX只能同源使用的限制。
-- 原理：服务器设置`Access-Control-Allow-Origin`等参数，浏览器将会允许跨域请求
-- 限制：浏览器需要支持HTML5，可以支持POST，PUT等方法兼容ie9以上
-普通跨域请求：只服务端设置Access-Control-Allow-Origin即可，前端无须设置，若要带cookie请求：前后端都需要设置。
-需注意的是：由于同源策略的限制，所读取的cookie为跨域请求接口所在域的cookie，而非当前页。
+##### 4. 使用HTML5的window.postMessage方法跨域
+HTML5引入了一个全新的API：跨文档通信 API（Cross-document messaging）。 这个API为window对象新增了一个`window.postMessage`方法，允许跨窗口通信，不论这两个窗口是否同源。目前IE8+、FireFox、Chrome、Opera等浏览器都已经支持`window.postMessage`方法。 
 ``` js
-// 前端
-var xhr = new XMLHttpRequest(); // IE8/9需用window.XDomainRequest兼容
-// 前端设置是否带cookie
-xhr.withCredentials = true;
-
-//需要后台设置
-Access-Control-Allow-Origin: *              //允许所有域名访问，或者
-Access-Control-Allow-Origin: http://a.com   //只允许所有域名访问
+//发送方
+<iframe id="frame1" src="http://127.0.0.1/JSONP/b.html" frameborder="1"></iframe>
+document.getElementById('frame1').onload = function(){
+    var win = document.getElementById('frame1').contentWindow;
+    win.postMessage("我是来自a页面的","http://127.0.0.1/JSONP/b.html")
+}
+//接收方
+window.onmessage = function(e){
+    e = e || event;
+    console.log(e.data);//我是来自a页面的
+}
 ```
 
-
-
-##### 4. 用Apache做转发（逆向代理），让跨域变成同域
-
+##### 5. 通过WebSocket进行跨域
+web sockets是一种浏览器的API，它的目标是在一个单独的持久连接上提供全双工、双向通信。(同源策略对web sockets不适用)
+web sockets原理：在js创建了web socket之后，会有一个HTTP请求发送到浏览器以发起连接。取得服务器响应后，建立的连接会使用HTTP升级从HTTP协议交换为`web sockt`协议。
+只有在支持web socket协议的服务器上才能正常工作。
+``` js
+var socket = new WebSockt('ws://www.baidu.com');//http->ws; https->wss
+socket.send('hello WebSockt');
+socket.onmessage = function(event){
+    var data = event.data;
+}
+```
 

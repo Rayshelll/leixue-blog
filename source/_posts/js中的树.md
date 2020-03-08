@@ -18,8 +18,6 @@ categories: 前端学习
 后序遍历：左右根;
 广度遍历：按照层次一层层遍历;
 
-<!-- more -->
-
 ``` js
 // 创建一个树节点
 function Node(key){

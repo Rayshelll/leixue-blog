@@ -27,8 +27,6 @@ tags:
         3. 父元素：`position: relative;` 子元素：`position: absolute; top: 50%; left: 50%; margin-top: -height（子）/2; margin-right: -width/2;(已知块级元素的宽和高)`
         4. 父元素：`position:relative` 子元素：`position: absolute; top:0; left:0; bottom:0; right:0; margin:auto;` 
 
-<!-- more -->
-
 2. 行内元素：
     - `display:inline;`
     - a、b、span、img、input、strong、select、label、em、button、textarea（字体、input类、span）等；
@@ -59,23 +57,6 @@ tags:
 4. `position:static`默认值，没有定位，元素出现在正常的流中；`position:inherit`规定应该从父元素继承 position 属性的值。
 5. 嵌套使用：子容器在父容器底部居中：父容器：`position：relative；`子容器：`position：absolute；bottom：0；left：0；right：0；margin: auto`
 
-### CSS hack
-CSS hack是通过在CSS样式中加入一些特殊的符号，让不同的浏览器识别不同的符号，以达到应用不同的CSS样式的目的。(不同浏览器识别不同css样式)
-比如IE6能识别下划线“_”和星号“*”，IE7能识别星号“*”，但不能识别下划线”_ ”，而firefox两个都不能认识。
-``` css
-div {
-    background:green;*background:red;
-}
-```
-#### 浏览器的内核分别是什么?经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用hack的技巧？
-- 浏览器的内核
-    1. IE浏览器的内核Trident、
-    2. Mozilla的Gecko、google的WebKit、
-    3. Opera内核Presto；
-- 浏览器的兼容性：
-    1. png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8位.
-    2. 浏览器默认的margin和padding不同。解决方案是加一个全局的*{margin:0;padding:0;}来统一。
-
 ### CSS 选择器
 - CSS 选择器
     1. id选择器(# myid)
@@ -94,11 +75,11 @@ div {
     2. 载入样式以最后载入的定位为准;
     3. !important > 内联 > id > class > tag  
 - CSS伪类：
-    `p:first-of-type` 选择属于其父元素的首个 <p> 元素的每个 <p> 元素。
-    `p:last-of-type ` 选择属于其父元素的最后 <p> 元素的每个 <p> 元素。
-    `p:only-of-type ` 选择属于其父元素唯一的 <p> 元素的每个 <p> 元素。
-    `p:only-child `   选择属于其父元素的唯一子元素的每个 <p> 元素。
-    `p:nth-child(2) ` 选择属于其父元素的第二个子元素的每个 <p> 元素。
+    `p:first-of-type` 选择属于其父元素的首个`<p>`元素的每个`<p>`元素。
+    `p:last-of-type ` 选择属于其父元素的最后`<p>`元素的每个 `<p>`元素。
+    `p:only-of-type ` 选择属于其父元素唯一的`<p>`元素的每个`<p>`元素。
+    `p:only-child `   选择属于其父元素的唯一子元素的每个`<p>`元素。
+    `p:nth-child(2) ` 选择属于其父元素的第二个子元素的每个`<p>`元素。
     :first-child 与 :first-of-type的不同
     `:first-child` 匹配的是某父元素的第一个子元素，可以说是结构上的第一个子元素。
     `:first-of-type` 匹配的是该类型的第一个
@@ -110,12 +91,11 @@ div {
     
 
 ### 盒模型
-- 标准W3C盒子模型：
-    1. width = content；
-    2. box-sizing: content-box；(默认)
+1. 标准W3C盒子模型：
+    1. width = content
+    2. box-sizing: content-box(默认)
     3. 渲染wh受 padding border 等属性影响，动态大小
-
-- IE盒子模型中：
+2. IE盒子模型中：
     1. width = content + padding + border；
     2. box-sizing: border-box；
     3. 渲染wh不受 padding border 等属性影响，固定大小
@@ -296,7 +276,7 @@ background-position: 2px -55px; /*left top*/ /*定位小图*/
 ```
 
 #### BFC
-[BFC](https://blog.csdn.net/DFF1993/article/details/80394150) 全称为 块格式化上下文 (Block Formatting Context) ，BFC理解为一个封闭的大箱子，箱子内部的元素无论如何翻江倒海，都不会影响到外部。
+[BFC](https://blog.csdn.net/DFF1993/article/details/80394150) 全称为 块格式化上下文 (Block Formatting Context)，BFC理解为一个封闭的大箱子，箱子内部的元素无论如何翻江倒海，都不会影响到外部。
 应用场景或常见的作用：
 1. 阻止外边距折叠
     - 问题案例：margin塌陷问题：在标准文档流中，块级标签之间竖直方向的margin会以大的为准，这就是margin的塌陷现象。可以用overflow：hidden产生bfc来解决。
@@ -369,8 +349,7 @@ rem是相对于根元素<html>的相对字体大小，浏览器默认的字号16
 html{
     font-size:20px;//1rem = 20px
 }
-```
-``` css
+
 html{
     font-size: (vw_fontsize / (vw_design / 2)) * 100vw; // vw_fontsize 可以设为75，vw_design为设计稿宽度
     @media only screen and (max-width: 1600px) and (min-width: 1280px){
@@ -388,3 +367,48 @@ html{
 vw和vh是视口（viewport units）单位，何谓视口，就是根据你浏览器窗口的大小的单位
 `<meta name="viewport" content="width=device-width,initial-scale=1.0">`
 vw是可视窗口的宽度单位，和百分比有点一样，1vw = 可视窗口的宽度的百分之一，50vw代表了 此div占据视口宽度的50%、高度占据视口高度的20%，并且会随着视口的变化，进行自适应;
+
+### CSS中 link 和@import 的区别是？
+1. link属于HTML标签，而@import是CSS提供的;
+2. 页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;
+3. import只在IE5以上才能识别，而link是HTML标签，无兼容问题;
+4. link方式的样式的权重 高于@import的权重.
+
+### CSS hack
+CSS hack是通过在CSS样式中加入一些特殊的符号，让不同的浏览器识别不同的符号，以达到应用不同的CSS样式的目的。(不同浏览器识别不同css样式)
+比如IE6能识别下划线“_”和星号“*”，IE7能识别星号“*”，但不能识别下划线”_ ”，而firefox两个都不能认识。
+``` css
+div {
+    background:green;*background:red;
+}
+```
+### 浏览器的内核分别是什么?
+浏览器内核是测览器最核心的部分，负责对网页语法的解释并渲染网页(也就是显示网页效果)渲染引擎决定了浏览器如何显示网页的内容以及页面的格式信息。不同的浏览器内核对网页编写语法的解释不同，因此同一网页在不同内核浏览器中的渲染(显示)效果也可能不同。目前常见的浏览器内核有 Trident、 Gecko、 Webkit、 Presto、 Blink五种，5大浏览器基本采用的是单内核模式。主要分成两部分：渲染引擎(layout engineer或Rendering Engine)和JS引擎。
+1. 渲染引擎：负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入CSS等），以及计算网页的显示方式，然后会输出至显示器或打印机，负责生成DOM树，负责渲染和重绘。
+2. JS引擎则：解析和执行javascript来实现网页的动态效果。
+
+浏览器 | 内核
+-|- 
+IE | Trident |
+Mozilla/Firefox | Gecko |
+Safari/以前的Chrome | WebKit |
+以前的Opera | Presto |
+Chrome/Opera | Blink |
+
+### 浏览器兼容问题
+1. 不同浏览器的标签默认的外补丁(margin)和内补丁(padding)不同
+解决方案：css里增加通配符*{ margin: 0; padding: 0;}
+2. IE6双边距问题：在 IE6中块级元素设置了float属性， 同时又设置margin属性, 就会出现边距问题
+解决方案：设置display:inline;
+3. 当标签的高度设置小于10px，在IE6、IE7中会超出自己设置的高度
+解决方案：超出高度的标签设置overflow:hidden，或者设置line-height的值小于你的设置高度
+4. 图片默认有间距
+解决方案：使用float为img布局
+5. IE9一下浏览器不能使用opacity
+解决方案：opacity:0.5; filter:alpha(opacity = 50); filter:progid:DXImageTransform.Microsoft.Alpha(style = 0, opacity = 50);
+6. 边距重叠问题：当相邻两个元素都设置了margin边距时，margin 将取最大值，舍弃最小值
+解决方案：为了不让边重叠，可以给子元素增加一个父级元素，并设置父级元素为overflow:hidden
+7. cursor:hand显示手型在safari上不支持
+解决方案：统一使用cursor:pointer
+8. 两个块级元素，父元素设置了overflow:auto，子元素设置了position:relative，且高度大于父元素，在IE6、IE7会被隐藏而不是溢出；
+解决方案：父级元素设置position:relative

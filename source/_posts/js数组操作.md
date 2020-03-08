@@ -29,8 +29,6 @@ function unique(arr){
 }
 ```
 
-<!-- more -->
-
 ##### 使用indexOf去重，新建一个数组，newarr.indexOf(arr[i])===-1（新数组里没有arr[i]这个值），不存在就push进去，存在的就跳过
 ``` js
 function unique(arr){

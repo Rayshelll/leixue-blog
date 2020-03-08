@@ -10,8 +10,6 @@ tags:
 3. props、`watch`监听属性变化
 4. render
 
-<!-- more -->
-
 #### 子组件向父组件传值
 事件调用机制：父向子传递方法，父定义事件名，子调用这个方法（使用`$emit("事件名"，传的值)`调用），同时把数据当作参数传递给这个方法
 
@@ -20,7 +18,7 @@ tags:
 
 标签内使用`ref="box"`属性，可以拿到标签原生dom对象
 `this.$refs.box`
-v-on @ 时间绑定
+v-on @ 事件绑定
 v-bind : 数据单向绑定
 v-model input 数据双向绑定
     ``` js
@@ -48,3 +46,13 @@ v-model input 数据双向绑定
 
     </style>
     ```
+
+#### 生命周期函数
+- beforeCreate
+- created
+- beforeMount
+- mounted
+- beforeUpdate
+- updated
+- beforeDestroy
+- destroyed

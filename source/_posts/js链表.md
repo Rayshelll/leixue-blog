@@ -8,8 +8,6 @@ categories: 前端学习
 ### [链表](<https://juejin.im/entry/59cb70995188256aa423b680>)
 链表是一个对象{}，有`element`、`next`、`previou`等属性；
 
-<!-- more -->
-
 #### 单向链表
 链表包含两个类，一个是 Node 类用来表示节点，element属性表示节点数据，next属性表示指向后驱节点的链接，另一个 LinkedList 类提供插入节点、删除节点等一些操作。
 ``` js

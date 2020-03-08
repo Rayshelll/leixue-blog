@@ -6,14 +6,12 @@ tags:
 categories: 前端学习
 ---
 #### js遍历
-##### `for` 可迭代对象（包括 `Array` `string`)
+##### `for` 可迭代对象（包括 `Array` `string`) object不是可迭代对象
 ``` js
 for(let i; i<object.length; i++){
     object[i]
 }
 ```
-
-<!-- more -->
 
 ##### `for...of`语句在可迭代对象（包括 `Array` `Map(let a = new Map([['a', 1], ['b', 2], ['c', 3]]);)` `Set(let a= new Set([1, 1, 2, 2, 3, 3]);) ` `String` `TypedArray(let a = new Uint8Array([0x00, 0xff]);)` `arguments`对象等等）可以正确响应 `break` `continue` `return` 语句
 ```js

@@ -8,15 +8,13 @@ categories: 前端学习
 ### 方法一：[html2canvas](https://github.com/niklasvh/html2canvas) + [jspdf](https://github.com/mrrio/jspdf)
 安装 `npm install html2canvas` `npm install jspdf`
 
-<!-- more -->
-
 ``` js
 // 引入 
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 drawCanvas = () => {
-    const element = document.getElementById("componentToPrint")!;
+    const element = document.getElementById("componentToPrint");
     const width = element.clientWidth;
     const height = element.clientHeight;
 
@@ -26,7 +24,7 @@ drawCanvas = () => {
     // canvas.height = height * scale;
     // canvas.style.width = `${width}px`;
     // canvas.style.height = `${height}px`;
-    // const context = canvas.getContext('2d')!
+    // const context = canvas.getContext('2d')
     // const rect = element.getBoundingClientRect();//获取元素相对于视察的偏移量
     // context.scale(scale, scale);
     // context.translate(-rect.left,-rect.top);//设置context位置，值为相对于视窗的偏移量负值，让图片复位
@@ -63,7 +61,7 @@ drawCanvas = () => {
 // 引入 
 import html2pdf from "html2pdf.js";
 drawPDF = () => {
-    const element = document.getElementById("componentToPrint")!;
+    const element = document.getElementById("componentToPrint");
     const width = element.clientWidth;
     const height = element.clientHeight;
     // 导出配置

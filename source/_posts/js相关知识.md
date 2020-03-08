@@ -14,8 +14,6 @@ tags:
 #### 作用域链
 作用域链（Scope Chain）是javascript内部中一种变量、函数查找机制，它决定了变量和函数的作用范围，即作用域。每个作用域都有一条对应的作用域链，链头是全局作用域，链尾是当前函数作用域。作用域链的作用是保证执行环境里有权访问的变量和函数是有序的，作用域链的变量只能向上访问，变量访问到`window`对象即被终止，作用域链向下访问变量是不被允许的。
 
-<!-- more -->
-
 ### [JS原型和原型链](https://baijiahao.baidu.com/s?id=1594082266903998359&wfr=spider&for=pc)
 1. 函数对象
 所有引用类型（函数，数组，对象）：拥有`__proto__`属性（隐式原型）
@@ -227,7 +225,7 @@ var obj = {
     length:5,
     method:function (fn){
         fn(); // 这里fn没有被上级调用, this指向window
-        arguments[0]()//调用fn，这里this指向arguments
+        arguments[0]()//调用fn，这里this指向arguments，arguments.0()
     }
 }
 obj.method(fn)
@@ -388,20 +386,21 @@ setTimeout(function() {
 #### JavaScript中Null和Undefined的区别
 null: null是js中的关键字，表示空值，null可以看作是object的一个特殊的值，如果一个object值为空，表示这个对象不是有效对象。
 Undefined: undefined不是js中的关键字，其是一个全局变量，是Global的一个属性，以下情况会返回undefined:
-1. 使用了一个未定义的变量；var i;
-2. 使用了已定义但未声明的变量；
-3. 使用了一个对象属性，但该属性不存在或者未赋值；
-4. 调用函数时，该提供的参数没有提供：
-5. 函数没有返回值时，默认返回undefined
+- 使用了一个未定义的变量；var i;
+- 使用了已定义但未声明的变量；
+- 使用了一个对象属性，但该属性不存在或者未赋值；
+- 调用函数时，该提供的参数没有提供：
+- 函数没有返回值时，默认返回undefined
 Null和Undefined的区别
 相同点：都是原始类型的值，保存在栈中变量本地
 不同点：
-1. 类型不一样：
+1. null表示定义并赋值为null，undifined表示定义未赋值
+2. 类型不一样：
 ``` js
 console.log(typeOf undefined);//undefined
 console.log(typeOf null);//object
 ```
-2. 转化为值时不一样：undefined为NaN ,null为0
+3. 转化为值时不一样：undefined为NaN ,null为0
 ``` js
 console.log(Number(undefined));//NaN
 console.log(Number(10+undefined));//NaN
@@ -409,12 +408,12 @@ console.log(Number(10+undefined));//NaN
 console.log(Number(null));//0
 console.log(Number(10+null));//10
 ```
-3. 
+4. 
 ``` js
 console.log(undefined===null);//false
 console.log(undefined==null);//true)
 ```
-4. null当使用完一个比较大的对象时，需要对其进行释放内存时，设置为null;
+5. null当使用完一个比较大的对象时，需要对其进行释放内存时，设置为null;
 ``` js
 var arr=["aa","bb","cc"];
 arr=null;//释放指向数组的引用
