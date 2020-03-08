@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/leixue-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/leixue-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/leixue-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/leixue-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/leixue-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/leixue-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/leixue-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="js常用数组的方法：数组 不会改变原来数组的有：toString()  数组转字符串，返回字符串number.toString(2)  十进制数字转二进制数，返回二进制数（不含符号位）toLocalString()  数组转字符串toString()和toLocaleString()两点区别：//当数字是四位数及以上时，有区别var a=1234a.toString()//&quot;1234&quot;a.toLo">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js数组与字符串之间的种种">
+<meta property="og:url" content="https://www.rayshell.work/leixue-blog/2019/08/16/js数组与字符串之间的种种/index.html">
+<meta property="og:site_name" content="Rayshell&#39;s blog">
+<meta property="og:description" content="js常用数组的方法：数组 不会改变原来数组的有：toString()  数组转字符串，返回字符串number.toString(2)  十进制数字转二进制数，返回二进制数（不含符号位）toLocalString()  数组转字符串toString()和toLocaleString()两点区别：//当数字是四位数及以上时，有区别var a=1234a.toString()//&quot;1234&quot;a.toLo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-08T06:54:28.325Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js数组与字符串之间的种种">
+<meta name="twitter:description" content="js常用数组的方法：数组 不会改变原来数组的有：toString()  数组转字符串，返回字符串number.toString(2)  十进制数字转二进制数，返回二进制数（不含符号位）toLocalString()  数组转字符串toString()和toLocaleString()两点区别：//当数字是四位数及以上时，有区别var a=1234a.toString()//&quot;1234&quot;a.toLo">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/leixue-blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.rayshell.work/leixue-blog/2019/08/16/js数组与字符串之间的种种/">
+
+
+
+
+
+  <title>js数组与字符串之间的种种 | Rayshell's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <a href="https://github.com/Rayshelll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/leixue-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rayshell's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/leixue-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/leixue-blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/leixue-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/leixue-blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/leixue-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/leixue-blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-favorite">
+          <a href="/leixue-blog/favorite/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br>
+            
+            favorite
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/16/js数组与字符串之间的种种/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leixue">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rayshell's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">js数组与字符串之间的种种</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T13:17:23+08:00">
+                2019-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/leixue-blog/categories/前端学习/" itemprop="url" rel="index">
+                    <span itemprop="name">前端学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="js常用数组的方法："><a href="#js常用数组的方法：" class="headerlink" title="js常用数组的方法："></a>js常用数组的方法：</h4><h5 id="数组"><a href="#数组" class="headerlink" title="数组"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array" target="_blank" rel="noopener">数组</a></h5><ol>
+<li>不会改变原来数组的有：<br><code>toString()</code>  数组转字符串，返回字符串<br><code>number.toString(2)</code>  十进制数字转二进制数，返回二进制数（不含符号位）<br><code>toLocalString()</code>  数组转字符串<br><code>toString()</code>和<code>toLocaleString()</code>两点区别：<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//当数字是四位数及以上时，有区别</span></span><br><span class="line"><span class="keyword">var</span> a=<span class="number">1234</span></span><br><span class="line">a.toString()<span class="comment">//"1234"</span></span><br><span class="line">a.toLocaleString()<span class="comment">//"1,234"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//当目标是标准时间格式时，有区别</span></span><br><span class="line"><span class="keyword">var</span> day=<span class="keyword">new</span> <span class="built_in">Date</span>() <span class="comment">//"Thu Mar 05 2020 14:44:11 GMT+0800 (GMT+08:00)"</span></span><br><span class="line">day.toLocaleString()<span class="comment">//2020-3-5 14:44:11</span></span><br><span class="line">day.toString()<span class="comment">//"Thu Mar 05 2020 14:44:11 GMT+0800 (GMT+08:00)"</span></span><br><span class="line">day.toLocaleDateString()<span class="comment">//2020-3-5</span></span><br><span class="line">day.toUTCString()<span class="comment">//Thu, 05 Mar 2020 06:44:11 GMT</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><code>concat()</code>  数组连接数组或非数组，返回连接后的新数组<br><code>join(&quot;连接符&quot;)</code>  连接所有数组元素，返回连接后的字符串<br><code>slice(start,end)</code>  从start开始切割，到位置<code>end-1</code>，没有参数则复制数组，返回新数组<br><code>indexOf()</code>  返回数组中第一个与指定值相等的元素的索引，如果找不到这样的元素，则返回 -1<br><code>lastIndexOf()</code>  返回数组中最后一个与指定值相等的元素的索引，如果找不到这样的元素，则返回 -1<br><code>fill(0, 2, 4))</code>  将数组中指定区间2-4的所有元素的值，都替换成某个固定的值0，返回新数组<br><code>includes()</code>  判断当前数组是否包含某指定的值，如果是返回 true，否则返回 false。<br><code>every(条件函数)</code>  检测数组元素的每个元素是否都符合条件，如果都符合条件返回 true，否则返回 false（只遍历到出结果位置）<br><code>some(条件函数)</code>  检测数组元素中是否有元素符合指定条件，如果一个符合条件返回 true，否则返回 false（只遍历到出结果位置）<br><code>filter(条件函数)</code>  过滤数组元素，返回符合条件所有元素的新数组</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//every some filter也是数组遍历的一种形式</span></span><br><span class="line"><span class="keyword">var</span> arr=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> b=arr.every(<span class="function"><span class="keyword">function</span>(<span class="params">item,index,arr</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">'item='</span> + item + <span class="string">',index='</span>+index+<span class="string">',array='</span>+arr ); </span><br><span class="line">    <span class="keyword">return</span> arr[index]%<span class="number">2</span>==<span class="number">0</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(b)<span class="comment">//item=1,index=0,array=1,2,3,1,5 false</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>会改变原来数组的有：<br><code>pop()</code> 删除数组的最后一个元素，返回这个元素<br><code>shift()</code> 删除数组的第一个元素，返回这个元素<br><code>push()</code> 在数组的末尾添加一个或多个元素，返回数组长度<br><code>unshift()</code> 在数组的开头添加一个或多个元素，返回数组的新长度<br><code>splice(pos, n, item1,.....,itemX)</code> 通过从索引pos开始删除n个元素，在删除位置按顺序添加新元素item1,…..,itemX，返回删掉的部分<br><code>reverse()</code> 颠倒数组中元素的排列顺序，返回颠倒后的数组<br><code>sort()</code> 对数组元素进行排序，默认升序，返回排序后的数组<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// V8 引擎 sort 函数只给出了两种排序 InsertionSort 和 QuickSort，数量小于10的数组使用 InsertionSort，比10大的数组则使用 QuickSort。</span></span><br><span class="line"><span class="comment">// 升序</span></span><br><span class="line">arr.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br><span class="line"><span class="comment">// 降序</span></span><br><span class="line">arr.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b - a)</span><br><span class="line"><span class="comment">// 属性排序 升序</span></span><br><span class="line">arr.sort(compare(property));</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">property</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> value1 = a[property];</span><br><span class="line">        <span class="keyword">var</span> value2 = b[property];</span><br><span class="line">        <span class="keyword">return</span> value1 - value2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="字符串方法："><a href="#字符串方法：" class="headerlink" title="字符串方法："></a>字符串方法：</h4><h5 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a><a href="https://www.w3school.com.cn/js/js_obj_string.asp" target="_blank" rel="noopener">字符串</a></h5><p><code>str.charAt(index)</code>    返回在指定位置的字符。<br><code>str.concat(str1)</code>    连接字符串。<br><code>str.match(regExp)</code>    找到一个或多个正则表达式的匹配，若不是全局搜索只匹配第一个，返回一个结果数组，没找到返回null<br><code>str.replace(regExp, &quot;替换字符&quot;)</code>    替换与正则表达式匹配的子串，若不是全局搜索只替换第一个，返回新的字符串<br><code>str.search(regexp)</code>     检索与正则表达式相匹配的值，返回第一个找的值得索引，没有匹配返回-1<br><code>str.indexOf()</code>     返回某个指定的字符串值在字符串中首次出现的索引，没有匹配到返回 -1<br><code>str.lastIndexOf()</code> 返回一个指定的字符串值最后出现的索引，在一个字符串中的指定位置从后向前搜索，没有匹配到返回 -1<br><code>str.split(&quot;分隔符&quot;)</code>  分割字符串转为数组，返回数组<br><code>str.slice(start, end)</code>     提取字符串的片断，返回被提取的字符串<br><code>str.substr(start, length)</code>  从起始索引号提取字符串中指定数目的字符，返回字符串<br><code>str.substring(start, stop)</code>    提取字符串中两个指定的索引号之间的字符，不接受负数，返回字符串<br><code>toLocaleLowerCase()</code>    把字符串转换为小写。最好使用这个<br><code>toLowerCase()</code>     把字符串转换为小写。两者针对部分地区语言Unicode大小写映射不同<br><code>toLocaleUpperCase()</code>    把字符串转换为大写。<br><code>toUpperCase()</code>     把字符串转换为大写。<br><code>toString()</code>   返回字符串<br><code>valueOf()</code>     返回字符串对象的原始值。</p>
+<h4 id="数字、字符串、数组"><a href="#数字、字符串、数组" class="headerlink" title="数字、字符串、数组"></a>数字、字符串、数组</h4><p>基本数据类型：<br>基本类型（保存值）：<code>Number</code> <code>String</code> <code>boolean</code>  <code>undefined</code> <code>null</code> 和 引用类型（保存地址）：<code>Object</code> <code>Function</code> <code>Array</code></p>
+<ol>
+<li><p>判断数据类型：<code>typeof()</code> 可以判断<code>number</code> <code>string</code> <code>boolean</code> <code>undefined</code> <code>function</code>；不可以判断：<code>array</code>与<code>object</code>、<code>null</code>与<code>object</code>；返回数据类型是字符串表达式</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//typeof 可判断number string boolean function undifined</span></span><br><span class="line"><span class="comment">//但不能判断array和object null和object</span></span><br><span class="line"><span class="keyword">typeof</span>(<span class="literal">NaN</span>) <span class="comment">//number</span></span><br><span class="line"><span class="keyword">typeof</span>([<span class="number">1</span>,<span class="number">2</span>]) <span class="comment">//object</span></span><br><span class="line"><span class="keyword">typeof</span>(<span class="literal">null</span>) <span class="comment">//object</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>判断类型：<code>instanceof</code> 判断对象的具体类型；可以判断<code>undefined</code>和<code>null</code><br><code>a instanceof b</code> 就是判断一个实例是否属于某种类型</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承关系中用来判断一个实例是否属于它的父类型</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Bar.prototype = <span class="keyword">new</span> Foo()</span><br><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> Bar()</span><br><span class="line">obj <span class="keyword">instanceof</span> Bar <span class="comment">//true</span></span><br><span class="line">obj <span class="keyword">instanceof</span> Foo <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//判断数据类型</span></span><br><span class="line"><span class="built_in">Number</span> <span class="keyword">instanceof</span> <span class="built_in">Number</span> <span class="comment">//false</span></span><br><span class="line"><span class="built_in">String</span> <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">//false</span></span><br><span class="line"><span class="built_in">Object</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span> <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Array</span> <span class="keyword">instanceof</span> <span class="built_in">Array</span> <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Array</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Foo <span class="keyword">instanceof</span> <span class="built_in">Function</span> <span class="comment">//true</span></span><br><span class="line">Foo <span class="keyword">instanceof</span> Foo <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其他</p>
+<ul>
+<li>是不是数字：<code>Number(str)</code> / <code>!isNaN(str)</code></li>
+</ul>
+</li>
+<li><p>转换</p>
+<ul>
+<li>数字转字符串：<code>x.toString()</code></li>
+<li>字符串转数字：<code>parseInt(str)</code></li>
+<li>字符串转数组：<code>str.split(&quot;&quot;)</code></li>
+<li>数组转字符串：<code>arr.join(&quot;&quot;)</code>/<code>arr+=&#39;&#39;</code></li>
+<li>字符串可以以数组的形式取里面的字符，字符串也是可迭代对象（Array,string,Map,Set）</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请我喝可乐，谢谢！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="leixue 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="leixue 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/leixue-blog/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/leixue-blog/2019/08/16/js数组操作/" rel="next" title="js数组操作">
+                <i class="fa fa-chevron-left"></i> js数组操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/leixue-blog/2019/08/16/js中的树/" rel="prev" title="js中的树">
+                js中的树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+     
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="350" height="86" src="//music.163.com/outchain/player?type=2&id=1377729945&auto=1&height=66"></iframe>
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/leixue-blog/images/avatar.jpeg" alt="leixue">
+            
+              <p class="site-author-name" itemprop="name">leixue</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/leixue-blog/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/leixue-blog/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/leixue-blog/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Rayshelll" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:utopia_leixue@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/rayshell_lx" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.vikeezan.club/" title="Vikeezan" target="_blank">Vikeezan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shuki.top/" title="Skuqi" target="_blank">Skuqi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lililich.work/" title="Lililich" target="_blank">Lililich</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#js常用数组的方法："><span class="nav-number">1.</span> <span class="nav-text">js常用数组的方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数组"><span class="nav-number">1.1.</span> <span class="nav-text">数组</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串方法："><span class="nav-number">2.</span> <span class="nav-text">字符串方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串"><span class="nav-number">2.1.</span> <span class="nav-text">字符串</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数字、字符串、数组"><span class="nav-number">3.</span> <span class="nav-text">数字、字符串、数组</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leixue</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/leixue-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/leixue-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/leixue-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

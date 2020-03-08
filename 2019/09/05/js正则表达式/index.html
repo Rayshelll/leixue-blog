@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/leixue-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/leixue-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/leixue-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/leixue-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/leixue-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/leixue-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/leixue-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="js正则表达式 正则表达式的组成：正则表达式 = 普通字符+特殊字符（元字符） // 创建正则表达式的两种方式const re = /ab+c/gconst reg = /\d/g// 或者let re = new RegExp(&quot;ab+c&quot;, &apos;g&apos;)//ab+c/gconst reg1 = new RegExp(&quot;\\d&quot;,&quot;g&quot;)//要加转义符号/* g 是全局搜索;     i 不区分大小">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js正则表达式">
+<meta property="og:url" content="https://www.rayshell.work/leixue-blog/2019/09/05/js正则表达式/index.html">
+<meta property="og:site_name" content="Rayshell&#39;s blog">
+<meta property="og:description" content="js正则表达式 正则表达式的组成：正则表达式 = 普通字符+特殊字符（元字符） // 创建正则表达式的两种方式const re = /ab+c/gconst reg = /\d/g// 或者let re = new RegExp(&quot;ab+c&quot;, &apos;g&apos;)//ab+c/gconst reg1 = new RegExp(&quot;\\d&quot;,&quot;g&quot;)//要加转义符号/* g 是全局搜索;     i 不区分大小">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-08T05:59:07.781Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js正则表达式">
+<meta name="twitter:description" content="js正则表达式 正则表达式的组成：正则表达式 = 普通字符+特殊字符（元字符） // 创建正则表达式的两种方式const re = /ab+c/gconst reg = /\d/g// 或者let re = new RegExp(&quot;ab+c&quot;, &apos;g&apos;)//ab+c/gconst reg1 = new RegExp(&quot;\\d&quot;,&quot;g&quot;)//要加转义符号/* g 是全局搜索;     i 不区分大小">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/leixue-blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.rayshell.work/leixue-blog/2019/09/05/js正则表达式/">
+
+
+
+
+
+  <title>js正则表达式 | Rayshell's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <a href="https://github.com/Rayshelll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/leixue-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rayshell's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/leixue-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/leixue-blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/leixue-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/leixue-blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/leixue-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/leixue-blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-favorite">
+          <a href="/leixue-blog/favorite/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br>
+            
+            favorite
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/09/05/js正则表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leixue">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rayshell's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">js正则表达式</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-05T15:21:35+08:00">
+                2019-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="js正则表达式"><a href="#js正则表达式" class="headerlink" title="js正则表达式"></a>js正则表达式</h4><ol>
+<li><p>正则表达式的组成：正则表达式 = 普通字符+特殊字符（元字符）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建正则表达式的两种方式</span></span><br><span class="line"><span class="keyword">const</span> re = <span class="regexp">/ab+c/g</span></span><br><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/\d/g</span></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="keyword">let</span> re = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"ab+c"</span>, <span class="string">'g'</span>)<span class="comment">//ab+c/g</span></span><br><span class="line"><span class="keyword">const</span> reg1 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"\\d"</span>,<span class="string">"g"</span>)<span class="comment">//要加转义符号</span></span><br><span class="line"><span class="comment">/* g 是全局搜索; </span></span><br><span class="line"><span class="comment">    i 不区分大小写;</span></span><br><span class="line"><span class="comment">    m 多行搜索; </span></span><br><span class="line"><span class="comment">    s 允许 . 匹配换行符; </span></span><br><span class="line"><span class="comment">    u 使用unicode码的模式进行匹配; </span></span><br><span class="line"><span class="comment">    y	执行“粘性”搜索,匹配从目标字符串的当前位置开始，可以使用y标志。*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>匹配符：用于匹配某个或某些字符，通过一对方括号括<code>[]</code>起来的内容，其表示的是一个范围，但是实际匹配时，只能匹配固定的某个字符。<br><code>[a-z]</code> ：匹配小写字母从a-z中的任一字符<br><code>[A-Z]</code>：匹配大写字母从A-Z中的任一字符<br><code>[0-9]</code> ：匹配数字从0-9任一字符，相当于\d<br><code>[0-9a-z]</code> ：匹配数字从0-9或小写字母从a-z任一字符<br><code>[0-9a-zA-Z]</code> ：匹配数字从0-9，小写字母从a-z或者是大写字母从A-Z的任一字符<br><code>[abcd]</code> ：匹配字符abcd中的任一字符<br><code>[1234]</code> ：匹配数字1234中的任一字符<br>在字符簇中存在一个特殊符号^（脱字节），脱字节在字符簇代表取反的含义<br><code>[^a-z]</code> ：匹配除小写字母从a-z以外的任一字符<br><code>[^0-9]</code> ：匹配除数字从0-9以外的任一字符<br><code>[^abcd]</code> ：匹配除abcd以外的任一字符<br>在正则表达式中还有一类特殊字符，如下所示：<br><code>\d</code> ：匹配一个数字字符，用字符簇表示[0-9]<br><code>\D</code> ：匹配一个非数字字符，也可以使用字符簇[^0-9]或[^\d]来表示<br><code>\w</code> ：匹配包括下划线的任何单词字符，用字符簇[0-9a-zA-Z_]<br><code>\W</code> ：匹配任何非单词字符，[^0-9a-zA-Z_]或[^\w]<br><code>\s</code> ：匹配任何空白字符，空格、制表符、换行符都可以通过\s匹配<br><code>\S</code> ：匹配任何非空白字符，[^\s]<br><code>.</code>（我是一个点号） ：匹配除 “\n” 之外的任何单个字符</p>
+</li>
+<li><p>限定符：限定符可以指定正则表达式的一个给定组件必须要出现多少次才能满足匹配。<br><code>*</code> 匹配前面的子表达式零次或多次，0到多，可以使用<code>{0,}</code>代替<br><code>+</code> 匹配前面的子表达式一次或多次，1到多，可以使用<code>{1,}</code>代替<br><code>?</code> 匹配前面的子表达式零次或一次，0或1，可以使用<code>{0,1}</code>代替<br><code>{n}</code> 匹配确定的 n 次，如<code>{18}</code>，连续匹配18次<br><code>{n,}</code> 至少匹配n 次，如<code>{1,}</code>，代表最少匹配1次<br><code>{n,m}</code> 最少匹配 n 次且最多匹配 m 次，如<code>{1,7}</code>代表最少匹配1最多匹配7次</p>
+</li>
+<li><p>定位符：定位符可以将一个正则表达式固定在一行的开始或结束。也可以创建只在单词内或只在单词的开始或结尾处出现的正则表达式。<br><code>^</code> 匹配输入字符串的开始位置（以<strong><em>开始）<br><code>$</code> 匹配输入字符串的结束位置（以</em></strong>结束）<br><code>\b</code> 匹配一个单词边界（字符串开头、结尾、空格、逗号、点号等符号）<br><code>\B</code> 匹配非单词边界</p>
+</li>
+<li><p>转义符：在正则表达式中，如果遇到特殊符号，我们必须要使用转义字符（<code>反斜杠\</code>）来进行转义。<br>（） [ ] * + ? .（我是点号） / \ ^ $</p>
+</li>
+<li><p>选择匹配符：在正则表达式，如果要匹配的内容包含多个选择，我们可以通过<code>|</code>选择匹配符来进行匹配</p>
+</li>
+<li><p>特殊用法</p>
+<ol>
+<li><code>(?=)</code> ：正向预查(匹配结果?=匹配条件，必须满足匹配条件，才能输出匹配结果)</li>
+<li><code>(?!)</code> ：负向预查</li>
+<li><code>(?:)</code> ：输出内容，但不捕获<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> str=<span class="string">"你好sam 你好Lilith 你好alice"</span></span><br><span class="line"><span class="keyword">const</span> reg1 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"你好(?=sam)"</span>, <span class="string">"g"</span>)</span><br><span class="line"><span class="keyword">const</span> reg2 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"你好(?!sam)"</span>, <span class="string">"g"</span>)</span><br><span class="line"><span class="keyword">const</span> reg3 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"你好(?:sam)"</span>, <span class="string">"g"</span>)</span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg1),<span class="string">"结果索引是："</span>+reg1.lastIndex)<span class="comment">//[ '你好' ] 结果索引是：0</span></span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg2),<span class="string">"结果索引是："</span>+str.search(reg2))<span class="comment">//[ '你好', '你好' ] 结果索引是：6</span></span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg3),<span class="string">"结果索引是："</span>+reg3.lastIndex)<span class="comment">//[ '你好sam' ] 结果索引是：0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>使用正则表达式</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">reg.exec(str)	    <span class="comment">//查找字符串str是否匹配reg规则，它返回一个数组（未匹配到则返回 null）。 [ 'abbc', index: 0, input: 'abbc', groups: undefined ]</span></span><br><span class="line">reg.test(str)	    <span class="comment">//测试字符串str否匹配reg规则，匹配返回 true 或 不匹配返回false。</span></span><br><span class="line">str.match(reg)	    <span class="comment">//一个在字符串中执行查找匹配的String方法，它返回一个结果数组，在未匹配到时会返回 null。</span></span><br><span class="line">str.matchAll(reg)	<span class="comment">//一个在字符串中执行查找所有匹配的String方法，它返回一个迭代器（iterator）。Object [RegExp String Iterator] &#123;&#125;</span></span><br><span class="line">str.search(reg)	    <span class="comment">//一个在字符串中测试匹配的String方法，它返回匹配到的位置索引，或者不存在时返回-1。</span></span><br><span class="line">str.replace(reg, str2)	    <span class="comment">//一个在字符串中执行查找匹配的String方法，并且使用替换字符串替换掉匹配到的子字符串。</span></span><br><span class="line">str.split(reg)	        <span class="comment">//一个使用正则表达式，并将分隔后的子字符串存储到数组中。</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请我喝可乐，谢谢！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="leixue 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="leixue 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/leixue-blog/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/leixue-blog/2019/09/03/js新大陆/" rel="next" title="js新大陆">
+                <i class="fa fa-chevron-left"></i> js新大陆
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/leixue-blog/2019/09/05/原生js/" rel="prev" title="原生js">
+                原生js <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+     
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="350" height="86" src="//music.163.com/outchain/player?type=2&id=1377729945&auto=1&height=66"></iframe>
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/leixue-blog/images/avatar.jpeg" alt="leixue">
+            
+              <p class="site-author-name" itemprop="name">leixue</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/leixue-blog/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/leixue-blog/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/leixue-blog/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Rayshelll" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:utopia_leixue@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/rayshell_lx" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.vikeezan.club/" title="Vikeezan" target="_blank">Vikeezan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shuki.top/" title="Skuqi" target="_blank">Skuqi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lililich.work/" title="Lililich" target="_blank">Lililich</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#js正则表达式"><span class="nav-number">1.</span> <span class="nav-text">js正则表达式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leixue</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/leixue-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/leixue-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/leixue-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

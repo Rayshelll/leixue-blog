@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/leixue-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/leixue-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/leixue-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/leixue-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/leixue-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/leixue-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/leixue-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="React,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="react框架 创建容器，用于接受渲染虚拟DOM元素 &amp;lt;div id=&quot;app&quot;&amp;gt;&amp;lt;/div&amp;gt;  创建虚拟DOM元素 //参数一：创建的标签名；标签二：节点属性；参数三：子节点const myh1 = React.createElement(&apos;h1&apos;,&amp;#123;title:&apos;my is a div&apos;, id:&apos;myh1&apos;&amp;#125;, &apos;this h1 content&apos;)">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react相关">
+<meta property="og:url" content="https://www.rayshell.work/leixue-blog/2019/08/16/react相关/index.html">
+<meta property="og:site_name" content="Rayshell&#39;s blog">
+<meta property="og:description" content="react框架 创建容器，用于接受渲染虚拟DOM元素 &amp;lt;div id=&quot;app&quot;&amp;gt;&amp;lt;/div&amp;gt;  创建虚拟DOM元素 //参数一：创建的标签名；标签二：节点属性；参数三：子节点const myh1 = React.createElement(&apos;h1&apos;,&amp;#123;title:&apos;my is a div&apos;, id:&apos;myh1&apos;&amp;#125;, &apos;this h1 content&apos;)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-05T08:40:18.821Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react相关">
+<meta name="twitter:description" content="react框架 创建容器，用于接受渲染虚拟DOM元素 &amp;lt;div id=&quot;app&quot;&amp;gt;&amp;lt;/div&amp;gt;  创建虚拟DOM元素 //参数一：创建的标签名；标签二：节点属性；参数三：子节点const myh1 = React.createElement(&apos;h1&apos;,&amp;#123;title:&apos;my is a div&apos;, id:&apos;myh1&apos;&amp;#125;, &apos;this h1 content&apos;)">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/leixue-blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.rayshell.work/leixue-blog/2019/08/16/react相关/">
+
+
+
+
+
+  <title>react相关 | Rayshell's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <a href="https://github.com/Rayshelll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/leixue-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rayshell's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/leixue-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/leixue-blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/leixue-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/leixue-blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/leixue-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/leixue-blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-favorite">
+          <a href="/leixue-blog/favorite/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br>
+            
+            favorite
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/16/react相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leixue">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rayshell's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">react相关</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T13:18:12+08:00">
+                2019-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/leixue-blog/categories/前端学习/" itemprop="url" rel="index">
+                    <span itemprop="name">前端学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="react框架"><a href="#react框架" class="headerlink" title="react框架"></a>react框架</h4><ol>
+<li><p>创建容器，用于接受渲染虚拟DOM元素</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建虚拟DOM元素</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//参数一：创建的标签名；标签二：节点属性；参数三：子节点</span></span><br><span class="line"><span class="keyword">const</span> myh1 = React.createElement(<span class="string">'h1'</span>,&#123;<span class="attr">title</span>:<span class="string">'my is a div'</span>, <span class="attr">id</span>:<span class="string">'myh1'</span>&#125;, <span class="string">'this h1 content'</span>)</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line"><span class="keyword">const</span> myh1 = <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"myh1"</span> <span class="attr">title</span>=<span class="string">"my is a div"</span>&gt;</span>this h1 content<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>渲染虚拟DOM元素</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">React.render(myh1, <span class="built_in">document</span>.getElementById(<span class="string">'app'</span>))</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="react-生命周期函数"><a href="#react-生命周期函数" class="headerlink" title="react 生命周期函数"></a>react 生命周期函数</h4><ol>
+<li>初始化阶段：组件创建阶段：一辈子只执行一次<ul>
+<li>getDefaultProps:获取实例的默认属性</li>
+<li>getInitialState:获取每个实例的初始化状态</li>
+<li><code>componentWillMount</code>：组件即将被装载、渲染到页面上</li>
+<li><code>render</code>:组件在这里生成虚拟的 DOM 节点</li>
+<li><code>componentDidMount</code>:组件真正在被装载之后</li>
+</ul>
+</li>
+<li>运行中状态：组件运行阶段：按需执行，根据props和state的状态改变，有选择性的执行0-n次<ul>
+<li><code>componentWillReceiveProps</code>:组件将要接收到属性的时候调用</li>
+<li><code>shouldComponentUpdate</code>:组件接受到新属性或者新状态的时候（可以返回 false，接收数据后不更新，阻止 render 调用，后面的函数不会被继续执行了）</li>
+<li><code>componentWillUpdate</code>:组件即将更新不能修改属性和状态</li>
+<li><code>render</code>:组件重新描绘</li>
+<li><code>componentDidUpdate</code>:组件已经更新</li>
+</ul>
+</li>
+<li>销毁阶段：一辈子只执行一次<ul>
+<li><code>componentWillUnmount</code>:组件即将销毁</li>
+</ul>
+</li>
+</ol>
+<h4 id="setState"><a href="#setState" class="headerlink" title="setState"></a>setState</h4><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(&#123;<span class="attr">comment</span>: <span class="string">'Hello'</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>状态更新可能是异步的：状态中使用了props传过来的值increment，让<code>setState()</code>来接受一个函数而不是一个对象。 该函数将接收先前的状态作为第一个参数counter，将此次更新被应用时的<code>props</code>做为第二个参数：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正确的做法</span></span><br><span class="line"><span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState, props</span>) =&gt;</span> (&#123;</span><br><span class="line">  counter: prevState.counter + props.increment</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<h4 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h4><h5 id="无状态组件"><a href="#无状态组件" class="headerlink" title="无状态组件"></a>无状态组件</h5><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Header</span>(<span class="params">props</span>)</span>&#123;</span><br><span class="line">           </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用情况：纯粹的渲染 html 内容，不需要对数据进行判断和处理；要么这个组件所需要的数据，都是来自于上层结构（父组件传递下来的数据，或者 <code>Redux</code> 的 <code>store</code> 中的数据。<br>引用props：<code>props.xx</code></p>
+<h5 id="有状态组件"><a href="#有状态组件" class="headerlink" title="有状态组件"></a>有状态组件</h5><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Header</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span>()</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Header</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">PureComponent</span>()</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用情况：要处理组件里的数据<br>引用props：<code>this.props.xx</code></p>
+<p>React中的就提供了一个<code>PureComponent</code>的类，当我们的组件继承于它时，组件更新时就会默认先比较新旧属性和状态，从而决定组件是否更新。值得注意的是，PureComponent进行的是浅比较，所以组件状态或属性改变时，都需要返回一个新的对象或数组</p>
+<h4 id="受控组件和非受控组件"><a href="#受控组件和非受控组件" class="headerlink" title="受控组件和非受控组件"></a>受控组件和非受控组件</h4><h5 id="受控组件"><a href="#受控组件" class="headerlink" title="受控组件"></a>受控组件</h5><p><code>input</code>的<code>value</code>值必须是我们设置在<code>constructor</code>构造函数的state中的值，然后，通过<code>onChange</code>触发事件来改变<code>state</code>中保存的<code>value</code>值，这样形成一个循环的回路影响。<code>input</code>中的<code>value</code>值通过<code>state</code>值获取，<code>onChange</code>事件改变state中的<code>value</code>值，<code>input</code>中的<code>value</code>值又从<code>state</code>中获取，也可以说是<code>React</code>负责渲染表单的组件仍然控制用户后续输入时所发生的变化。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">handleChange(e)&#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        value: e.target.value</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br><span class="line">&lt;input type=<span class="string">"text"</span> value=&#123;<span class="keyword">this</span>.state.value&#125; onChange=&#123;<span class="keyword">this</span>.handleChange&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="非受控组件"><a href="#非受控组件" class="headerlink" title="非受控组件"></a>非受控组件</h5><p>不需要设置它的<code>state</code>属性，而通过<code>ref</code>来操作真实的<code>DOM</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> ref=&#123;input =&gt; <span class="keyword">this</span>.textInput = input&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="重构：显示和状态分离"><a href="#重构：显示和状态分离" class="headerlink" title="重构：显示和状态分离"></a>重构：显示和状态分离</h4><p>用<code>stateless组件</code>来负责显示，<code>class组件</code>来负责状态和逻辑</p>
+<h4 id="React-中-keys-的作用是什么？"><a href="#React-中-keys-的作用是什么？" class="headerlink" title="React 中 keys 的作用是什么？"></a>React 中 keys 的作用是什么？</h4><p><code>Keys</code> 是 React 用于追踪哪些列表中元素被修改、被添加或者被移除的辅助标识。在 <code>React Diff</code> 算法中 React 会借助元素的 Key 值来判断该元素是新近创建的还是被移动而来的元素，从而减少不必要的元素重渲染。此外，React 还需要借助 Key 值来判断元素与本地状态的关联关系，因此我们绝不可忽视转换函数中 Key 的重要性。</p>
+<h3 id="react常见面试题"><a href="#react常见面试题" class="headerlink" title="react常见面试题"></a>react常见面试题</h3><h4 id="调用-setState-之后发生了什么？"><a href="#调用-setState-之后发生了什么？" class="headerlink" title="调用 setState 之后发生了什么？"></a>调用 setState 之后发生了什么？</h4><p>在代码中调用 setState 函数之后，React 会将<strong>传入的参数对象与组件当前的状态合并</strong>，然后React 会以相对高效的方式根据新的状态构建 React 元素树并且着手重新渲染整个 UI 界面。在 React 得到元素树之后，React 会自动计算出新的树与老树的节点差异，然后根据差异对界面进行最小化重渲染。在差异计算算法中，React 能够相对精确地知道哪些位置发生了改变以及应该如何改变，这就保证了按需更新，而不是全部重新渲染。</p>
+<h4 id="为什么虚拟-dom-会提高性能-必考"><a href="#为什么虚拟-dom-会提高性能-必考" class="headerlink" title="为什么虚拟 dom 会提高性能?(必考)"></a>为什么虚拟 dom 会提高性能?(必考)</h4><p><code>虚拟 dom</code> 其实就是一个JavaScript对象。通过这个JavaScript对象来描述真实DOM。<br>真实DOM的操作，一般都会对某块元素的整体重新渲染，耗能大。<br>采用虚拟DOM的话，当数据变化的时候，只需要局部刷新变化的位置就好了。<br>在react中，当数据发生变化，生成虚拟DOM，利用 dom diff 算法进行对真实和虚拟DOM树进行层层对比，找出变化的位置，记录差异的地方，进行真实DOM的局部更新，来更新视图，避免了没有必要的 dom 操作，从而提高性能。</p>
+<h4 id="react-diff-原理（常考，大厂必考）"><a href="#react-diff-原理（常考，大厂必考）" class="headerlink" title="react diff 原理（常考，大厂必考）"></a>react diff 原理（常考，大厂必考）</h4><ul>
+<li>把树形结构按照层级分解，只比较同级元素。</li>
+<li>给列表结构的每个单元添加唯一的 key 属性，方便比较。</li>
+<li>React 只会匹配相同 class 的 component（这里面的 class 指的是组件的名字）</li>
+<li>合并操作，调用 component 的 setState 方法的时候, React标记有差异的节点，到每一个事件循环结束, 检查所有标记的节点 component 重新绘制.</li>
+<li>选择性子树渲染。开发人员可以重写 shouldComponentUpdate 提高 diff 的性能。</li>
+</ul>
+<h4 id="React-中-ref-的作用是什么？"><a href="#React-中-ref-的作用是什么？" class="headerlink" title="React 中 ref 的作用是什么？"></a>React 中 ref 的作用是什么？</h4><p>Ref 是 React 提供给我们的安全访问 <code>DOM 元素</code>或者某个组件实例的句柄。</p>
+<h4 id="为什么建议传递给-setState-的参数是一个-callback-而不是一个对象"><a href="#为什么建议传递给-setState-的参数是一个-callback-而不是一个对象" class="headerlink" title="为什么建议传递给 setState 的参数是一个 callback 而不是一个对象"></a>为什么建议传递给 setState 的参数是一个 callback 而不是一个对象</h4><p>因为 this.props 和 this.state 的更新可能是<code>异步</code>的，不能依赖它们的值去计算下一个 state。</p>
+<h4 id="应该在-React-组件的何处发起-Ajax-请求"><a href="#应该在-React-组件的何处发起-Ajax-请求" class="headerlink" title="应该在 React 组件的何处发起 Ajax 请求"></a>应该在 React 组件的何处发起 Ajax 请求</h4><p>在 React 组件中，应该在 <code>componentDidMount</code> 中发起网络请求</p>
+<h4 id="react-性能优化是哪个周期函数？"><a href="#react-性能优化是哪个周期函数？" class="headerlink" title="react 性能优化是哪个周期函数？"></a>react 性能优化是哪个周期函数？</h4><p><code>shouldComponentUpdate</code> 这个方法用来判断是否需要调用 render 方法重新描绘 dom。因为 dom 的描绘非常消耗性能，如果我们能在<code>shouldComponentUpdate</code> 方法中能够写出更优化的 dom diff 算法，可以极大的提高性能。</p>
+<h4 id="React-项目用过什么脚手架（本题是开放性题目）"><a href="#React-项目用过什么脚手架（本题是开放性题目）" class="headerlink" title="React 项目用过什么脚手架（本题是开放性题目）"></a>React 项目用过什么脚手架（本题是开放性题目）</h4><p><code>creat-react-app</code></p>
+<h4 id="简述-mobx-思想"><a href="#简述-mobx-思想" class="headerlink" title="简述 mobx 思想"></a>简述 mobx 思想</h4><h4 id="mobx与redux的不同"><a href="#mobx与redux的不同" class="headerlink" title="mobx与redux的不同"></a>mobx与redux的不同</h4><h4 id="react边界错误"><a href="#react边界错误" class="headerlink" title="react边界错误"></a>react边界错误</h4><p>React 16 引入了一个新的概念 —— 错误边界<br>错误边界是一种 React 组件，这种组件可以捕获并打印发生在其子组件树任何位置的 JavaScript 错误，并且，它会渲染出备用 UI，而不是渲染那些崩溃了的子组件树。错误边界在渲染期间、生命周期方法和整个组件树的构造函数中捕获错误。<br>如果一个 <code>class</code> 组件中定义了 <code>static getDerivedStateFromError()</code>或 <code>componentDidCatch()</code> 这两个生命周期方法中的任意一个（或两个）时，那么它就变成一个错误边界。当抛出错误后，请使用 <code>static getDerivedStateFromError()</code> 渲染备用 UI ，使用 <code>componentDidCatch()</code>打印错误信息。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请我喝可乐，谢谢！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="leixue 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="leixue 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/leixue-blog/tags/React/" rel="tag"><i class="fa fa-tag"></i> React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/leixue-blog/2019/08/16/js中的树/" rel="next" title="js中的树">
+                <i class="fa fa-chevron-left"></i> js中的树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/leixue-blog/2019/08/19/js相关知识/" rel="prev" title="js相关知识">
+                js相关知识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+     
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="350" height="86" src="//music.163.com/outchain/player?type=2&id=1377729945&auto=1&height=66"></iframe>
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/leixue-blog/images/avatar.jpeg" alt="leixue">
+            
+              <p class="site-author-name" itemprop="name">leixue</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/leixue-blog/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/leixue-blog/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/leixue-blog/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Rayshelll" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:utopia_leixue@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/rayshell_lx" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.vikeezan.club/" title="Vikeezan" target="_blank">Vikeezan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shuki.top/" title="Skuqi" target="_blank">Skuqi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lililich.work/" title="Lililich" target="_blank">Lililich</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#react框架"><span class="nav-number">1.</span> <span class="nav-text">react框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react-生命周期函数"><span class="nav-number">2.</span> <span class="nav-text">react 生命周期函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setState"><span class="nav-number">3.</span> <span class="nav-text">setState</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件"><span class="nav-number">4.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#无状态组件"><span class="nav-number">4.1.</span> <span class="nav-text">无状态组件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#有状态组件"><span class="nav-number">4.2.</span> <span class="nav-text">有状态组件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#受控组件和非受控组件"><span class="nav-number">5.</span> <span class="nav-text">受控组件和非受控组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#受控组件"><span class="nav-number">5.1.</span> <span class="nav-text">受控组件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非受控组件"><span class="nav-number">5.2.</span> <span class="nav-text">非受控组件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重构：显示和状态分离"><span class="nav-number">6.</span> <span class="nav-text">重构：显示和状态分离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#React-中-keys-的作用是什么？"><span class="nav-number">7.</span> <span class="nav-text">React 中 keys 的作用是什么？</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#react常见面试题"><span class="nav-number"></span> <span class="nav-text">react常见面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调用-setState-之后发生了什么？"><span class="nav-number">1.</span> <span class="nav-text">调用 setState 之后发生了什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么虚拟-dom-会提高性能-必考"><span class="nav-number">2.</span> <span class="nav-text">为什么虚拟 dom 会提高性能?(必考)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react-diff-原理（常考，大厂必考）"><span class="nav-number">3.</span> <span class="nav-text">react diff 原理（常考，大厂必考）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#React-中-ref-的作用是什么？"><span class="nav-number">4.</span> <span class="nav-text">React 中 ref 的作用是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么建议传递给-setState-的参数是一个-callback-而不是一个对象"><span class="nav-number">5.</span> <span class="nav-text">为什么建议传递给 setState 的参数是一个 callback 而不是一个对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应该在-React-组件的何处发起-Ajax-请求"><span class="nav-number">6.</span> <span class="nav-text">应该在 React 组件的何处发起 Ajax 请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react-性能优化是哪个周期函数？"><span class="nav-number">7.</span> <span class="nav-text">react 性能优化是哪个周期函数？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#React-项目用过什么脚手架（本题是开放性题目）"><span class="nav-number">8.</span> <span class="nav-text">React 项目用过什么脚手架（本题是开放性题目）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简述-mobx-思想"><span class="nav-number">9.</span> <span class="nav-text">简述 mobx 思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mobx与redux的不同"><span class="nav-number">10.</span> <span class="nav-text">mobx与redux的不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react边界错误"><span class="nav-number">11.</span> <span class="nav-text">react边界错误</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leixue</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/leixue-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/leixue-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/leixue-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

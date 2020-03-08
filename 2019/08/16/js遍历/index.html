@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/leixue-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/leixue-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/leixue-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/leixue-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/leixue-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/leixue-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/leixue-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="js遍历for 可迭代对象（包括 Array string) object不是可迭代对象for(let i; i&amp;lt;object.length; i++)&amp;#123;    object[i]&amp;#125;  for...of语句在可迭代对象（包括 Array Map(let a = new Map([[&amp;#39;a&amp;#39;, 1], [&amp;#39;b&amp;#39;, 2], [&amp;#39;c&amp;#39">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js遍历">
+<meta property="og:url" content="https://www.rayshell.work/leixue-blog/2019/08/16/js遍历/index.html">
+<meta property="og:site_name" content="Rayshell&#39;s blog">
+<meta property="og:description" content="js遍历for 可迭代对象（包括 Array string) object不是可迭代对象for(let i; i&amp;lt;object.length; i++)&amp;#123;    object[i]&amp;#125;  for...of语句在可迭代对象（包括 Array Map(let a = new Map([[&amp;#39;a&amp;#39;, 1], [&amp;#39;b&amp;#39;, 2], [&amp;#39;c&amp;#39">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-08T06:49:38.867Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js遍历">
+<meta name="twitter:description" content="js遍历for 可迭代对象（包括 Array string) object不是可迭代对象for(let i; i&amp;lt;object.length; i++)&amp;#123;    object[i]&amp;#125;  for...of语句在可迭代对象（包括 Array Map(let a = new Map([[&amp;#39;a&amp;#39;, 1], [&amp;#39;b&amp;#39;, 2], [&amp;#39;c&amp;#39">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/leixue-blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.rayshell.work/leixue-blog/2019/08/16/js遍历/">
+
+
+
+
+
+  <title>js遍历 | Rayshell's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <a href="https://github.com/Rayshelll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/leixue-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rayshell's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/leixue-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/leixue-blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/leixue-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/leixue-blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/leixue-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/leixue-blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-favorite">
+          <a href="/leixue-blog/favorite/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br>
+            
+            favorite
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/16/js遍历/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leixue">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rayshell's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">js遍历</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T13:09:54+08:00">
+                2019-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/leixue-blog/categories/前端学习/" itemprop="url" rel="index">
+                    <span itemprop="name">前端学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="js遍历"><a href="#js遍历" class="headerlink" title="js遍历"></a>js遍历</h4><h5 id="for-可迭代对象（包括-Array-string-object不是可迭代对象"><a href="#for-可迭代对象（包括-Array-string-object不是可迭代对象" class="headerlink" title="for 可迭代对象（包括 Array string) object不是可迭代对象"></a><code>for</code> 可迭代对象（包括 <code>Array</code> <code>string</code>) object不是可迭代对象</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i; i&lt;object.length; i++)&#123;</span><br><span class="line">    object[i]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="for-of语句在可迭代对象（包括-Array-Map-let-a-new-Map-39-a-39-1-39-b-39-2-39-c-39-3-Set-let-a-new-Set-1-1-2-2-3-3-String-TypedArray-let-a-new-Uint8Array-0x00-0xff-arguments对象等等）可以正确响应-break-continue-return-语句"><a href="#for-of语句在可迭代对象（包括-Array-Map-let-a-new-Map-39-a-39-1-39-b-39-2-39-c-39-3-Set-let-a-new-Set-1-1-2-2-3-3-String-TypedArray-let-a-new-Uint8Array-0x00-0xff-arguments对象等等）可以正确响应-break-continue-return-语句" class="headerlink" title="for...of语句在可迭代对象（包括 Array Map(let a = new Map([[&#39;a&#39;, 1], [&#39;b&#39;, 2], [&#39;c&#39;, 3]]);) Set(let a= new Set([1, 1, 2, 2, 3, 3]);) String TypedArray(let a = new Uint8Array([0x00, 0xff]);) arguments对象等等）可以正确响应 break continue return 语句"></a><code>for...of</code>语句在可迭代对象（包括 <code>Array</code> <code>Map(let a = new Map([[&#39;a&#39;, 1], [&#39;b&#39;, 2], [&#39;c&#39;, 3]]);)</code> <code>Set(let a= new Set([1, 1, 2, 2, 3, 3]);)</code> <code>String</code> <code>TypedArray(let a = new Uint8Array([0x00, 0xff]);)</code> <code>arguments</code>对象等等）可以正确响应 <code>break</code> <code>continue</code> <code>return</code> 语句</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> object)&#123;</span><br><span class="line">    item</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="for-in可迭代对象（包括-Array-string-，会遍历object的所有属性，性能差"><a href="#for-in可迭代对象（包括-Array-string-，会遍历object的所有属性，性能差" class="headerlink" title="for...in可迭代对象（包括 Array,string)，会遍历object的所有属性，性能差"></a><code>for...in</code>可迭代对象（包括 Array,string)，会遍历object的所有属性，性能差</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> object)&#123;</span><br><span class="line">    object[i]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="map创建一个新数组，使用原数组的数据，对每个数组进行操作，return新数组"><a href="#map创建一个新数组，使用原数组的数据，对每个数组进行操作，return新数组" class="headerlink" title="map创建一个新数组，使用原数组的数据，对每个数组进行操作，return新数组"></a><code>map</code>创建一个新数组，使用原数组的数据，对每个数组进行操作，return新数组</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.map(item, index, <span class="built_in">Array</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Array</span>.map(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, object</span>))</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="forEach对原数组进行操作改变原数组，return-undefined"><a href="#forEach对原数组进行操作改变原数组，return-undefined" class="headerlink" title="forEach对原数组进行操作改变原数组，return undefined"></a><code>forEach</code>对原数组进行操作改变原数组，return undefined</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.forEach(item, index, <span class="built_in">Array</span>)&#123;</span><br><span class="line">    item/array[index]</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Array</span>.forEach(<span class="function"><span class="keyword">function</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="过滤数据剩下满足item的条件的数据，生成新数组"><a href="#过滤数据剩下满足item的条件的数据，生成新数组" class="headerlink" title="过滤数据剩下满足item的条件的数据，生成新数组"></a>过滤数据剩下满足item的条件的数据，生成新数组</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">array.filter(<span class="function"><span class="params">item</span> =&gt;</span> item%<span class="number">2</span>==<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="reduce为数组中的每一个元素依次执行回调函数callback，不包括数组中被删除或从未被赋值的元素，接受四个参数：-初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用-reduce-的数组-。"><a href="#reduce为数组中的每一个元素依次执行回调函数callback，不包括数组中被删除或从未被赋值的元素，接受四个参数：-初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用-reduce-的数组-。" class="headerlink" title="reduce为数组中的每一个元素依次执行回调函数callback，不包括数组中被删除或从未被赋值的元素，接受四个参数：(初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用 reduce 的数组)。"></a><code>reduce</code>为数组中的每一个元素依次执行回调函数<code>callback</code>，不包括数组中被删除或从未被赋值的元素，接受四个参数：(初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用 reduce 的数组)。</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">arr.reduce(callback,[initialValue])</span><br><span class="line"><span class="comment">/* callback （执行数组中每个值的函数，包含四个参数）</span></span><br><span class="line"><span class="comment">    1、previousValue （上一次调用回调返回的值，或者是提供的初始值（initialValue））</span></span><br><span class="line"><span class="comment">    2、currentValue （数组中当前被处理的元素）</span></span><br><span class="line"><span class="comment">    3、index （当前元素在数组中的索引）</span></span><br><span class="line"><span class="comment">    4、array （调用 reduce 的数组）</span></span><br><span class="line"><span class="comment">initialValue （作为第一次调用 callback 的第一个参数。）</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>reduce的简单用法：数组求和，求乘积</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span>  arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">var</span> sum = arr.reduce(<span class="function">(<span class="params">x,y</span>)=&gt;</span>x+y, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">var</span> mul = arr.reduce(<span class="function">(<span class="params">x,y</span>)=&gt;</span>x*y, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log( sum ); <span class="comment">//求和，10</span></span><br><span class="line"><span class="built_in">console</span>.log( mul ); <span class="comment">//求乘积，24</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>reduce的高级用法：</p>
+<ul>
+<li><p>计算数组中每个元素出现的次数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> names = [<span class="string">'Alice'</span>, <span class="string">'Bob'</span>, <span class="string">'Tiff'</span>, <span class="string">'Bruce'</span>, <span class="string">'Alice'</span>];</span><br><span class="line"><span class="comment">// 初始值为&#123;&#125;</span></span><br><span class="line"><span class="keyword">let</span> nameNum = names.reduce(<span class="function">(<span class="params">pre, cur</span>)=&gt;</span>&#123;</span><br><span class="line"><span class="keyword">if</span>(cur <span class="keyword">in</span> pre)&#123;</span><br><span class="line">    pre[cur]++</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    pre[cur] = <span class="number">1</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> pre</span><br><span class="line">&#125;, &#123;&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(nameNum); <span class="comment">//&#123;Alice: 2, Bob: 1, Tiff: 1, Bruce: 1&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组去重</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">1</span>]</span><br><span class="line"><span class="keyword">let</span> newArr = arr.reduce(<span class="function">(<span class="params">pre,cur</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!pre.includes(cur))&#123; <span class="comment">// 当前值不再前面的数组里</span></span><br><span class="line">    <span class="keyword">return</span> pre.concat(cur)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> pre</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,[])</span><br><span class="line"><span class="built_in">console</span>.log(newArr);<span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>二维降一维</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>]]</span><br><span class="line"><span class="keyword">let</span> newArr = arr.reduce(<span class="function">(<span class="params">pre,cur</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> pre.concat(cur)</span><br><span class="line">&#125;,[])</span><br><span class="line"><span class="built_in">console</span>.log(newArr); <span class="comment">// [0, 1, 2, 3, 4, 5]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多维降一维</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>,[<span class="number">5</span>,[<span class="number">6</span>],<span class="number">7</span>]]]</span><br><span class="line"><span class="keyword">const</span> newArr = <span class="function"><span class="keyword">function</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line"><span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">pre,cur</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> pre.concat(<span class="built_in">Array</span>.isArray(cur) ? newArr(cur) : cur)</span><br><span class="line">    &#125;, [])</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(newArr(arr)); <span class="comment">//[0, 1, 2, 3, 4, 5, 6, 7]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象里的属性求和</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> result = [</span><br><span class="line">    &#123;</span><br><span class="line">        subject: <span class="string">'math'</span>,</span><br><span class="line">        score: <span class="number">10</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        subject: <span class="string">'chinese'</span>,</span><br><span class="line">        score: <span class="number">20</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        subject: <span class="string">'english'</span>,</span><br><span class="line">        score: <span class="number">30</span></span><br><span class="line">    &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sum = result.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">prev, cur</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> cur.score + prev;</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sum) <span class="comment">//60</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请我喝可乐，谢谢！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="leixue 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="leixue 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/leixue-blog/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/leixue-blog/2019/08/15/html转PDF/" rel="next" title="html转PDF">
+                <i class="fa fa-chevron-left"></i> html转PDF
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/leixue-blog/2019/08/16/js队列和栈/" rel="prev" title="js队列和栈">
+                js队列和栈 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+     
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="350" height="86" src="//music.163.com/outchain/player?type=2&id=1377729945&auto=1&height=66"></iframe>
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/leixue-blog/images/avatar.jpeg" alt="leixue">
+            
+              <p class="site-author-name" itemprop="name">leixue</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/leixue-blog/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/leixue-blog/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/leixue-blog/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Rayshelll" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:utopia_leixue@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/rayshell_lx" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.vikeezan.club/" title="Vikeezan" target="_blank">Vikeezan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shuki.top/" title="Skuqi" target="_blank">Skuqi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lililich.work/" title="Lililich" target="_blank">Lililich</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#js遍历"><span class="nav-number">1.</span> <span class="nav-text">js遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#for-可迭代对象（包括-Array-string-object不是可迭代对象"><span class="nav-number">1.1.</span> <span class="nav-text">for 可迭代对象（包括 Array string) object不是可迭代对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#for-of语句在可迭代对象（包括-Array-Map-let-a-new-Map-39-a-39-1-39-b-39-2-39-c-39-3-Set-let-a-new-Set-1-1-2-2-3-3-String-TypedArray-let-a-new-Uint8Array-0x00-0xff-arguments对象等等）可以正确响应-break-continue-return-语句"><span class="nav-number">1.2.</span> <span class="nav-text">for...of语句在可迭代对象（包括 Array Map(let a = new Map([[&#39;a&#39;, 1], [&#39;b&#39;, 2], [&#39;c&#39;, 3]]);) Set(let a= new Set([1, 1, 2, 2, 3, 3]);) String TypedArray(let a = new Uint8Array([0x00, 0xff]);) arguments对象等等）可以正确响应 break continue return 语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#for-in可迭代对象（包括-Array-string-，会遍历object的所有属性，性能差"><span class="nav-number">1.3.</span> <span class="nav-text">for...in可迭代对象（包括 Array,string)，会遍历object的所有属性，性能差</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map创建一个新数组，使用原数组的数据，对每个数组进行操作，return新数组"><span class="nav-number">1.4.</span> <span class="nav-text">map创建一个新数组，使用原数组的数据，对每个数组进行操作，return新数组</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach对原数组进行操作改变原数组，return-undefined"><span class="nav-number">2.</span> <span class="nav-text">forEach对原数组进行操作改变原数组，return undefined</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过滤数据剩下满足item的条件的数据，生成新数组"><span class="nav-number">3.</span> <span class="nav-text">过滤数据剩下满足item的条件的数据，生成新数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#reduce为数组中的每一个元素依次执行回调函数callback，不包括数组中被删除或从未被赋值的元素，接受四个参数：-初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用-reduce-的数组-。"><span class="nav-number">3.1.</span> <span class="nav-text">reduce为数组中的每一个元素依次执行回调函数callback，不包括数组中被删除或从未被赋值的元素，接受四个参数：(初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用 reduce 的数组)。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leixue</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/leixue-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/leixue-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/leixue-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/leixue-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/leixue-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/leixue-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/leixue-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/leixue-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/leixue-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/leixue-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 什么是ajax？ajax作用是什么？AJAX = Asynchronous JavaScript And XML(异步的javascript和xml)。AJAX不刷新页面更新网页。工作流程：  网页中发生一个事件（页面加载、按钮点击） 由 JavaScript 创建 XMLHttpRequest 对象 XMLHttpRequest 对象向 web 服务器发送请求 服务器处理该请求 服务器将响">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ajax">
+<meta property="og:url" content="https://www.rayshell.work/leixue-blog/2019/08/19/ajax/index.html">
+<meta property="og:site_name" content="Rayshell&#39;s blog">
+<meta property="og:description" content="1. 什么是ajax？ajax作用是什么？AJAX = Asynchronous JavaScript And XML(异步的javascript和xml)。AJAX不刷新页面更新网页。工作流程：  网页中发生一个事件（页面加载、按钮点击） 由 JavaScript 创建 XMLHttpRequest 对象 XMLHttpRequest 对象向 web 服务器发送请求 服务器处理该请求 服务器将响">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-08T06:49:56.854Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ajax">
+<meta name="twitter:description" content="1. 什么是ajax？ajax作用是什么？AJAX = Asynchronous JavaScript And XML(异步的javascript和xml)。AJAX不刷新页面更新网页。工作流程：  网页中发生一个事件（页面加载、按钮点击） 由 JavaScript 创建 XMLHttpRequest 对象 XMLHttpRequest 对象向 web 服务器发送请求 服务器处理该请求 服务器将响">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/leixue-blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.rayshell.work/leixue-blog/2019/08/19/ajax/">
+
+
+
+
+
+  <title>ajax | Rayshell's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <a href="https://github.com/Rayshelll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/leixue-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rayshell's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/leixue-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/leixue-blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/leixue-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/leixue-blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/leixue-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/leixue-blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-favorite">
+          <a href="/leixue-blog/favorite/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br>
+            
+            favorite
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/19/ajax/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leixue">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rayshell's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">ajax</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T16:07:05+08:00">
+                2019-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-什么是ajax？ajax作用是什么？"><a href="#1-什么是ajax？ajax作用是什么？" class="headerlink" title="1. 什么是ajax？ajax作用是什么？"></a>1. 什么是ajax？ajax作用是什么？</h4><p>AJAX = Asynchronous JavaScript And XML(异步的javascript和xml)。<code>AJAX</code>不刷新页面更新网页。<br>工作流程：</p>
+<ol>
+<li>网页中发生一个事件（页面加载、按钮点击）</li>
+<li>由 JavaScript 创建 <code>XMLHttpRequest</code> 对象</li>
+<li>XMLHttpRequest 对象向 web 服务器发送请求</li>
+<li>服务器处理该请求</li>
+<li>服务器将响应发送回网页</li>
+<li>由 JavaScript 读取响应</li>
+<li>由 JavaScript 执行正确的动作（比如更新页面）</li>
+</ol>
+<h4 id="2-原生js-ajax请求有几个步骤？分别是什么"><a href="#2-原生js-ajax请求有几个步骤？分别是什么" class="headerlink" title="2. 原生js ajax请求有几个步骤？分别是什么"></a>2. 原生js ajax请求有几个步骤？分别是什么</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建 XMLHttpRequest 对象</span></span><br><span class="line"><span class="keyword">var</span> ajax = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">// 接受服务器响应数据</span></span><br><span class="line"><span class="comment">// 服务器响应属性: responseText responseXML status statusText readyState onreadystatechange (定义当readyState 属性发生变化时被调用的函数)</span></span><br><span class="line">ajax.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (obj.readyState == <span class="number">4</span> &amp;&amp; (obj.status == <span class="number">200</span> || obj.status == <span class="number">304</span>)) &#123; </span><br><span class="line">        <span class="comment">//4:请求已完成且响应已就绪</span></span><br><span class="line">        <span class="built_in">document</span>.getElementById(<span class="string">"demo"</span>).innerHTML = <span class="keyword">this</span>.responseText;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/* 规定请求的类型、URL 以及是否异步处理请求。</span></span><br><span class="line"><span class="comment">method：请求的类型；GET 或 POST</span></span><br><span class="line"><span class="comment">url：文件在服务器上的位置（"/example/js/ajax_info.txt"）</span></span><br><span class="line"><span class="comment">async：true（异步）或 false（同步）*/</span></span><br><span class="line">ajax.open(<span class="string">'GET'</span>,url,<span class="literal">true</span>);</span><br><span class="line"><span class="comment">//发送请求</span></span><br><span class="line">ajax.send();</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-json字符串转换集json对象、json对象转换json字符串"><a href="#3-json字符串转换集json对象、json对象转换json字符串" class="headerlink" title="3. json字符串转换集json对象、json对象转换json字符串"></a>3. json字符串转换集json对象、json对象转换json字符串</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//字符串转json对象，反序列化</span></span><br><span class="line"><span class="built_in">JSON</span>.parse(str,t1) <span class="comment">//t1是方法</span></span><br><span class="line"><span class="comment">// json对象转字符串，序列化</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(json,t1,t2)<span class="comment">//t1参数可以是array或是function，t2是分隔符</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-ajax几种请求方式？他们的优缺点？"><a href="#4-ajax几种请求方式？他们的优缺点？" class="headerlink" title="4. ajax几种请求方式？他们的优缺点？"></a>4. ajax几种请求方式？他们的优缺点？</h4><p>常用的<code>post</code>,<code>get</code>,<code>delete</code>;<br>不常用<code>copy</code>、<code>head</code>、<code>link</code>等等。</p>
+<h5 id="代码上的区别"><a href="#代码上的区别" class="headerlink" title="代码上的区别"></a>代码上的区别</h5><ol>
+<li>get通过<code>url</code>传递参数</li>
+<li>post设置请求头<code>Header</code>，需要规定请求数据类型</li>
+</ol>
+<h5 id="使用上的区别"><a href="#使用上的区别" class="headerlink" title="使用上的区别"></a>使用上的区别</h5><ol>
+<li>post比get安全(因为post参数在请求体中，get参数在url上面)</li>
+<li>post传输文件大理论没有限制，get传输文件小大概7-8k，ie4k左右</li>
+<li>get传输速度比post快 根据传参决定的。(post通过请求体传参，后台通过数据流接收，速度稍微慢一些，而get通过url传参可以直接获取)</li>
+<li>get获取数据，post上传数据(上传的数据比较多，而且上传数据都是重要数据，所以不论在安全性还是数据量级 post是最好的选择)</li>
+</ol>
+<h4 id="5-什么情况造成跨域？"><a href="#5-什么情况造成跨域？" class="headerlink" title="5. 什么情况造成跨域？"></a>5. 什么情况造成跨域？</h4><blockquote>
+<p>同源策略限制，不同源会造成跨域。同源策略：协议、域名、端口号都相同。</p>
+</blockquote>
+<p><a href="http://www.baidu.com/8080/index.html" target="_blank" rel="noopener">http://www.baidu.com/8080/index.html</a> 协议(http)\域名(<a href="http://www.baidu.com)\端口号(8080)" target="_blank" rel="noopener">www.baidu.com)\端口号(8080)</a></p>
+<h4 id="6-跨域解决方案有哪些？"><a href="#6-跨域解决方案有哪些？" class="headerlink" title="6. 跨域解决方案有哪些？"></a>6. <a href="https://segmentfault.com/a/1190000011145364?utm_source=tag-newest" target="_blank" rel="noopener">跨域解决方案有哪些</a>？</h4><ol>
+<li>通过jsonp跨域</li>
+<li>document.domain + iframe跨域</li>
+<li>location.hash + iframe</li>
+<li>window.name + iframe跨域</li>
+<li>postMessage跨域</li>
+<li>跨域资源共享（CORS）</li>
+<li>nginx代理跨域</li>
+<li>nodejs中间件代理跨域</li>
+<li>WebSocket协议跨域</li>
+</ol>
+<h5 id="1-CORS：跨域资源共享"><a href="#1-CORS：跨域资源共享" class="headerlink" title="1. CORS：跨域资源共享"></a>1. <a href="https://www.jianshu.com/p/98d4bc7565b2" target="_blank" rel="noopener">CORS：跨域资源共享</a></h5><ul>
+<li>它允许浏览器向跨源服务器，发出<code>XMLHttpRequest</code>请求，从而克服了AJAX只能同源使用的限制。</li>
+<li>原理：服务器端对于CORS的支持，主要就是通过设置<code>Access-Control-Allow-Origin</code>来进行的。如果浏览器检测到相应的设置，就可以允许Ajax进行跨域的访问。</li>
+<li>限制：浏览器需要支持HTML5，可以支持POST，PUT等方法兼容ie9以上</li>
+</ul>
+<p>，就可以实现跨域访问了<br>普通跨域请求：只需要在后台中加上响应头来允许域请求，在被请求的Response header中加入以下设置，前端无须设置，若要带cookie请求：前后端都需要设置。<br>需注意的是：由于同源策略的限制，所读取的cookie为跨域请求接口所在域的cookie，而非当前页。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 前端</span></span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest(); <span class="comment">// IE8/9需用window.XDomainRequest兼容</span></span><br><span class="line"><span class="comment">// 前端设置是否带cookie</span></span><br><span class="line">xhr.withCredentials = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//需要后台设置</span></span><br><span class="line">Access-Control-Allow-Origin: *              <span class="comment">//允许所有域名访问，或者</span></span><br><span class="line">Access-Control-Allow-Origin: http:<span class="comment">//a.com   //只允许所有域名访问</span></span><br><span class="line"><span class="comment">//响应类型</span></span><br><span class="line">Access-Control-Allow-Methods:GET,POST</span><br><span class="line"><span class="comment">//响应头设置</span></span><br><span class="line">Access-Control-Allow-Headers:x-requested-<span class="keyword">with</span>,content-type</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-jsonp-只能解决get跨域"><a href="#2-jsonp-只能解决get跨域" class="headerlink" title="2. jsonp 只能解决get跨域"></a>2. jsonp 只能解决get跨域</h5><ul>
+<li>原理：动态创建一个script标签。利用script标签的src属性不受同源策略限制。因为所有的src属性和href属性都不受同源策略限制。这个js文件载入成功后会执行我们在url参数中指定的函数，并且会把我们需要的json数据作为参数传入。所以jsonp是需要服务器端的页面进行相应的配合的。（即用JavaScript动态加载一个script文件，同时定义一个callback函数给script执行而已。）</li>
+<li>步骤：  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//去创建一个script标签</span></span><br><span class="line"><span class="keyword">var</span>  script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">script.type = <span class="string">'text/javascript'</span>;</span><br><span class="line"><span class="comment">//script的src属性设置接口地址 并带一个callback回调函数名称(必须要带一个自定义函数名 要不然后台无法返回数据。)</span></span><br><span class="line">script.src = <span class="string">"http://127.0.0.1:8888/index.php?callback=jsonpCallback"</span>;</span><br><span class="line"><span class="comment">//插入到页面</span></span><br><span class="line"><span class="built_in">document</span>.head.appendChild(script);</span><br><span class="line"><span class="comment">//通过定义回调函数名去接收后台index.php返回数据</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonpCallback</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//注意  jsonp返回的数据是json对象可以直接使用</span></span><br><span class="line">    alert(<span class="built_in">JSON</span>.stringify(data));</span><br><span class="line">    <span class="comment">//ajax  取得数据是json字符串需要JSON.parse(str)转换成json对象才可以使用。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>页面使用jquery，那么通过它封装的方法就能很方便的来进行jsonp操作了。jquery会自动生成一个全局函数来替换callback=?中的问号，之后获取到数据后又会自动销毁，实际上就是起一个临时代理函数的作用。$.getJSON方法会自动判断是否跨域，不跨域的话，就调用普通的ajax方法；跨域的话，则会以异步加载js文件的形式来调用jsonp的回调函数。</p>
+<pre><code><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">​&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">     $.getJSON(<span class="string">'http://example.com/data.php?callback=?,function(jsondata)'</span>)&#123;</span><br><span class="line">         <span class="comment">//处理获得的json数据</span></span><br><span class="line">     &#125;);</span><br><span class="line"> &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></code></pre><h5 id="3-设置-document-domain"><a href="#3-设置-document-domain" class="headerlink" title="3. 设置 document.domain"></a>3. <a href="https://blog.csdn.net/sinat_36422236/article/details/79748688" target="_blank" rel="noopener">设置 document.domain</a></h5><ul>
+<li><code>document.domain</code>用来得到当前网页的域名</li>
+<li>原理：此方案仅限主域相同，子域不同的跨域应用场景。两个页面都通过js强制设置document.domain为基础主域，就实现了同域;</li>
+<li>限制：同域document提供的是页面间的互操作，需要载入iframe页面<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 父窗口：(http://www.domain.com/a.html)</span></span><br><span class="line">&lt;iframe id=<span class="string">"iframe"</span> src=<span class="string">"http://child.domain.com/b.html"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">document</span>.domain = <span class="string">'domain.com'</span>;</span><br><span class="line">    <span class="keyword">var</span> user = <span class="string">'admin'</span>;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 子窗口：(http:/</span><span class="regexp">/child.domain.com/</span>b.html)</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">document</span>.domain = <span class="string">'domain.com'</span>;</span><br><span class="line">    <span class="comment">// 获取父窗口中变量</span></span><br><span class="line">    alert(<span class="string">'get js data from parent ---&gt; '</span> + <span class="built_in">window</span>.parent.user);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="4-使用HTML5的window-postMessage方法跨域"><a href="#4-使用HTML5的window-postMessage方法跨域" class="headerlink" title="4. 使用HTML5的window.postMessage方法跨域"></a>4. 使用HTML5的window.postMessage方法跨域</h5><p>HTML5引入了一个全新的API：跨文档通信 API（Cross-document messaging）。 这个API为window对象新增了一个<code>window.postMessage</code>方法，允许跨窗口通信，不论这两个窗口是否同源。目前IE8+、FireFox、Chrome、Opera等浏览器都已经支持<code>window.postMessage</code>方法。 </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//发送方</span></span><br><span class="line">&lt;iframe id=<span class="string">"frame1"</span> src=<span class="string">"http://127.0.0.1/JSONP/b.html"</span> frameborder=<span class="string">"1"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'frame1'</span>).onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> win = <span class="built_in">document</span>.getElementById(<span class="string">'frame1'</span>).contentWindow;</span><br><span class="line">    win.postMessage(<span class="string">"我是来自a页面的"</span>,<span class="string">"http://127.0.0.1/JSONP/b.html"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//接收方</span></span><br><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    e = e || event;</span><br><span class="line">    <span class="built_in">console</span>.log(e.data);<span class="comment">//我是来自a页面的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-通过WebSocket进行跨域"><a href="#5-通过WebSocket进行跨域" class="headerlink" title="5. 通过WebSocket进行跨域"></a>5. 通过WebSocket进行跨域</h5><p>web sockets是一种浏览器的API，它的目标是在一个单独的持久连接上提供全双工、双向通信。(同源策略对web sockets不适用)<br>web sockets原理：在js创建了web socket之后，会有一个HTTP请求发送到浏览器以发起连接。取得服务器响应后，建立的连接会使用HTTP升级从HTTP协议交换为<code>web sockt</code>协议。<br>只有在支持web socket协议的服务器上才能正常工作。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = <span class="keyword">new</span> WebSockt(<span class="string">'ws://www.baidu.com'</span>);<span class="comment">//http-&gt;ws; https-&gt;wss</span></span><br><span class="line">socket.send(<span class="string">'hello WebSockt'</span>);</span><br><span class="line">socket.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> data = event.data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请我喝可乐，谢谢！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="leixue 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="leixue 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/leixue-blog/2019/08/19/ES6/" rel="next" title="ES6">
+                <i class="fa fa-chevron-left"></i> ES6
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/leixue-blog/2019/08/19/面试总结/" rel="prev" title="面试总结">
+                面试总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+     
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="350" height="86" src="//music.163.com/outchain/player?type=2&id=1377729945&auto=1&height=66"></iframe>
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/leixue-blog/images/avatar.jpeg" alt="leixue">
+            
+              <p class="site-author-name" itemprop="name">leixue</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/leixue-blog/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/leixue-blog/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/leixue-blog/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Rayshelll" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:utopia_leixue@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/rayshell_lx" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.vikeezan.club/" title="Vikeezan" target="_blank">Vikeezan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shuki.top/" title="Skuqi" target="_blank">Skuqi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lililich.work/" title="Lililich" target="_blank">Lililich</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是ajax？ajax作用是什么？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是ajax？ajax作用是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-原生js-ajax请求有几个步骤？分别是什么"><span class="nav-number">2.</span> <span class="nav-text">2. 原生js ajax请求有几个步骤？分别是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-json字符串转换集json对象、json对象转换json字符串"><span class="nav-number">3.</span> <span class="nav-text">3. json字符串转换集json对象、json对象转换json字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-ajax几种请求方式？他们的优缺点？"><span class="nav-number">4.</span> <span class="nav-text">4. ajax几种请求方式？他们的优缺点？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代码上的区别"><span class="nav-number">4.1.</span> <span class="nav-text">代码上的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用上的区别"><span class="nav-number">4.2.</span> <span class="nav-text">使用上的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-什么情况造成跨域？"><span class="nav-number">5.</span> <span class="nav-text">5. 什么情况造成跨域？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-跨域解决方案有哪些？"><span class="nav-number">6.</span> <span class="nav-text">6. 跨域解决方案有哪些？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-CORS：跨域资源共享"><span class="nav-number">6.1.</span> <span class="nav-text">1. CORS：跨域资源共享</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-jsonp-只能解决get跨域"><span class="nav-number">6.2.</span> <span class="nav-text">2. jsonp 只能解决get跨域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-设置-document-domain"><span class="nav-number">6.3.</span> <span class="nav-text">3. 设置 document.domain</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-使用HTML5的window-postMessage方法跨域"><span class="nav-number">6.4.</span> <span class="nav-text">4. 使用HTML5的window.postMessage方法跨域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-通过WebSocket进行跨域"><span class="nav-number">6.5.</span> <span class="nav-text">5. 通过WebSocket进行跨域</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leixue</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/leixue-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/leixue-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/leixue-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

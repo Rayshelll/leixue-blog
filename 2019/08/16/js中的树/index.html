@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/leixue-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/leixue-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/leixue-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/leixue-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/leixue-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/leixue-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/leixue-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="js树树是一种非顺序数据结构（节点，根节点，内部节点，外部节点，子树，深度） 节点包括（key left right） 二叉搜索树是二叉树的一种，左节点key值&amp;lt;父节点key值，右节点key值&amp;gt;=父节点key值 四种遍历的主要思想：前序遍历：根左右;中序遍历：左根右;后序遍历：左右根;广度遍历：按照层次一层层遍历; // 创建一个树节点function Node(key)&amp;#123;">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js中的树">
+<meta property="og:url" content="https://www.rayshell.work/leixue-blog/2019/08/16/js中的树/index.html">
+<meta property="og:site_name" content="Rayshell&#39;s blog">
+<meta property="og:description" content="js树树是一种非顺序数据结构（节点，根节点，内部节点，外部节点，子树，深度） 节点包括（key left right） 二叉搜索树是二叉树的一种，左节点key值&amp;lt;父节点key值，右节点key值&amp;gt;=父节点key值 四种遍历的主要思想：前序遍历：根左右;中序遍历：左根右;后序遍历：左右根;广度遍历：按照层次一层层遍历; // 创建一个树节点function Node(key)&amp;#123;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-08T06:49:23.548Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js中的树">
+<meta name="twitter:description" content="js树树是一种非顺序数据结构（节点，根节点，内部节点，外部节点，子树，深度） 节点包括（key left right） 二叉搜索树是二叉树的一种，左节点key值&amp;lt;父节点key值，右节点key值&amp;gt;=父节点key值 四种遍历的主要思想：前序遍历：根左右;中序遍历：左根右;后序遍历：左右根;广度遍历：按照层次一层层遍历; // 创建一个树节点function Node(key)&amp;#123;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/leixue-blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.rayshell.work/leixue-blog/2019/08/16/js中的树/">
+
+
+
+
+
+  <title>js中的树 | Rayshell's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <a href="https://github.com/Rayshelll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/leixue-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rayshell's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/leixue-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/leixue-blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/leixue-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/leixue-blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/leixue-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/leixue-blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-favorite">
+          <a href="/leixue-blog/favorite/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br>
+            
+            favorite
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/16/js中的树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leixue">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rayshell's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">js中的树</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T13:17:50+08:00">
+                2019-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/leixue-blog/categories/前端学习/" itemprop="url" rel="index">
+                    <span itemprop="name">前端学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="js树"><a href="#js树" class="headerlink" title="js树"></a><a href="https://juejin.im/entry/59979aaaf265da24817a5928" target="_blank" rel="noopener">js树</a></h4><p>树是一种<strong>非顺序数据结构</strong>（节点，根节点，内部节点，外部节点，子树，深度）</p>
+<p><strong>节点</strong>包括（key left right）</p>
+<p><strong>二叉搜索树</strong>是二叉树的一种，左节点key值<code>&lt;</code>父节点key值，右节点key值<code>&gt;=</code>父节点key值</p>
+<p>四种遍历的主要思想：<br>前序遍历：根左右;<br>中序遍历：左根右;<br>后序遍历：左右根;<br>广度遍历：按照层次一层层遍历;</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建一个树节点</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Node</span>(<span class="params">key</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.key = key;</span><br><span class="line">    <span class="keyword">this</span>.left = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">this</span>.right = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建树的类</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">treeList</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.root = <span class="keyword">new</span> Node(<span class="string">'root'</span>); <span class="comment">// 根节点</span></span><br><span class="line">    <span class="keyword">this</span>.insertNode = insertNode; <span class="comment">// 插入节点</span></span><br><span class="line">    <span class="keyword">this</span>.findNode = findNode; <span class="comment">// 查找节点</span></span><br><span class="line">    <span class="keyword">this</span>.removeNode = removeNode; <span class="comment">// 删除节点</span></span><br><span class="line">    <span class="keyword">this</span>.finMaxNode = findMaxNode; <span class="comment">// 这棵树中的最小值在最后一层最左侧的节点</span></span><br><span class="line">    <span class="keyword">this</span>.findMinNode = findMinNode; <span class="comment">// 最大值在最右端的节点。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//先序遍历 主左右 先序遍历的一种应用是打印一个结构化的文档。</span></span><br><span class="line">    <span class="keyword">this</span>.preOrderTraverseNode = preOrderTraverseNode;</span><br><span class="line">    <span class="comment">// 中序遍历 左主右 是一种上行访问BST所有节点的遍历方式，也就是从最小到最大的顺序访问所有节点。中序遍历的一种应用就是对树进行排序操作。</span></span><br><span class="line">    <span class="keyword">this</span>.inOrderTraverseNode = inOrderTraverseNode;</span><br><span class="line">    <span class="comment">// 后序遍历 左右主 后序遍历的一种应用是计算一个目录和它的子目录中所有文件所占用空间的大小。</span></span><br><span class="line">    <span class="keyword">this</span>.postOrderTraverseNode = postOrderTraverseNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertNode</span>(<span class="params">node, root</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root === <span class="literal">null</span>)&#123;</span><br><span class="line">        root = node;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node.key &lt; root.key)&#123;</span><br><span class="line">            <span class="keyword">if</span> (root.left == <span class="literal">null</span>)&#123;</span><br><span class="line">                root.left = node</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                insertNode(node, root.left)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (root.right == <span class="literal">null</span>)&#123;</span><br><span class="line">                root.right = node</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                insertNode(node, root.right)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findNode</span>(<span class="params">node, key</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (key &lt; node.key)&#123;</span><br><span class="line">            <span class="keyword">return</span> findNode(node.left, key)</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(key &gt; node.key) &#123;</span><br><span class="line">            <span class="keyword">return</span> findNode(node.right, key)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findMaxNode</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node)&#123;</span><br><span class="line">        <span class="keyword">while</span>(node &amp;&amp; node.right !== <span class="literal">null</span>)&#123;</span><br><span class="line">            node = node.right</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node.key</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findMinNode</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node)&#123;</span><br><span class="line">        <span class="keyword">while</span>(node &amp;&amp; node.left !== <span class="literal">null</span>)&#123;</span><br><span class="line">            node = node.left</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 三种情况：删除节点没有子节点，删除节点有一个子节点，删除节点有两个子节点，从node来删除</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeNode</span>(<span class="params">node, key</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node === <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (key &lt; node.key)&#123;</span><br><span class="line">        node.left = removeNode(node.left, key)</span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (key &gt; node.key)&#123;</span><br><span class="line">        node.right = removeNode(node.right, key)</span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 找到删除的节点，删除，分三种情况</span></span><br><span class="line">        <span class="comment">// case1 删除节点没有子节点</span></span><br><span class="line">        <span class="keyword">if</span> (node.left === <span class="literal">null</span> &amp;&amp; node.right === <span class="literal">null</span>)&#123;</span><br><span class="line">            node = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//case 2 删除节点有一个子节点</span></span><br><span class="line">        <span class="keyword">if</span> (node.left === <span class="literal">null</span>)&#123;</span><br><span class="line">            node = node.right;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.right === <span class="literal">null</span>)&#123;</span><br><span class="line">            node = node.left;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//case 3 删除节点有两个子节点，最复杂，用该右子树的最小节点aux的值代替删除节点值de，并删除aux</span></span><br><span class="line">        <span class="keyword">var</span> aux = findMinNode(node.right);<span class="comment">// findMinNode返回的是节点</span></span><br><span class="line">        node.key = aux.key;</span><br><span class="line">        node.right = removeNode(node.right, aux.key);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 回调函数用来定义我们对遍历到的每个节点进行操作</span></span><br><span class="line"><span class="comment">// 先序中左右</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">preOrderTraverseNode</span>(<span class="params">node, callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;</span><br><span class="line">        callback(node.key)</span><br><span class="line">        preOrderTraverseNode(node.left, callback)</span><br><span class="line">        preOrderTraverseNode(node.right, callback)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 中序遍历左中右</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inOrderTraverseNode</span>(<span class="params">node, callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;</span><br><span class="line">        inOrderTraverseNode(node.left, callback);</span><br><span class="line">        callback(node.key)</span><br><span class="line">        inOrderTraverseNode(node.right, callback)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 后序遍历左右中</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">postOrderTraverseNode</span>(<span class="params">node, callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;</span><br><span class="line">        postOrderTraverseNode(node.left, callback);</span><br><span class="line">        postOrderTraverseNode(node.right, callback)</span><br><span class="line">        callback(node.key)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 用例测试，树用object来表示</span></span><br><span class="line"><span class="comment">// 普通二叉树</span></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    key: <span class="number">10</span>,</span><br><span class="line">    left: &#123;</span><br><span class="line">        key: <span class="number">11</span>, </span><br><span class="line">        left: &#123;</span><br><span class="line">            key: <span class="number">21</span>, </span><br><span class="line">            left: &#123;</span><br><span class="line">                key: <span class="number">31</span>, </span><br><span class="line">                left: <span class="literal">null</span>,</span><br><span class="line">                right: <span class="literal">null</span></span><br><span class="line">            &#125;,</span><br><span class="line">            right: &#123;</span><br><span class="line">                key: <span class="number">32</span>,</span><br><span class="line">                left: <span class="literal">null</span>,</span><br><span class="line">                right: <span class="literal">null</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, </span><br><span class="line">        right: &#123;</span><br><span class="line">            key: <span class="number">22</span>,</span><br><span class="line">            left: <span class="literal">null</span>,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    right: &#123;</span><br><span class="line">        key: <span class="number">12</span>,</span><br><span class="line">        left: &#123;</span><br><span class="line">            key: <span class="number">23</span>,</span><br><span class="line">            left: <span class="literal">null</span>,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;,</span><br><span class="line">        right: &#123;</span><br><span class="line">            key: <span class="number">24</span>,</span><br><span class="line">            left: <span class="literal">null</span>,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 搜索二叉树</span></span><br><span class="line"><span class="keyword">let</span> treeObj = &#123;</span><br><span class="line">    key: <span class="number">14</span>,</span><br><span class="line">    left: &#123;</span><br><span class="line">        key: <span class="number">12</span>, </span><br><span class="line">        left: &#123;</span><br><span class="line">            key: <span class="number">9</span>, </span><br><span class="line">            left: &#123;</span><br><span class="line">                key: <span class="number">6</span>, </span><br><span class="line">                left: <span class="literal">null</span>,</span><br><span class="line">                right: <span class="literal">null</span></span><br><span class="line">            &#125;,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;, </span><br><span class="line">        right: &#123;</span><br><span class="line">            key: <span class="number">13</span>,</span><br><span class="line">            left: <span class="literal">null</span>,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    right: &#123;</span><br><span class="line">        key: <span class="number">16</span>,</span><br><span class="line">        left: &#123;</span><br><span class="line">            key: <span class="number">10</span>,</span><br><span class="line">            left: <span class="literal">null</span>,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;,</span><br><span class="line">        right: &#123;</span><br><span class="line">            key: <span class="number">20</span>,</span><br><span class="line">            left: &#123;<span class="attr">key</span>: <span class="number">18</span>, <span class="attr">left</span>: <span class="literal">null</span>, <span class="attr">right</span>: <span class="literal">null</span>&#125;,</span><br><span class="line">            right: &#123;<span class="attr">key</span>: <span class="number">21</span>, <span class="attr">left</span>: <span class="literal">null</span>, <span class="attr">right</span>: <span class="literal">null</span>&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> tree = <span class="keyword">new</span> treeList();</span><br><span class="line"><span class="comment">// tree.preOrderTraverseNode(obj, console.log)</span></span><br><span class="line"><span class="comment">// tree.inOrderTraverseNode(obj, console.log)</span></span><br><span class="line"><span class="comment">// tree.postOrderTraverseNode(obj, console.log)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// console.log(tree.findMinNode(treeObj)) // 6</span></span><br><span class="line"><span class="comment">// console.log(tree.findNode(treeObj, 6)) // true</span></span><br><span class="line"><span class="keyword">var</span> node = <span class="keyword">new</span> Node(<span class="number">30</span>)</span><br><span class="line"><span class="comment">// tree.insertNode(node, treeObj)</span></span><br><span class="line"><span class="comment">// tree.inOrderTraverseNode(treeObj, console.log)</span></span><br><span class="line">tree.removeNode(treeObj, <span class="number">20</span>)</span><br><span class="line">tree.inOrderTraverseNode(treeObj, <span class="built_in">console</span>.log)</span><br><span class="line"><span class="comment">// console.log(treeObj)</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请我喝可乐，谢谢！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="leixue 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="leixue 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/leixue-blog/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/leixue-blog/2019/08/16/js数组与字符串之间的种种/" rel="next" title="js数组与字符串之间的种种">
+                <i class="fa fa-chevron-left"></i> js数组与字符串之间的种种
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/leixue-blog/2019/08/16/react相关/" rel="prev" title="react相关">
+                react相关 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+     
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="350" height="86" src="//music.163.com/outchain/player?type=2&id=1377729945&auto=1&height=66"></iframe>
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/leixue-blog/images/avatar.jpeg" alt="leixue">
+            
+              <p class="site-author-name" itemprop="name">leixue</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/leixue-blog/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/leixue-blog/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/leixue-blog/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Rayshelll" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:utopia_leixue@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/rayshell_lx" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.vikeezan.club/" title="Vikeezan" target="_blank">Vikeezan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shuki.top/" title="Skuqi" target="_blank">Skuqi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lililich.work/" title="Lililich" target="_blank">Lililich</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#js树"><span class="nav-number">1.</span> <span class="nav-text">js树</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leixue</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/leixue-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/leixue-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/leixue-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
