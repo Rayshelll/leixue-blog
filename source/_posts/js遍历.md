@@ -13,7 +13,7 @@ for(let i; i<object.length; i++){
 }
 ```
 
-##### `for...of`语句在可迭代对象（包括 `Array` `Map(let a = new Map([['a', 1], ['b', 2], ['c', 3]]);)` `Set(let a= new Set([1, 1, 2, 2, 3, 3]);) ` `String` `TypedArray(let a = new Uint8Array([0x00, 0xff]);)` `arguments`对象等等）可以正确响应 `break` `continue` `return` 语句
+##### `for...of`语句在ES6中引入可遍历：迭代对象（包括 `Array` `Map(let a = new Map([['a', 1], ['b', 2], ['c', 3]]);)` `Set(let a= new Set([1, 1, 2, 2, 3, 3]);) ` `String` `TypedArray(let a = new Uint8Array([0x00, 0xff]);)` `arguments`对象等等）可以正确响应 `break` `continue` `return` 语句
 ```js
 for(let item of object){
     item
@@ -40,9 +40,20 @@ Array.forEach(item, index, Array){
 }
 Array.forEach(function)
 ```
-#### 过滤数据剩下满足item的条件的数据，生成新数组
+#### filter过滤数据剩下满足item的条件的数据，生成新数组
 ```js
 array.filter(item => item%2==0)
+```
+#### some、every遍历数组，return true或者false
+```js
+let list = [4, 5, 6];
+list.every((val, idx, array) => {
+    // val: 当前值
+    // idx：当前index
+    // array: Array
+    return true; // Continues
+    // Return false will quit the iteration
+});
 ```
 
 ##### `reduce`为数组中的每一个元素依次执行回调函数`callback`，不包括数组中被删除或从未被赋值的元素，接受四个参数：(初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用 reduce 的数组)。

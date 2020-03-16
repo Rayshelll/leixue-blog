@@ -297,27 +297,48 @@ background-position: 2px -55px; /*left top*/ /*定位小图*/
 在绝对定位布局中，元素会整体脱离普通流，因此绝对定位元素不会对其兄弟元素造成影响，而元素具体的位置由绝对定位的坐标决定。
 
 #### css3新特性
-1. 伪选择器：：
-    `:last-child`选择器选择的是元素的最后一个子元素、
-    `:first-child`选择器选择的是元素的第一个子元素、
-    `:nth-child(n)`选择器用来定位某个父元素的一个或多个特定的子元素
-    `:nth-last-child(n)` CSS3 匹配父元素的倒数第n个子元素E
-2. @Font-face 特性
-    Font-face 可以用来加载字体样式
-    ``` css
-    @font-face { 
-    font-family: BorderWeb; 
-    src:url(BORDERW0.eot); 
-    }
-    ```
-2. 圆角：`border-radius`
-3. animation动画：
+其中最重要的 CSS3 模块包括：选择器、框模型、背景和边框、文本效果、2D/3D 转换、动画、多列布局、用户界面
+1. 伪选择器：
+`:last-child`选择器选择的是元素的最后一个子元素、
+`:first-child`选择器选择的是元素的第一个子元素、
+`:nth-child(n)`选择器用来定位某个父元素的一个或多个特定的子元素
+`:nth-last-child(n)` CSS3 匹配父元素的倒数第n个子元素E
+2. 字体@Font-face可以用来加载web字体样式
+``` css
+@font-face { 
+font-family: myFont; 
+src:url('Sansation_Light.ttf'); 
+font-weight:bold;
+}
+div{
+    font-family:myFont;
+}
+```
+3. 文本效果：
+- text-shadow: 5px 5px 5px #FF0000; 文字阴影
+- word-wrap:break-word; 自动换行，可拆分单词
+- text-outline: 2px 2px #ff0000; 规定文本轮廓
+4. 新背景属性：
+- background-clip	规定背景的绘制区域。	背景图片可以放置于 content-box、padding-box 或 border-box 区域
+- background-origin	规定背景图片的定位区域。 背景图片可以放置于 content-box、padding-box 或 border-box 区域	
+- background-size:x y(px/%)	规定背景图片的尺寸。
+5. 边框属性：
+    - border-image:url(border.png) 30 30 round;	设置所有 border-image-* 属性的简写属性。	
+    - border-radius:25px;	设置所有四个 border-*-radius 属性的简写属性。	
+    - box-shadow: 10px 10px 5px #888888;	向方框添加一个或多个阴影。
+6. `animation`动画复合属性：
+    - animation-name 绑定绑定到选择器的 `@keyframes`的名称
+    - animation-duration 规定完成动画所花费的时间，以秒或毫秒计
+    - animation-timing-function 规定动画的速度曲线`liner` 默认`ease`
+    - animation-delay 规定在动画开始之前的延迟
+    - animation-iteration-count 规定动画应该播放的次数`infinite`
+    - animation-direction 规定是否应该轮流反向播放动画
     ``` css
     .main:hover{
-            animation: myanimations 2s ease 0s;
+            animation: myanimations 2s ease 0s;<!-- 使用动画 -->
         }
-        @keyframes myanimations {
-            0%{
+        @keyframes myanimations {<!-- 定义动画名称 -->
+            0%{   <!-- 和from状态一样 -->
                 left: 10px;
                 opacity: 1;
             }
@@ -326,19 +347,50 @@ background-position: 2px -55px; /*left top*/ /*定位小图*/
                 opacity: .7;
                 margin-left:-150px;
             }
-            100%{
+            100%{ <!-- 和to状态一样 -->
                 left: 100%;
                 opacity: 0;
                 margin-left:-300px;
             }
         }
     ```
-    Transforms 2D转换效果：主要包括 translate（水平移动）、rotate（旋转）、scale（伸缩）、skew（倾斜）
+7. `transform` :
+- `transform` 2D转换效果：
+    - 移动：translate(x,y) translateX/translateY
+    - 旋转：rotate(angle)
+    - 伸缩：scale(n,n) scaleX/scaleY
+    - 斜切：skew(x-angle,y-angle) skewX/skewY
+    - matrix(n,n,n,n,n,n)：需要六个参数，包含数学函数，允许您：旋转、缩放、移动以及倾斜元素
+- `transform` 3D转换效果：
+    - 移动：translate3d(x,y,z) translateX/translateY/translateZ
+    - 旋转：rotate3d(x,y,z,angle) rotateX(angle)/rotateY(angle)/rotateZ(angle)
+    - 伸缩：scale3d(n,n,n) scaleX/scaleY/scaleZ
+    - matrix3d(n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n)	定义 3D 转换，使用 16 个值的 4x4 矩阵。
+
+8. `transition`过渡:
+    - transition-property	规定应用过渡的 CSS 属性的名称。	
+    - transition-duration	定义过渡效果花费的时间。默认是 0。	
+    - transition-timing-function	规定过渡效果的时间曲线。默认是 "ease"。	
+    - transition-delay	规定过渡效果何时开始。默认是 0。	
     ``` css
-    .main:hover{
-        transform: rotate(180deg);
+    div{
+        transition: width 1s linear 2s;
+        /* Firefox 4 */
+        -moz-transition:width 1s linear 2s;
+        /* Safari and Chrome */
+        -webkit-transition:width 1s linear 2s;
+        /* Opera */
+        -o-transition:width 1s linear 2s;
     }
     ```
+9. 用户界面：
+    - resize：表示是否允许用户调整元素尺寸，允许：resize:both
+    - box-sizing：表示盒模型:border-box还是标准模型:content-box(默认)
+    - outline-offset：outline:2px solid red;outline-offset:15px;对轮廓进行偏移，并在超出边框边缘的位置绘制轮廓。轮廓与边框不同点：轮廓不占用空间、轮廓可能是非矩形
+10. css3多列`column`：
+    - column-count 规定列的数量`column-count:3;`
+    - column-gap 规定列之间的间隔`column-gap:30px;`
+    - column-rule 属性设置列之间的宽度、样式和颜色规则`column-rule:3px outset #ff0000;`
 
 #### 完美的响应式布局vw+vh+rem
 视口布局的优点：宽度和高度全部自动适应！再加上rem布局的字体适应
@@ -372,7 +424,8 @@ vw是可视窗口的宽度单位，和百分比有点一样，1vw = 可视窗口
 1. link属于HTML标签，而@import是CSS提供的;
 2. 页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;
 3. import只在IE5以上才能识别，而link是HTML标签，无兼容问题;
-4. link方式的样式的权重 高于@import的权重.
+4. link方式的样式的权重高于@import的权重.
+5. import规则一定要先于除了@charset的其他任何CSS规则
 
 ### CSS hack
 CSS hack是通过在CSS样式中加入一些特殊的符号，让不同的浏览器识别不同的符号，以达到应用不同的CSS样式的目的。(不同浏览器识别不同css样式)

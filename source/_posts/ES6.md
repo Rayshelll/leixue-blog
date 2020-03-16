@@ -32,7 +32,9 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
     ``` js
     // 对象和数组逐个对应表达式
     //数组
-    let [a, b] = let ['1', '2']一一对应，只多不少
+    let arr = [1,2]
+    var [x,y] = arr //一一对应，只多不少
+    console.log(x,y) // 1, 2
     //对象
     var o = {p: 42, q: true};
     var {p, q} = o;

@@ -1,5 +1,5 @@
 ---
-title: js数组与字符串之间的种种
+title: js数字、数组、字符串之间的种种
 date: 2019-08-16 13:17:23
 tags: 
 - JavaScript
@@ -90,6 +90,44 @@ function compare(property){
 `toUpperCase()`	 把字符串转换为大写。
 `toString()`   返回字符串
 `valueOf()`	 返回字符串对象的原始值。
+
+#### 数字
+1. Number 对象属性
+``` ts
+console.log("TypeScript Number 属性: "); 
+console.log("最大值为: " + Number.MAX_VALUE); // 最大值为: 1.7976931348623157e+308
+console.log("最小值为: " + Number.MIN_VALUE); // 最小值为: 5e-324
+console.log("负无穷大: " + Number.NEGATIVE_INFINITY); // 负无穷大: -Infinity
+console.log("正无穷大:" + Number.POSITIVE_INFINITY); // 正无穷大:Infinity
+console.log("非数字:" + Number.NaN); // 非数字：NaN
+// 还有原型prototype属性
+```
+2. Number 方法(`toExponential()` `toFixed()` `toLocaleString()` `toPrecision()` `toString()` `valueOf()`)
+``` ts
+var num = 1225.30;
+
+// toExponential() 把对象的值转换为指数计数法。
+var val1 = num.toExponential(); // 1.2253e+3
+
+// toFixed() 把数字转换为字符串，并对小数点指定位数。
+var val2 = num.toFixed(3); // 1225.300
+
+// toLocaleString() 把数字转换为字符串，使用本地数字格式顺序。
+var val3 = num.toLocaleString(); // 1225.30
+
+// toPrecision() 把数字格式化为指定的长度。
+var val3 = num.toPrecision(1); // 1e+3
+var val3 = num.toPrecision(2); // 1.2e+3
+
+// toString() 把数字转换为字符串，使用指定的基数。数字的基数是 2 ~ 36 之间的整数。若省略该参数，则使用基数 10。
+var num = new Number(10); 
+console.log(num.toString());  // 输出10进制：10
+console.log(num.toString(2)); // 输出2进制：1010
+console.log(num.toString(8)); // 输出8进制：12
+
+// valueOf() 返回一个 Number 对象的原始数字值。
+console.log(num.valueOf()); // 输出：10
+```
 
 #### 数字、字符串、数组
 基本数据类型：
