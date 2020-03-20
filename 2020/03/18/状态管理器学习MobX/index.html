@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/leixue-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/leixue-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/leixue-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/leixue-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/leixue-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/leixue-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/leixue-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="React,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Mobx的概念Mobx的核心原理是通过action触发state的变化，进而触发state的衍生对象（computed value &amp;amp; Reactions）。 State 定义：在Mobx中，State就对应业务的初始状态，通过observable方法，可以使这些状态变得可观察。 定义状态并使其可观察的方式： observable(data)，支持的data类型有Object, Array">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="状态管理器学习MobX">
+<meta property="og:url" content="https://www.rayshell.work/leixue-blog/2020/03/18/状态管理器学习MobX/index.html">
+<meta property="og:site_name" content="Rayshell&#39;s blog">
+<meta property="og:description" content="Mobx的概念Mobx的核心原理是通过action触发state的变化，进而触发state的衍生对象（computed value &amp;amp; Reactions）。 State 定义：在Mobx中，State就对应业务的初始状态，通过observable方法，可以使这些状态变得可观察。 定义状态并使其可观察的方式： observable(data)，支持的data类型有Object, Array">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-20T08:16:26.109Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="状态管理器学习MobX">
+<meta name="twitter:description" content="Mobx的概念Mobx的核心原理是通过action触发state的变化，进而触发state的衍生对象（computed value &amp;amp; Reactions）。 State 定义：在Mobx中，State就对应业务的初始状态，通过observable方法，可以使这些状态变得可观察。 定义状态并使其可观察的方式： observable(data)，支持的data类型有Object, Array">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/leixue-blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.rayshell.work/leixue-blog/2020/03/18/状态管理器学习MobX/">
+
+
+
+
+
+  <title>状态管理器学习MobX | Rayshell's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <a href="https://github.com/Rayshelll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/leixue-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rayshell's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/leixue-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/leixue-blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/leixue-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/leixue-blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/leixue-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/leixue-blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-favorite">
+          <a href="/leixue-blog/favorite/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br>
+            
+            favorite
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2020/03/18/状态管理器学习MobX/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leixue">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rayshell's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">状态管理器学习MobX</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-18T13:30:10+08:00">
+                2020-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Mobx的概念"><a href="#Mobx的概念" class="headerlink" title="Mobx的概念"></a>Mobx的概念</h3><p>Mobx的核心原理是通过<code>action</code>触发<code>state</code>的变化，进而触发state的衍生对象（<code>computed value</code> &amp; <code>Reactions</code>）。</p>
+<h4 id="State"><a href="#State" class="headerlink" title="State"></a>State</h4><ol>
+<li>定义：在Mobx中，<code>State</code>就对应业务的初始状态，通过<code>observable</code>方法，可以使这些状态变得可观察。</li>
+<li>定义状态并使其可观察的方式：<ul>
+<li><code>observable(data)</code>，支持的data类型有<code>Object</code>, <code>Array</code>,<code>Map</code>；</li>
+<li><code>Obserable.box(value,options?)</code>对js基本类型进行包装</li>
+<li><code>@observable classProperty = value</code>给<code>类属性</code>添加注解</li>
+<li>其他<code>Obserable.object(value,options?)</code>、<code>Obserable.array(value,options?)</code>、<code>Obserable.map(value,options?)</code></li>
+</ul>
+</li>
+<li>返回类型：当某一数据被<code>observable</code>包装后，他返回的其实是被observable包装后的类型(<code>ObservableArray {...}</code>、<code>ObservableMap {...}</code>、<code>ObservableObject {...}</code>)；基本数据返回<code>ObservaleValue{...}</code>。</li>
+<li>代码：<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;observable&#125; <span class="keyword">from</span> <span class="string">'mobx'</span>;</span><br><span class="line"><span class="comment">// 观察数据</span></span><br><span class="line"><span class="keyword">var</span> appState = observable(&#123;</span><br><span class="line">    timer: <span class="number">0</span></span><br><span class="line">&#125;);<span class="comment">// ObservableObject &#123;...&#125;</span></span><br><span class="line"><span class="keyword">const</span> arr= observable([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>]);<span class="comment">// ObservableArray &#123;...&#125;</span></span><br><span class="line"><span class="keyword">var</span> num = observable.box(<span class="number">20</span>);</span><br><span class="line"><span class="comment">//使用get 方法可以得到原来的值，使用set设置值</span></span><br><span class="line">num.get();<span class="comment">//20</span></span><br><span class="line">num.set(<span class="number">111</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 观察类属性</span></span><br><span class="line"><span class="keyword">class</span> Todo &#123;</span><br><span class="line">    id = <span class="built_in">Math</span>.random();</span><br><span class="line">    <span class="meta">@observable</span> title = <span class="string">""</span>;</span><br><span class="line">    <span class="meta">@observable</span> finished = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="action"><a href="#action" class="headerlink" title="action"></a>action</h4><ol>
+<li>定义：通过<code>action</code>改变<code>state</code>。使用MobX你可以在代码中显式地标记出动作所在的位置，action函数是对传入的function进行一次包装，使得function中的observable对象的变化能够被观察到，从而触发相应的衍生。</li>
+<li>创建方式：<ul>
+<li><code>action(fn)</code></li>
+<li><code>action(name,fn)</code>：对fn函数进行包装/装饰，name将被用作调试名。</li>
+<li><code>@action classMethod</code> 类函数包装</li>
+<li><code>@action(name) classMethod</code></li>
+<li><code>@action boundclassMethod = (args) =&gt; {body}</code></li>
+<li><code>@action.bound boundclassMethod(args){body}</code> 创建有范围的动作</li>
+</ul>
+</li>
+</ol>
+<h4 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h4><ol>
+<li>定义：对于依赖<code>state</code>的数据而衍生出的数据，可以使用<code>computed</code>。你有一个值，该值的结果依赖于<code>state</code>，并且该值也需要被<code>observable</code>，那么就使用<code>computed</code>。计算值自动响应状态变化的值</li>
+<li>创建方式：<ul>
+<li><code>computed(fn)</code></li>
+<li><code>@computed classMethod</code> 类函数包装</li>
+</ul>
+</li>
+<li>性能优化（与autorun的不同）：如果计算属性依赖的state没改变，或者该计算值没有被其他计算值或响应（reaction）使用，computed便不会运行。在这种情况下，computed处于暂停状态，此时若该计算属性不再被observable。那么其便会被Mobx垃圾回收。</li>
+</ol>
+<h4 id="autorun"><a href="#autorun" class="headerlink" title="autorun"></a>autorun</h4><ol>
+<li>定义：<code>autorun</code>也是响应<code>state</code>的api。和<code>computed</code>类似，只要依赖的值改变时，其都会改变。不同的是，<code>autorun</code>没有了<code>computed</code>的优化（当然，依赖值未改变的情况下也不会重新运行，但不会被自动回收）。<code>autorun</code>通常用来执行一些有副作用的。例如打印日志，更新UI等等。</li>
+<li>创建方式：<ul>
+<li><code>autorun(fn)</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="observer"><a href="#observer" class="headerlink" title="observer"></a>observer</h4><p>在和Mobx数据有关联的时候，需要给你的React组件加上<code>@observer</code>，创建视图，当observable的相关数据发生改变时，视图会自动更新。MobX 会以一种最小限度的方式来更新视图。 </p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;observer&#125; <span class="keyword">from</span> <span class="string">'mobx-react'</span>;</span><br><span class="line"><span class="comment">// 父子组件传值</span></span><br><span class="line"><span class="keyword">class</span> MyState &#123;</span><br><span class="line">  <span class="meta">@observable</span> num1 = <span class="number">0</span>;</span><br><span class="line">  <span class="meta">@observable</span> num2 = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@action</span> addNum1 = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.num1 ++;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="meta">@action</span> addNum2 = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.num2 ++;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="meta">@computed</span> <span class="keyword">get</span> total() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.num1 + <span class="keyword">this</span>.num2;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newState = <span class="keyword">new</span> MyState();</span><br><span class="line"><span class="comment">// 子组件AllNum</span></span><br><span class="line"><span class="keyword">const</span> AllNum = observer(<span class="function">(<span class="params">props</span>) =&gt;</span> &lt;div&gt;num1 + num2 = &#123;props.store.total&#125;&lt;<span class="regexp">/div&gt;);</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 子组件Main</span></span><br><span class="line"><span class="regexp">const Main = observer((props) =&gt; (</span></span><br><span class="line"><span class="regexp">  &lt;div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;p&gt;num1 = &#123;props.store.num1&#125;&lt;/</span>p&gt;</span><br><span class="line">    &lt;p&gt;num2 = &#123;props.store.num2&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">    &lt;div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;props.store.addNum1&#125;&gt;num1 + 1&lt;/</span>button&gt;</span><br><span class="line">      &lt;button onClick=&#123;props.store.addNum2&#125;&gt;num2 + <span class="number">1</span>&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">));</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">@observer</span></span><br><span class="line"><span class="regexp">export default class App extends React.Component &#123;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  render() &#123;</span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">      &lt;div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Main store=&#123;newState&#125; /</span>&gt;</span><br><span class="line">        &lt;AllNum store=&#123;newState&#125; /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="MobX的要点"><a href="#MobX的要点" class="headerlink" title="MobX的要点"></a>MobX的要点</h3><ol>
+<li>定义状态并使其可观察 observable </li>
+<li>创建视图以响应状态的变化 observer</li>
+<li>更改状态 action</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请我喝可乐，谢谢！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="leixue 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="leixue 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/leixue-blog/tags/React/" rel="tag"><i class="fa fa-tag"></i> React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/leixue-blog/2020/03/12/TypeScript学习/" rel="next" title="TypeScript学习">
+                <i class="fa fa-chevron-left"></i> TypeScript学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+     
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="350" height="86" src="//music.163.com/outchain/player?type=2&id=1377729945&auto=1&height=66"></iframe>
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/leixue-blog/images/avatar.jpeg" alt="leixue">
+            
+              <p class="site-author-name" itemprop="name">leixue</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/leixue-blog/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/leixue-blog/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/leixue-blog/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Rayshelll" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:utopia_leixue@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/rayshell_lx" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.vikeezan.club/" title="Vikeezan" target="_blank">Vikeezan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shuki.top/" title="Skuqi" target="_blank">Skuqi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lililich.work/" title="Lililich" target="_blank">Lililich</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mobx的概念"><span class="nav-number">1.</span> <span class="nav-text">Mobx的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#State"><span class="nav-number">1.1.</span> <span class="nav-text">State</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#action"><span class="nav-number">1.2.</span> <span class="nav-text">action</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#computed"><span class="nav-number">1.3.</span> <span class="nav-text">computed</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#autorun"><span class="nav-number">1.4.</span> <span class="nav-text">autorun</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#observer"><span class="nav-number">1.5.</span> <span class="nav-text">observer</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MobX的要点"><span class="nav-number">2.</span> <span class="nav-text">MobX的要点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leixue</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/leixue-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/leixue-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/leixue-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/leixue-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/leixue-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

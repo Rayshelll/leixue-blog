@@ -280,6 +280,438 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/09/02/剑值offer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leixue">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rayshell's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/leixue-blog/2019/09/02/剑值offer/" itemprop="url">剑值offer</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-02T16:59:41+08:00">
+                2019-09-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>跳台阶、矩形覆盖</li>
+</ol>
+<ul>
+<li><p>题目：一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
+</li>
+<li><p>分析：青蛙每次只有一阶或者两阶两种跳法，找规律，那么：f(1) = 1; f(2) = 2; f(3) = 3; f(4) = 5….</p>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 最终得出的是一个斐波那契数列：</span></span><br><span class="line">        |  <span class="number">1</span>，n = <span class="number">1</span></span><br><span class="line">f(n) =  |  <span class="number">2</span>, n = <span class="number">2</span></span><br><span class="line">        |  f(n<span class="number">-1</span>) + f(n <span class="number">-2</span>), n &gt;= <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态规则实现： </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jumpFloor</span>(<span class="params">number</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 跳台阶，找规律，斐波那契数列1，2，3，5，8</span></span><br><span class="line">    <span class="keyword">if</span> (number &lt; <span class="number">3</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> number</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> f0 = <span class="number">1</span>, f1 = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">var</span> f2 = f0 + f1;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">3</span>; i&lt;=number; i++)&#123;</span><br><span class="line">            f2 = f0 + f1;</span><br><span class="line">            f0 = f1;</span><br><span class="line">            f1 = f2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 递归方法实现：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jumpFloor</span>(<span class="params">number</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 跳台阶，找规律，斐波那契数列1，2，3，5，8</span></span><br><span class="line">    <span class="keyword">if</span> (number &lt; <span class="number">3</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> number</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> jumpFloor(number - <span class="number">1</span>) + jumpFloor(number - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="2">
+<li>变态跳台阶问题</li>
+</ol>
+<ul>
+<li><p>题目：一个台阶总共有n级，如果一次可以跳1级，也可以跳2级……它也可以跳上n级。此时该青蛙跳上一个n级的台阶总共有多少种跳法？</p>
+</li>
+<li><p>分析：f(1) = 1; f(2) = 2; f(3) = 4; f(4) = 8; f(5) = 16….</p>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 最终得出的：</span></span><br><span class="line">        |  <span class="number">1</span>，n = <span class="number">1</span></span><br><span class="line">f(n) =  |  <span class="number">2</span>, n = <span class="number">2</span></span><br><span class="line">        |  <span class="number">2</span> * f(n<span class="number">-1</span>), n &gt;= <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态规则实现： </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jumpFloorII</span>(<span class="params">number</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (number &lt; <span class="number">3</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> number</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> f2 = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">var</span> f3 = <span class="number">2</span> * f2;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">3</span>; i&lt;=number; i++)&#123;</span><br><span class="line">            f3 = <span class="number">2</span> * f2;</span><br><span class="line">            f2 = f3;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 递归方法实现：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jumpFloorII</span>(<span class="params">number</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (number &lt; <span class="number">3</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> number</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span> * jumpFloorII(number<span class="number">-1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="3">
+<li><p>输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 位运算</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">NumberOf1</span>(<span class="params">n</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 整数输入计算机都是以二进制来存储，正整数以原码来存储，负整数以补码来存储，十进制显示，可以使用位运算符</span></span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span>,flag=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(flag)&#123;</span><br><span class="line">        <span class="keyword">if</span>(n &amp; flag)&#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        flag = flag &lt;&lt; <span class="number">1</span>; <span class="comment">//左移一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 十进制转二进制，统计1的个数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">NumberOf1</span>(<span class="params">n</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        n = n &gt;&gt;&gt; <span class="number">0</span>;<span class="comment">// 如果是负数，现将其转换为（负数+2的32次方），也就是32位负数补码的十进制</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> res = n.toString(<span class="number">2</span>); <span class="comment">// 正整数转二进制</span></span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;res.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (res[i] == <span class="number">1</span>)&#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>滑动窗口</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 最大值用Math.max.apply</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">maxInWindows</span>(<span class="params">num, size</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// write code here</span></span><br><span class="line">    <span class="keyword">var</span> arr = [];</span><br><span class="line">    <span class="comment">// 滑动num.length-size+1次</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;num.length-size+<span class="number">1</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> tempindex = i + size;</span><br><span class="line">        <span class="keyword">var</span> temparr = num.slice(i, tempindex);</span><br><span class="line">        arr.push(<span class="built_in">Math</span>.max.apply(<span class="keyword">this</span>, temparr))<span class="comment">// this调用Math.max方法</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 最大值用循环</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">maxInWindows</span>(<span class="params">num, size</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// write code here</span></span><br><span class="line">    <span class="keyword">if</span> (size == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> arr = [];</span><br><span class="line">    <span class="comment">// 滑动num.length-size+1次</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; num.length - size + <span class="number">1</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> temp = i + size - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 排序选取最大值</span></span><br><span class="line">        <span class="keyword">var</span> max = num[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j = i; j &lt;= temp; j++)&#123;     </span><br><span class="line">            <span class="keyword">if</span> (num[j] &gt; max)&#123;</span><br><span class="line">                max = num[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        arr.push(max);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>出现数字超过一半、中位数、寻找第k大的数（计算数组中每个元素出现的次数）</p>
+</li>
+<li><p>顺时针打印矩阵：</p>
+<ul>
+<li><p>方法一：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printMatrix</span>(<span class="params">matrix</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 记录top right bottom left的值，依次打印，打印一圈，left++, right--, top++, bottom--;</span></span><br><span class="line">    <span class="keyword">var</span> row = matrix.length;</span><br><span class="line">    <span class="keyword">var</span> col = matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">var</span> left = <span class="number">0</span>, right = col - <span class="number">1</span>, top = <span class="number">0</span>, bottom = row - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> res = [];</span><br><span class="line">    <span class="keyword">if</span> (row == <span class="number">0</span> || col == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right &amp;&amp; top &lt;= bottom)&#123;</span><br><span class="line">        <span class="comment">// 从左到右打印</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = left; i &lt;= right; i++)&#123;</span><br><span class="line">            res.push(matrix[top][i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 从上到下打印</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = top + <span class="number">1</span>; i &lt;= bottom; i++)&#123;</span><br><span class="line">            res.push(matrix[i][right])</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 从右到左打印</span></span><br><span class="line">        <span class="keyword">if</span> (top != bottom)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i = right<span class="number">-1</span>; i &gt;= left; i--)&#123;</span><br><span class="line">                res.push(matrix[bottom][i])</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 从下到上打印</span></span><br><span class="line">        <span class="keyword">if</span> (left != right)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i= bottom - <span class="number">1</span>; i &gt; top; i--)&#123;</span><br><span class="line">                res.push(matrix[i][left])</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        left++, right--, top++, bottom--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法二：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用矩阵转置的思想</span></span><br><span class="line"><span class="comment">// 顺时针打印矩阵，打印第一排，然后剩下矩阵转置再上下交换，形成新的矩阵，在打印第一排，循环如此</span></span><br><span class="line"><span class="comment">// 矩阵转置➕上下交换</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverseMatrix</span>(<span class="params">matrix</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 初始化数组</span></span><br><span class="line">    <span class="keyword">var</span> matrix2=[];</span><br><span class="line">    <span class="comment">// console.log(matrix)</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;matrix[<span class="number">0</span>].length;i++)&#123;</span><br><span class="line">        matrix2[i]=[];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 矩阵转置</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;matrix.length;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;matrix[i].length;j++)&#123;</span><br><span class="line">            matrix2[j][i]=matrix[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 初始化</span></span><br><span class="line">    <span class="keyword">var</span> brr = [], len =matrix2.length;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;matrix2.length;i++)&#123;</span><br><span class="line">        brr[i]=[];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 数组上下交换</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; matrix2[i].length; j++)&#123;</span><br><span class="line">            brr[i][j] = matrix2[len-i<span class="number">-1</span>][j]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> brr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printMatrix</span>(<span class="params">matrix</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = [];</span><br><span class="line">    <span class="keyword">var</span> brr = matrix;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;brr[<span class="number">0</span>].length; i++)&#123;</span><br><span class="line">        res.push(brr[<span class="number">0</span>][i]);    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(brr.length &gt; <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> crr = brr.slice(<span class="number">1</span>, brr.length);</span><br><span class="line">        <span class="keyword">var</span> brr = reverseMatrix(crr); </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;brr[<span class="number">0</span>].length; i++)&#123;</span><br><span class="line">            res.push(brr[<span class="number">0</span>][i]); </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/29/hexo主题同步问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leixue">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rayshell's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/leixue-blog/2019/08/29/hexo主题同步问题/" itemprop="url">hexo主题同步问题</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-29T16:17:38+08:00">
+                2019-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>目前hexo主题都是通过git clone的方式克隆到本地来的，然而在提交站点源码到远程仓库时，themes文件夹下的主题文件是不会提交到仓库里的，因此我们如果更改了主题文件下的一些设置，这部分设置由于没有提交会被丢失，这带来了极大的不便。为此，我们决定采用官方推荐的<code>fork+subtree</code>的方式来管理主题。(可以现将自己已有的theme文件夹备份)</p>
+<ol>
+<li><p>删除themes目录下的next文件夹，并将修改push到github</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;delete next&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入next的<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">github主页</a>，<code>fork</code>一下，在自己的GitHub仓库生成hexo-theme-next仓库</p>
+</li>
+<li><p>待fork完成后绑定next主题为子项目</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote add -f next git@github.com:Rayshelll/hexo-theme-next.git</span><br><span class="line">git subtree add --prefix=themes/next next master --squash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新子项目</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git fetch next master</span><br><span class="line">git subtree pull --prefix=themes/next next master --squash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从子目录push到远程仓库  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git subtree push --prefix=themes/next next master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提交并发布本地修改到远程仓库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;next theme&quot;</span><br><span class="line">git push</span><br><span class="line">git push origin hexo -f</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>现在再去远程仓库看themes/next/就有内容了，并且跟子项目的远程仓库可以保持更新，在主项目中修改也可以push到子项目的远程。这样就不必担心主题配置丢失了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/25/牛客网JavaScript（V8）输入输出操作指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leixue">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rayshell's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/leixue-blog/2019/08/25/牛客网JavaScript（V8）输入输出操作指南/" itemprop="url">牛客网JavaScript（V8）输入输出操作指南</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-25T21:28:15+08:00">
+                2019-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="JavaScript（V8）引擎操作指南"><a href="#JavaScript（V8）引擎操作指南" class="headerlink" title="JavaScript（V8）引擎操作指南"></a>JavaScript（V8）引擎操作指南</h3><ol>
+<li><p>单行输入：<br>牛客网V8引擎是利用了<code>readline()</code>接收输入的每一行，该行字符数不能超过1024个，否则会报错。<br>赛码网是<code>read_line()</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str = readline(); <span class="comment">// 输入字符串</span></span><br><span class="line"><span class="keyword">var</span> num = paresInt(readline()); <span class="comment">// 输入数字</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多行输入：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 输入任意行数</span></span><br><span class="line"><span class="keyword">while</span> (lines = readline()) &#123;   </span><br><span class="line">    <span class="keyword">var</span> arr = lines.split(<span class="string">" "</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 输入：</span></span><br><span class="line"><span class="comment">eg: q w e</span></span><br><span class="line"><span class="comment">    w e r</span></span><br><span class="line"><span class="comment">    w e q</span></span><br><span class="line"><span class="comment">输出：lines = ['q w e','w e r','w e q']; arr=[[q, w, e], [w, e, r], [w, e, q]]</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 输入固定行数</span></span><br><span class="line"><span class="keyword">var</span> lineNum = paresInt(readline()); <span class="comment">// 输入行数</span></span><br><span class="line"><span class="keyword">var</span> lines = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;lineNum; i++)&#123;</span><br><span class="line">    <span class="keyword">var</span> lines = lines.push(readline());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 输入：</span></span><br><span class="line"><span class="comment">eg: 3</span></span><br><span class="line"><span class="comment">    1 2</span></span><br><span class="line"><span class="comment">    2 3</span></span><br><span class="line"><span class="comment">    3 4</span></span><br><span class="line"><span class="comment">输出：lineNum = 3; lines = ['1 2', '2 3', '3 4']</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 输入矩阵</span></span><br><span class="line"><span class="keyword">var</span> lineNum = paresInt(readline()); <span class="comment">// 输入行数</span></span><br><span class="line"><span class="keyword">var</span> lines = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;lineNum; i++)&#123;</span><br><span class="line">    <span class="keyword">var</span> lines = lines.push(readline().split(<span class="string">" "</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 输入：</span></span><br><span class="line"><span class="comment">eg: 3</span></span><br><span class="line"><span class="comment">    1 2 4</span></span><br><span class="line"><span class="comment">    2 3 4</span></span><br><span class="line"><span class="comment">    3 4 4</span></span><br><span class="line"><span class="comment">输出：lineNum = 3; lines = [[1, 2, 4], [2, 3, 4], [3, 4, 4]]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输出</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">print()</span><br><span class="line"><span class="built_in">console</span>.log()</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/19/vue相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -495,10 +927,10 @@
 <li>浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体.</li>
 <li>DOM Tree 和样式结构体组合后构建render tree，render tree不包含隐藏的节点(比如display:none的节点，还有head节点)，<code>DOM Tree+ CSS = render tree</code>。</li>
 </ol>
-<h4 id="Repaint（重绘）和Reflow（回流）"><a href="#Repaint（重绘）和Reflow（回流）" class="headerlink" title="Repaint（重绘）和Reflow（回流）"></a>Repaint（重绘）和Reflow（回流）</h4><ul>
+<h4 id="Repaint（重绘）和Reflow（重排）"><a href="#Repaint（重绘）和Reflow（重排）" class="headerlink" title="Repaint（重绘）和Reflow（重排）"></a>Repaint（重绘）和Reflow（重排）</h4><ul>
 <li><p><code>repaint</code>：重绘render tree中的一些元素需要更新属性触发的浏览器行为，这些属性只是影响元素的外观，风格，而不会影响布局的。例如改变<code>background-color</code>、<code>visibility</code>、<code>outline</code>、透明度等属性。浏览器会根据元素的新属性重新绘制，使元素呈现新的外观。重绘不会带来重新布局，并不一定伴随回流。</p>
 </li>
-<li><p><code>reflow</code>：回流是更明显的一种改变，元素的内容、结构、位置、布局，隐藏、动画、尺寸发生了变化，<strong>需要重新计算样式和render tree</strong>，这个过程称为Reflow。重排一定会引起浏览器的重绘，会影响排版。对脱离文档流的元素和隐藏的元素<code>display:none</code>操作不会引起回流。</p>
+<li><p><code>reflow</code>：重排是更明显的一种改变，元素的内容、结构、位置、布局，隐藏、动画、尺寸发生了变化，<strong>需要重新计算样式和render tree</strong>，这个过程称为Reflow。重排一定会引起浏览器的重绘，会影响排版。对脱离文档流的元素和隐藏的元素<code>display:none</code>操作不会引起重排。</p>
 </li>
 <li><p>常见的引起回流的具体操作：</p>
 <ol>
@@ -594,7 +1026,7 @@
 </ul>
 </li>
 </ol>
-<h4 id="HTML5那些新增属性"><a href="#HTML5那些新增属性" class="headerlink" title="HTML5那些新增属性"></a>HTML5那些新增属性</h4><p>html5新增：<code>canvas</code>绘画，本地离线存储<code>localStorage</code>，<code>sessionStorage</code>，<code>video</code>和<code>audio</code>元素，语义化元素，表单类型（<code>date</code>，<code>time</code>，<code>email</code>等），地理定位等等</p>
+<h4 id="HTML5那些新增属性"><a href="#HTML5那些新增属性" class="headerlink" title="HTML5那些新增属性"></a>HTML5那些新增属性</h4><p>html5新增：<code>canvas</code>绘画，本地离线存储<code>localStorage</code>，<code>sessionStorage</code>，跨域<code>window.postMessage</code>API，<code>video</code>和<code>audio</code>元素，语义化元素，表单类型（<code>date</code>，<code>time</code>，<code>email</code>等），地理定位等等</p>
 <h4 id="前端一般主要的一些漏洞或者是场景"><a href="#前端一般主要的一些漏洞或者是场景" class="headerlink" title="前端一般主要的一些漏洞或者是场景"></a>前端一般主要的一些漏洞或者是场景</h4><ol>
 <li>SQL 注入攻击(SQL Injection)<br>对输入字符串中夹带的 SQL 指令的检查，那么这些夹带进去的指令就会被数据库误认为是正常的 SQL 指令而运行，从而使数据库受到攻击，可能导致数据被窃取、更改、删除，以及进一步导致网站被嵌入恶意代码、被植入后门程序等危害。<br>解决方法：对进入数据库的特殊字符 ‘“&lt;&gt;&amp;*; 等进行转义处理，或编码转换。</li>
 <li>跨站脚本攻击(Cross Site Scripting, XSS)<br>跨站脚本攻击(Cross Site Scripting, XSS)发生在客户端，可被用于进行窃取隐私、钓鱼欺骗、偷取密码、传播恶意代码等攻击行为。 恶意的攻击者将对客户端有危害的代码放到服务器上作为一个网页内容， 使得其他网站用户在观看此网页时，这些代码注入到了用户的浏览器中执行，使用户受到攻击。一般而言，利用跨站脚本攻击，攻击者可窃会话 Cookie 从而窃取网站用户的隐私<br>解决办法：</li>
@@ -615,7 +1047,7 @@
 <h4 id="懒加载的原理"><a href="#懒加载的原理" class="headerlink" title="懒加载的原理"></a>懒加载的原理</h4><p>核心原理是：</p>
 <ol>
 <li>设置一个定时器，计算每张图片是否会随着滚动条的滚动，而出现在视口（也就是浏览器中的 展现网站的空白部分 ）中；</li>
-<li>为<img>标签设置一个暂存图片URL的自定义属性（例如loadpic），当图片出现在视口时，再将loadpic的值赋给图片的src属性；</li>
+<li>为<code>&lt;img&gt;</code>标签设置一个暂存图片URL的自定义属性（例如loadpic），当图片出现在视口时，再将loadpic的值赋给图片的src属性；</li>
 </ol>
 
           
@@ -750,21 +1182,22 @@
 </li>
 <li>水平居中实现方式：<ol>
 <li>子元素<code>{margin:0 auto;}</code></li>
-<li>子元素<code>{position: relative/absolute; left: 50%;}</code></li>
-<li>父元素<code>display: flex; justify-content: center</code></li>
+<li>父元素<code>display:flex; justify-content:center;</code></li>
+<li>父元素：<code>position:relative;</code><br>子元素<code>{position:relative/absolute; left:50%; margin-left:-width(子元素)/2;}</code>（已知子元素宽高）</li>
+<li>父元素：<code>position:relative;</code><br>子元素：<code>position:relative/absolute; left:0; right:0; margin:auto;</code></li>
 </ol>
 </li>
 <li>垂直居中实现方式：    <ol>
-<li>父元素：<code>display: flex; align-items: center;</code></li>
-<li>父元素：<code>position: relative;</code> 子元素：<code>position: absolute; top: 50%; margin-top: -height（子）/2;</code></li>
-<li>父元素：<code>position: relative;</code> 子元素：<code>position:absolute; top:0; bottom:0;margin:auto;</code></li>
+<li>父元素：<code>display:flex; align-items:center;</code></li>
+<li>父元素：<code>position:relative;</code><br>子元素：<code>position:relative/absolute; top:50%; margin-top:-height(子元素)/2;</code>（已知子元素宽高）</li>
+<li>父元素：<code>position:relative;</code><br>子元素：<code>position:relative/absolute; top:0; bottom:0; margin:auto;</code></li>
 </ol>
 </li>
 <li>水平垂直居中实现方式：<ol>
-<li>父元素：<code>display: flex;justify-content: center;align-items: center;</code></li>
-<li>父元素：<code>display:flex;</code>子元素：<code>margin:auto;</code></li>
-<li>父元素：<code>position: relative;</code> 子元素：<code>position: absolute; top: 50%; left: 50%; margin-top: -height（子）/2; margin-right: -width/2;(已知块级元素的宽和高)</code></li>
-<li>父元素：<code>position:relative</code> 子元素：<code>position: absolute; top:0; left:0; bottom:0; right:0; margin:auto;</code> </li>
+<li>父元素：<code>display:flex; justify-content:center; align-items:center;</code></li>
+<li>父元素：<code>display:flex;</code><br>子元素：<code>margin:auto;</code></li>
+<li>父元素：<code>position:relative;</code><br>子元素：<code>position:relative/absolute; top:50%; left:50%; margin-top:-height(子元素)/2;margin-right:-width(子元素)/2;</code>(已知块级元素的宽和高)</li>
+<li>父元素：<code>position:relative</code><br>子元素：<code>position:relative/absolute; top:0; left:0; bottom:0; right:0; margin:auto;</code> </li>
 </ol>
 </li>
 </ul>
@@ -779,18 +1212,18 @@
 <li>不会自动进行换行；</li>
 </ol>
 </li>
-<li>水平居中实现方式：<ol>
+<li>水平居中实现方式：父元素为块级元素<ol>
 <li>父元素<code>text-align:center</code></li>
 </ol>
 </li>
 <li>垂直居中实现方式：<ol>
-<li>子元素<code>line-height:height(父);</code></li>
-<li>父元素<code>display: table-cell; vertical-align:middle;</code>   </li>
+<li>子元素<code>line-height:height(父元素);</code></li>
+<li>父元素<code>display:table-cell; vertical-align:middle;</code>   </li>
 </ol>
 </li>
 <li>水平垂直居中实现方式：           <ol>
-<li>父元素<code>display: table-cell; vertical-align: middle; text-align: center;</code>  </li>
-<li>父元素<code>text-align:center</code> 子元素<code>line-height:height(父);</code></li>
+<li>父元素<code>display:table-cell; vertical-align:middle; text-align:center;</code>  </li>
+<li>父元素<code>text-align:center</code> 子元素<code>line-height:height(父元素);</code></li>
 </ol>
 </li>
 </ul>
@@ -810,9 +1243,8 @@
 <h3 id="css相对定位、绝对定位"><a href="#css相对定位、绝对定位" class="headerlink" title="css相对定位、绝对定位"></a>css相对定位、绝对定位</h3><ol>
 <li>绝对定位(<code>position:absolute</code>)生成绝对定位的元素（脱离文档流），相对于 <code>static</code> 定位以外的第一个父元素进行定位(如果不存在这样的包含块，则相对于body元素，即相对于浏览器窗口)。元素的位置通过 “left”, “top”, “right” 以及 “bottom” 属性进行规定。</li>
 <li>相对定位(<code>position:relative</code>)生成相对定位的元素(没有脱离文档流)，相对于自身正常位置进行定位。移动的方向和幅度由left、right、top、bottom属性确定，偏移前的位置保留不动.</li>
-<li>固定定位(<code>position: fixed</code>) 与<code>background-attachment:fixed;</code>属性功能相同。生成绝对定位的元素(脱离文档流)，相对于浏览器窗口进行定位。不受窗口大小变化和滚动条而改变位置</li>
+<li>固定定位(<code>position:fixed</code>) 与<code>background-attachment:fixed;</code>属性功能相同。生成绝对定位的元素(脱离文档流)，相对于浏览器窗口进行定位。不受窗口大小变化和滚动条而改变位置</li>
 <li><code>position:static</code>默认值，没有定位，元素出现在正常的流中；<code>position:inherit</code>规定应该从父元素继承 position 属性的值。</li>
-<li>嵌套使用：子容器在父容器底部居中：父容器：<code>position：relative；</code>子容器：<code>position：absolute；bottom：0；left：0；right：0；margin: auto</code></li>
 </ol>
 <h3 id="CSS-选择器"><a href="#CSS-选择器" class="headerlink" title="CSS 选择器"></a>CSS 选择器</h3><ul>
 <li>CSS 选择器<ol>
@@ -824,10 +1256,10 @@
 <li>后代选择器(li a)</li>
 <li>通配符选择器( * )</li>
 <li>属性选择器(a[rel = “external”])</li>
-<li>伪类选择器(a: hover, li:nth-child)</li>
+<li>伪类选择器(a:hover, li:nth-child)</li>
 </ol>
 </li>
-<li>可继承的样式：1.font-size 2.font-family 3.color 4.text-indent</li>
+<li>可继承的样式：1.font-size 2.font-family 3.color 4.text-indent(首行文本的缩进)</li>
 <li>不可继承的样式：1.border 2.padding 3.margin 4.width 5.height</li>
 <li>优先级算法：<ol>
 <li>优先级就近原则，同权重情况下样式定义最近者为准;</li>
@@ -840,41 +1272,41 @@
 <h3 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h3><ol>
 <li>标准W3C盒子模型：<ol>
 <li>width = content</li>
-<li>box-sizing: content-box(默认)</li>
+<li>box-sizing:content-box(默认)</li>
 <li>渲染wh受 padding border 等属性影响，动态大小</li>
 </ol>
 </li>
 <li>IE盒子模型中：<ol>
 <li>width = content + padding + border；</li>
-<li>box-sizing: border-box；</li>
+<li>box-sizing:border-box；</li>
 <li>渲染wh不受 padding border 等属性影响，固定大小</li>
 </ol>
 </li>
 </ol>
 <h3 id="Flex布局"><a href="#Flex布局" class="headerlink" title="Flex布局"></a>Flex布局</h3><p><strong>传统布局</strong>基于盒状模型，依赖 <code>display</code>属性 + <code>position</code>属性 + <code>float</code>属性( 缺点：垂直居中等不好实现)<br><strong>Flex</strong>是Flexible Box的缩写，意为”弹性布局”<br>有两个重要概念：<strong>容器</strong>和<strong>项目</strong>(容器的子成员)<br><strong><em>注意</em></strong>，设为Flex布局以后，子元素的<code>float</code>、<code>clear</code>和<code>vertical-align</code>属性将失效。</p>
 <p>语法：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">display</span>: flex-inline; <span class="comment">/* 行内元素flex布局 */</span></span><br><span class="line">    <span class="attribute">display</span>: -webkit-flex; <span class="comment">/* </span></span><br><span class="line"><span class="comment">    Webkit内核的浏览器Safari */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>:flex;</span><br><span class="line">    <span class="attribute">display</span>:flex-inline; <span class="comment">/* 行内元素flex布局 */</span></span><br><span class="line">    <span class="attribute">display</span>:-webkit-flex; <span class="comment">/* </span></span><br><span class="line"><span class="comment">    Webkit内核的浏览器Safari */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h4><p>6个属性：<br><code>flex-direction</code>  项目的排列<strong>方向</strong><br><code>flex-wrap</code> 项目排列是否<strong>换行</strong><br><code>flex-flow</code> 前两项的简写<br><code>justify-content</code> 项目在<strong>主轴</strong>上的<strong>对齐方式</strong><br><code>align-items</code> 项目在<strong>竖轴</strong>上如何<strong>对齐方式</strong><br><code>align-content</code> <strong>多根轴线</strong>的<strong>对齐方式</strong>，只有一根轴线，该属性不起作用</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">flex-direction</span>: <span class="built_in">row</span>(从左到右) / row-reverse (从右到左) / column (从上到下) / <span class="built_in">column-reverse</span>(从下到上);</span><br><span class="line">    <span class="attribute">flex-wrap</span>: <span class="built_in">nowrap</span>(默认值不换行)  / <span class="built_in">wrap</span>(换行，第一行在上方)  / <span class="built_in">wrap-reverse</span>(换行，第一行在下方) ;</span><br><span class="line">    <span class="attribute">flex-flow</span>: &lt;flex-direction&gt; &lt;flex-wrap&gt;;</span><br><span class="line">    <span class="attribute">justify-content</span>: <span class="built_in">flex-start</span>(左对齐) / <span class="built_in">flex-end</span>(右对齐)  / center (居中) / <span class="built_in">space-between</span>(两端对齐)  / <span class="built_in">space-around</span>(间隔相等);</span><br><span class="line">    <span class="attribute">align-items</span>: <span class="built_in">stretch</span>(默认值，未设高度拉伸填满) / <span class="built_in">flex-start</span>(起点对齐)  / flex-end (终点对齐) / center (中点对齐) / <span class="built_in">baseline</span>(第一行文字的基线对齐);</span><br><span class="line">    <span class="attribute">align-content</span>: flex-start / flex-end / center / space-between / space-around / stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">flex-direction</span>:<span class="built_in">row</span>(从左到右) / row-reverse (从右到左) / column (从上到下) / <span class="built_in">column-reverse</span>(从下到上);</span><br><span class="line">    <span class="attribute">flex-wrap</span>:<span class="built_in">nowrap</span>(默认值不换行)  / <span class="built_in">wrap</span>(换行，第一行在上方)  / <span class="built_in">wrap-reverse</span>(换行，第一行在下方) ;</span><br><span class="line">    <span class="attribute">flex-flow</span>:&lt;flex-direction&gt; &lt;flex-wrap&gt;;</span><br><span class="line">    <span class="attribute">justify-content</span>:<span class="built_in">flex-start</span>(左对齐) / <span class="built_in">flex-end</span>(右对齐)  / center (居中) / <span class="built_in">space-between</span>(两端对齐)  / <span class="built_in">space-around</span>(间隔相等);</span><br><span class="line">    <span class="attribute">align-items</span>:<span class="built_in">stretch</span>(默认值，未设高度拉伸填满) / <span class="built_in">flex-start</span>(起点对齐)  / flex-end (终点对齐) / center (中点对齐) / <span class="built_in">baseline</span>(第一行文字的基线对齐);</span><br><span class="line">    <span class="attribute">align-content</span>:flex-start / flex-end / center / space-between / space-around / stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h4><p>6个属性：<br><code>order</code> 项目的排列顺序。数值越小，排列越靠前，默认为0<br><code>flex-grow</code> 项目的放大比例，默认为0<br><code>flex-shrink</code> 项目的缩小比例，默认为1<br><code>flex-basis</code> 项目占据的主轴空间<br><code>flex</code> <strong>前三个的简写，优先使用这个属性</strong><br><code>align-self</code> 允许单个项目有与其他项目不一样的对齐方式,可覆盖容器属性align-items属性</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">order</span>: &lt;integer&gt;;</span><br><span class="line">    <span class="attribute">flex-grow</span>: &lt;number&gt;; <span class="comment">/* default 0 */</span></span><br><span class="line">    <span class="attribute">flex-shrink</span>: &lt;number&gt;; <span class="comment">/* default 1 负值对该属性无效*/</span></span><br><span class="line">    <span class="attribute">flex-basis</span>: &lt;length&gt; / auto; <span class="comment">/* default auto */</span></span><br><span class="line">    <span class="attribute">flex</span>: <span class="built_in">none</span>(0 0 auto) / <span class="built_in">auto</span>(1 1 auto)<span class="comment">/*默认值为0 1 auto*/</span></span><br><span class="line">    align-self: auto / flex-start / flex-end / center / baseline / stretch; <span class="comment">/*默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* flex的不同取值 */</span></span><br><span class="line"><span class="selector-class">.item</span> &#123;<span class="attribute">flex</span>: <span class="number">2333</span> <span class="number">3222</span> <span class="number">234px</span>;&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">2333</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">3222</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">234px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;<span class="attribute">flex</span>: <span class="number">1</span>;&#125;<span class="comment">/*非负整数*/</span></span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">0%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item-1</span> &#123;<span class="attribute">flex</span>: <span class="number">0%</span>;&#125;<span class="comment">/*百分比*/</span></span><br><span class="line"><span class="selector-class">.item-1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">0%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item-2</span> &#123;<span class="attribute">flex</span>: <span class="number">24px</span>;&#125;<span class="comment">/*像素值*/</span></span><br><span class="line"><span class="selector-class">.item-1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">24px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;<span class="attribute">flex</span>: <span class="number">2</span> <span class="number">3</span>;&#125;<span class="comment">/*两个非负整数*/</span></span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">2</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">3</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">0%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;<span class="attribute">flex</span>: <span class="number">2333</span> <span class="number">3222px</span>;&#125;<span class="comment">/*一个非负整数 一个像素值*/</span></span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">2333</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">3222px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h4><p>6个属性：<br><code>order</code> 项目的排列顺序。数值越小，排列越靠前，默认为0<br><code>flex-grow</code> 项目的放大比例，默认为0<br><code>flex-shrink</code> 项目的缩小比例，默认为1<br><code>flex-basis</code> 项目占据的主轴空间，优先级大于width<br><code>flex</code> <strong>前三个的简写，优先使用这个属性</strong><br><code>align-self</code> 允许单个项目有与其他项目不一样的对齐方式,可覆盖容器属性align-items属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">order</span>:&lt;integer&gt;;</span><br><span class="line">    <span class="attribute">flex-grow</span>:&lt;number&gt;; <span class="comment">/* default 0 */</span></span><br><span class="line">    <span class="attribute">flex-shrink</span>:&lt;number&gt;; <span class="comment">/* default 1 负值对该属性无效*/</span></span><br><span class="line">    <span class="attribute">flex-basis</span>:&lt;length&gt; / auto; <span class="comment">/* default auto */</span></span><br><span class="line">    <span class="attribute">flex</span>:<span class="built_in">none</span>(0 0 auto) / <span class="built_in">auto</span>(1 1 auto)<span class="comment">/*默认值为0 1 auto*/</span></span><br><span class="line">    align-self:auto / flex-start / flex-end / center / baseline / stretch; <span class="comment">/*默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* flex的不同取值 */</span></span><br><span class="line"><span class="selector-class">.item</span> &#123;<span class="attribute">flex</span>:<span class="number">2333</span> <span class="number">3222</span> <span class="number">234px</span>;&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>:<span class="number">2333</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>:<span class="number">3222</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>:<span class="number">234px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;<span class="attribute">flex</span>:<span class="number">1</span>;&#125;<span class="comment">/*非负整数*/</span></span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>:<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>:<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>:<span class="number">0%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item-1</span> &#123;<span class="attribute">flex</span>:<span class="number">0%</span>;&#125;<span class="comment">/*百分比*/</span></span><br><span class="line"><span class="selector-class">.item-1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>:<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>:<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>:<span class="number">0%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item-2</span> &#123;<span class="attribute">flex</span>:<span class="number">24px</span>;&#125;<span class="comment">/*像素值*/</span></span><br><span class="line"><span class="selector-class">.item-1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>:<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>:<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>:<span class="number">24px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;<span class="attribute">flex</span>:<span class="number">2</span> <span class="number">3</span>;&#125;<span class="comment">/*两个非负整数*/</span></span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>:<span class="number">2</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>:<span class="number">3</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>:<span class="number">0%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;<span class="attribute">flex</span>:<span class="number">2333</span> <span class="number">3222px</span>;&#125;<span class="comment">/*一个非负整数 一个像素值*/</span></span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">flex-grow</span>:<span class="number">2333</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>:<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex-basis</span>:<span class="number">3222px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="flex布局的应用：css两栏，一栏固定宽度，一栏自适应"><a href="#flex布局的应用：css两栏，一栏固定宽度，一栏自适应" class="headerlink" title="flex布局的应用：css两栏，一栏固定宽度，一栏自适应"></a>flex布局的应用：css两栏，一栏固定宽度，一栏自适应</h4><p>第一个div固定，第二个div自适应</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*使用flex布局实现*/</span></span><br><span class="line"><span class="comment">/*父*/</span></span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>:flex;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*子*/</span></span><br><span class="line"><span class="selector-class">.box1</span>&#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">background</span>:blue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box2</span>&#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span>;<span class="comment">/*flex:auto*/</span></span><br><span class="line">  <span class="attribute">background</span>:red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*利用 float 配合 margin或overflow: hidden; 实现*/</span></span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box1</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">float</span>:left;</span><br><span class="line">  <span class="attribute">background</span>: blue;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box2</span>&#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">100px</span>;<span class="comment">/* overflow: hidden;*/</span></span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*使用flex布局实现*/</span></span><br><span class="line"><span class="comment">/*父*/</span></span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>:flex;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*子*/</span></span><br><span class="line"><span class="selector-class">.box1</span>&#123;</span><br><span class="line">  <span class="attribute">flex</span>:<span class="number">0</span> <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">background</span>:blue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box2</span>&#123;</span><br><span class="line">  <span class="attribute">flex</span>:<span class="number">1</span>;<span class="comment">/*flex:auto*/</span></span><br><span class="line">  <span class="attribute">background</span>:red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*利用 float 配合 margin或overflow:hidden; 实现*/</span></span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box1</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">float</span>:left;</span><br><span class="line">  <span class="attribute">background</span>:blue;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box2</span>&#123;</span><br><span class="line">  <span class="attribute">margin-left</span>:<span class="number">200px</span>;<span class="comment">/* overflow:hidden;*/</span></span><br><span class="line">  <span class="attribute">background</span>:red;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="flex布局的应用：在一个大盒子里面有两个小盒子，两个小盒子都水平居中，其中一个贴紧上边，另一个贴紧下边。要求：不可以给两个小盒子加样式，只能给大盒子写样式。"><a href="#flex布局的应用：在一个大盒子里面有两个小盒子，两个小盒子都水平居中，其中一个贴紧上边，另一个贴紧下边。要求：不可以给两个小盒子加样式，只能给大盒子写样式。" class="headerlink" title="flex布局的应用：在一个大盒子里面有两个小盒子，两个小盒子都水平居中，其中一个贴紧上边，另一个贴紧下边。要求：不可以给两个小盒子加样式，只能给大盒子写样式。"></a>flex布局的应用：在一个大盒子里面有两个小盒子，两个小盒子都水平居中，其中一个贴紧上边，另一个贴紧下边。要求：不可以给两个小盒子加样式，只能给大盒子写样式。</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>:flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>:column;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">justify-content</span>:space-between;</span><br><span class="line">  <span class="attribute">align-items</span>:center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box1</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">background</span>: blue;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box2</span>&#123;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">200px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="flex布局的应用：在一个大盒子里面有两个小盒子，两个小盒子都水平居中，其中一个贴紧上边，另一个贴紧下边。要求：不可以给两个小盒子加样式，只能给大盒子写样式。"><a href="#flex布局的应用：在一个大盒子里面有两个小盒子，两个小盒子都水平居中，其中一个贴紧上边，另一个贴紧下边。要求：不可以给两个小盒子加样式，只能给大盒子写样式。" class="headerlink" title="flex布局的应用：在一个大盒子里面有两个小盒子，两个小盒子都水平居中，其中一个贴紧上边，另一个贴紧下边。要求：不可以给两个小盒子加样式，只能给大盒子写样式。"></a>flex布局的应用：在一个大盒子里面有两个小盒子，两个小盒子都水平居中，其中一个贴紧上边，另一个贴紧下边。要求：不可以给两个小盒子加样式，只能给大盒子写样式。</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>:flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>:column;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">justify-content</span>:space-between;</span><br><span class="line">  <span class="attribute">align-items</span>:center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box1</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">background</span>:blue;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box2</span>&#123;</span><br><span class="line">  <span class="attribute">background</span>:red;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">200px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="css-sprites"><a href="#css-sprites" class="headerlink" title="css sprites"></a>css sprites</h4><p><code>CSS Sprites</code>其实就是把网页中一些背景图片整合到一张图片文件中，再利用CSS的<code>background-image</code>，<code>background- repeat</code>，<code>background-position</code>的组合进行背景定位，background-position可以用数字能精确的定位出背景图片的位置。CSS Sprites为一些大型的网站节约了带宽，让提高了用户的加载速度和用户体验，不需要加载更多的图片</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">background-image: url(images/minibar.png);                /*显示小图*/</span><br><span class="line"><span class="selector-tag">background-repeat</span>: <span class="selector-tag">none</span>;</span><br><span class="line"><span class="selector-tag">background-position</span>: 2<span class="selector-tag">px</span> <span class="selector-tag">-55px</span>; <span class="comment">/*left top*/</span> <span class="comment">/*定位小图*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">background-image:url(images/minibar.png);                /*显示小图*/</span><br><span class="line"><span class="selector-tag">background-repeat</span><span class="selector-pseudo">:none</span>;</span><br><span class="line"><span class="selector-tag">background-position</span><span class="selector-pseudo">:2px</span> <span class="selector-tag">-55px</span>; <span class="comment">/*left top*/</span> <span class="comment">/*定位小图*/</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="css清除浮动的几种方式"><a href="#css清除浮动的几种方式" class="headerlink" title="css清除浮动的几种方式"></a>css清除浮动的几种方式</h4><p>浮动：子盒子里使用了<code>float</code>浮动属性，导致父级对象盒子不能被撑开，这样CSS float浮动就产生了。副作用：背景不能显示；边框不能撑开；margin padding设置值不能正确显示<br>清除浮动的方式：</p>
 <ol>
 <li>对父级设置适合height</li>
-<li><code>clear: both</code>清除浮动：在父级结束前引入加入样式<code>clear: both</code>的<div></div></li>
-<li>父级div定义<code>overflow: hidden</code>(BFC解决方案)</li>
-<li>父级div加class类，使用after伪元素清除浮动（推荐使用）<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>:<span class="string">""</span>;</span><br><span class="line">    <span class="attribute">clear</span>:both;</span><br><span class="line">    <span class="attribute">display</span>:block;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">overflow</span>:hidden;</span><br><span class="line">    <span class="attribute">visibility</span>:hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span>&#123;</span><br><span class="line">    *zoom: 1;/*兼容 IE6，7 同样需要配合zoom使用，zoom缩放比，*号只有IE6-IE7执行，其他浏览器不执行*/</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<li><code>clear:both</code>清除浮动：在父级结束前引入加入样式<code>clear:both</code>的<div></div></li>
+<li>父级div定义<code>overflow:hidden</code>(BFC解决方案)</li>
+<li>父级div加class类，使用after伪元素清除浮动（推荐使用）<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>:<span class="string">""</span>;</span><br><span class="line">    <span class="attribute">clear</span>:both;</span><br><span class="line">    <span class="attribute">display</span>:block;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">overflow</span>:hidden;</span><br><span class="line">    <span class="attribute">visibility</span>:hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span>&#123;</span><br><span class="line">    *zoom:1;/*兼容 IE6，7 同样需要配合zoom使用，zoom缩放比，*号只有IE6-IE7执行，其他浏览器不执行*/</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -892,7 +1324,7 @@
 </li>
 <li>阻止元素被浮动元素覆盖<ul>
 <li>问题案例：div浮动兄弟这该问题：由于左侧块级元素发生了浮动，所以和右侧未发生浮动的块级元素不在同一层内，所以会发生div遮挡问题。</li>
-<li>解决办法：可以给右侧元素添加 overflow: hidden，触发BFC来解决遮挡问题。(这个方法可以用来实现两列自适应布局，效果不错，这时候左边的宽度固定，右边的内容自适应宽度。)</li>
+<li>解决办法：可以给右侧元素添加 overflow:hidden，触发BFC来解决遮挡问题。(这个方法可以用来实现两列自适应布局，效果不错，这时候左边的宽度固定，右边的内容自适应宽度。)</li>
 </ul>
 </li>
 </ol>
@@ -901,26 +1333,94 @@
 <li>浮动 (float)<br>在浮动布局中，元素首先按照普通流的位置出现，然后根据浮动的方向尽可能的向左边或右边偏移，其效果与印刷排版中的文本环绕相似。</li>
 <li>绝对定位 (absolute positioning)<br>在绝对定位布局中，元素会整体脱离普通流，因此绝对定位元素不会对其兄弟元素造成影响，而元素具体的位置由绝对定位的坐标决定。</li>
 </ol>
-<h4 id="css3新特性"><a href="#css3新特性" class="headerlink" title="css3新特性"></a>css3新特性</h4><ol>
-<li><p>伪选择器：：<br> <code>:last-child</code>选择器选择的是元素的最后一个子元素、<br> <code>:first-child</code>选择器选择的是元素的第一个子元素、<br> <code>:nth-child(n)</code>选择器用来定位某个父元素的一个或多个特定的子元素<br> <code>:nth-last-child(n)</code> CSS3 匹配父元素的倒数第n个子元素E</p>
+<h4 id="css3新特性"><a href="#css3新特性" class="headerlink" title="css3新特性"></a>css3新特性</h4><p>其中最重要的 CSS3 模块包括：选择器、框模型、背景和边框、文本效果、2D/3D 转换、动画、多列布局、用户界面</p>
+<ol>
+<li><p>伪选择器：<br><code>:last-child</code>选择器选择的是元素的最后一个子元素、<br><code>:first-child</code>选择器选择的是元素的第一个子元素、<br><code>:nth-child(n)</code>选择器用来定位某个父元素的一个或多个特定的子元素<br><code>:nth-last-child(n)</code> CSS3 匹配父元素的倒数第n个子元素E</p>
 </li>
-<li><p>@Font-face 特性<br> Font-face 可以用来加载字体样式</p>
- <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123; </span><br><span class="line"><span class="attribute">font-family</span>: BorderWeb; </span><br><span class="line"><span class="attribute">src</span>:<span class="built_in">url</span>(BORDERW0.eot); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>字体@Font-face可以用来加载web字体样式</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123; </span><br><span class="line"><span class="attribute">font-family</span>:myFont; </span><br><span class="line"><span class="attribute">src</span>:<span class="built_in">url</span>(<span class="string">'Sansation_Light.ttf'</span>); </span><br><span class="line"><span class="attribute">font-weight</span>:bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">font-family</span>:myFont;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>圆角：<code>border-radius</code></p>
+<li><p>文本效果：</p>
+<ul>
+<li>text-shadow:5px 5px 5px #FF0000; 文字阴影</li>
+<li>word-wrap:break-word; 自动换行，可拆分单词</li>
+<li>text-outline:2px 2px #ff0000; 规定文本轮廓</li>
+</ul>
 </li>
-<li><p>animation动画：</p>
- <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.main</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line">        <span class="attribute">animation</span>: myanimations <span class="number">2s</span> ease <span class="number">0s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    @<span class="keyword">keyframes</span> myanimations &#123;</span><br><span class="line">        0%&#123;</span><br><span class="line">            <span class="attribute">left</span>: <span class="number">10px</span>;</span><br><span class="line">            <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        50%,70%&#123;</span><br><span class="line">            <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">            <span class="attribute">opacity</span>: .<span class="number">7</span>;</span><br><span class="line">            <span class="attribute">margin-left</span>:-<span class="number">150px</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        100%&#123;</span><br><span class="line">            <span class="attribute">left</span>: <span class="number">100%</span>;</span><br><span class="line">            <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">            <span class="attribute">margin-left</span>:-<span class="number">300px</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p> Transforms 2D转换效果：主要包括 translate（水平移动）、rotate（旋转）、scale（伸缩）、skew（倾斜）</p>
- <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.main</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">rotate</span>(180deg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<li><p>新背景属性：</p>
+<ul>
+<li>background-clip    规定背景的绘制区域。    背景图片可以放置于 content-box、padding-box 或 border-box 区域</li>
+<li>background-origin    规定背景图片的定位区域。 背景图片可以放置于 content-box、padding-box 或 border-box 区域    </li>
+<li>background-size:x y(px/%)    规定背景图片的尺寸。</li>
+</ul>
+</li>
+<li><p>边框属性：</p>
+<ul>
+<li>border-image:url(border.png) 30 30 round;    设置所有 border-image-* 属性的简写属性。    </li>
+<li>border-radius:25px;    设置所有四个 border-*-radius 属性的简写属性。    </li>
+<li>box-shadow:10px 10px 5px #888888;    向方框添加一个或多个阴影。</li>
+</ul>
+</li>
+<li><p><code>animation</code>动画复合属性：</p>
+<ul>
+<li>animation-name 绑定绑定到选择器的 <code>@keyframes</code>的名称</li>
+<li>animation-duration 规定完成动画所花费的时间，以秒或毫秒计</li>
+<li>animation-timing-function 规定动画的速度曲线<code>liner</code> 默认<code>ease</code></li>
+<li>animation-delay 规定在动画开始之前的延迟</li>
+<li>animation-iteration-count 规定动画应该播放的次数<code>infinite</code></li>
+<li>animation-direction 规定是否应该轮流反向播放动画<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.main</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line">        animation:myanimations 2s ease 0s;&lt;!-- 使用动画 --&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    @<span class="keyword">keyframes</span> myanimations &#123;&lt;!<span class="selector-tag">--</span> 定义动画名称 <span class="selector-tag">--</span>&gt;</span><br><span class="line">        0%&#123;   &lt;!-- 和from状态一样 --&gt;</span><br><span class="line">            <span class="selector-tag">left</span><span class="selector-pseudo">:10px</span>;</span><br><span class="line">            <span class="selector-tag">opacity</span><span class="selector-pseudo">:1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        50%,70%&#123;</span><br><span class="line">            <span class="attribute">left</span>:<span class="number">50%</span>;</span><br><span class="line">            <span class="attribute">opacity</span>:.<span class="number">7</span>;</span><br><span class="line">            <span class="attribute">margin-left</span>:-<span class="number">150px</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        100%&#123; &lt;!-- 和to状态一样 --&gt;</span><br><span class="line">            <span class="selector-tag">left</span><span class="selector-pseudo">:100</span>%;</span><br><span class="line">            <span class="selector-tag">opacity</span><span class="selector-pseudo">:0</span>;</span><br><span class="line">            <span class="selector-tag">margin-left</span><span class="selector-pseudo">:-300px</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>transform</code> :</p>
+</li>
+</ol>
+<ul>
+<li><code>transform</code> 2D转换效果：<ul>
+<li>移动：translate(x,y) translateX/translateY</li>
+<li>旋转：rotate(angle)</li>
+<li>伸缩：scale(n,n) scaleX/scaleY</li>
+<li>斜切：skew(x-angle,y-angle) skewX/skewY</li>
+<li>matrix(n,n,n,n,n,n)：需要六个参数，包含数学函数，允许您：旋转、缩放、移动以及倾斜元素</li>
+</ul>
+</li>
+<li><code>transform</code> 3D转换效果：<ul>
+<li>移动：translate3d(x,y,z) translateX/translateY/translateZ</li>
+<li>旋转：rotate3d(x,y,z,angle) rotateX(angle)/rotateY(angle)/rotateZ(angle)</li>
+<li>伸缩：scale3d(n,n,n) scaleX/scaleY/scaleZ</li>
+<li>matrix3d(n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n)    定义 3D 转换，使用 16 个值的 4x4 矩阵。</li>
+</ul>
+</li>
+</ul>
+<ol start="8">
+<li><p><code>transition</code>过渡:</p>
+<ul>
+<li>transition-property    规定应用过渡的 CSS 属性的名称。    </li>
+<li>transition-duration    定义过渡效果花费的时间。默认是 0。    </li>
+<li>transition-timing-function    规定过渡效果的时间曲线。默认是 “ease”。    </li>
+<li>transition-delay    规定过渡效果何时开始。默认是 0。    <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">transition</span>:width <span class="number">1s</span> linear <span class="number">2s</span>;</span><br><span class="line">    <span class="comment">/* Firefox 4 */</span></span><br><span class="line">    <span class="attribute">-moz-transition</span>:width <span class="number">1s</span> linear <span class="number">2s</span>;</span><br><span class="line">    <span class="comment">/* Safari and Chrome */</span></span><br><span class="line">    <span class="attribute">-webkit-transition</span>:width <span class="number">1s</span> linear <span class="number">2s</span>;</span><br><span class="line">    <span class="comment">/* Opera */</span></span><br><span class="line">    <span class="attribute">-o-transition</span>:width <span class="number">1s</span> linear <span class="number">2s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>用户界面：</p>
+<ul>
+<li>resize：表示是否允许用户调整元素尺寸，允许：resize:both</li>
+<li>box-sizing：表示盒模型:border-box还是标准模型:content-box(默认)</li>
+<li>outline-offset：outline:2px solid red;outline-offset:15px;对轮廓进行偏移，并在超出边框边缘的位置绘制轮廓。轮廓与边框不同点：轮廓不占用空间、轮廓可能是非矩形</li>
+</ul>
+</li>
+<li><p>css3多列<code>column</code>：</p>
+<ul>
+<li>column-count 规定列的数量<code>column-count:3;</code></li>
+<li>column-gap 规定列之间的间隔<code>column-gap:30px;</code></li>
+<li>column-rule 属性设置列之间的宽度、样式和颜色规则<code>column-rule:3px outset #ff0000;</code></li>
+</ul>
 </li>
 </ol>
 <h4 id="完美的响应式布局vw-vh-rem"><a href="#完美的响应式布局vw-vh-rem" class="headerlink" title="完美的响应式布局vw+vh+rem"></a>完美的响应式布局vw+vh+rem</h4><p>视口布局的优点：宽度和高度全部自动适应！再加上rem布局的字体适应</p>
 <ol>
 <li><p>px 和 rem<br>em是相对长度单位。相对于当前对象内本文的字体尺寸<br>rem是相对于根元素<html>的相对字体大小，浏览器默认的字号16px，10px=10/16rem</html></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>&#123;</span><br><span class="line">    font-size:20px;//1rem = 20px</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">html</span>&#123;</span><br><span class="line">    font-size: (vw_fontsize / (vw_design / 2)) * 100vw; // vw_fontsize 可以设为75，vw_design为设计稿宽度</span><br><span class="line">    @<span class="keyword">media</span> only screen and (max-width: <span class="number">1600px</span>) and (min-width: <span class="number">1280px</span>)&#123;</span><br><span class="line">        <span class="selector-tag">font-size</span>: 14<span class="selector-tag">px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    @<span class="keyword">media</span> only screen and (max-width: <span class="number">1280px</span>) and (min-width: <span class="number">960px</span>)&#123;</span><br><span class="line">        <span class="selector-tag">font-size</span>: 12<span class="selector-tag">px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    @<span class="keyword">media</span> only screen and (max-width: <span class="number">960px</span>)&#123;</span><br><span class="line">        <span class="selector-tag">font-size</span>: 10<span class="selector-tag">px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>&#123;</span><br><span class="line">    font-size:20px;//1rem = 20px</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">html</span>&#123;</span><br><span class="line">    font-size:(vw_fontsize / (vw_design / 2)) * 100vw; // vw_fontsize 可以设为75，vw_design为设计稿宽度</span><br><span class="line">    @<span class="keyword">media</span> only screen and (max-width:<span class="number">1600px</span>) and (min-width:<span class="number">1280px</span>)&#123;</span><br><span class="line">        <span class="selector-tag">font-size</span><span class="selector-pseudo">:14px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    @<span class="keyword">media</span> only screen and (max-width:<span class="number">1280px</span>) and (min-width:<span class="number">960px</span>)&#123;</span><br><span class="line">        <span class="selector-tag">font-size</span><span class="selector-pseudo">:12px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    @<span class="keyword">media</span> only screen and (max-width:<span class="number">960px</span>)&#123;</span><br><span class="line">        <span class="selector-tag">font-size</span><span class="selector-pseudo">:10px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>vw、vh是基于视口的布局方案，故这个meta元素的视口必须声明。（解决宽高自动适配）<br>vw和vh是视口（viewport units）单位，何谓视口，就是根据你浏览器窗口的大小的单位<br><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;</code><br>vw是可视窗口的宽度单位，和百分比有点一样，1vw = 可视窗口的宽度的百分之一，50vw代表了 此div占据视口宽度的50%、高度占据视口高度的20%，并且会随着视口的变化，进行自适应;</p>
 </li>
@@ -929,7 +1429,8 @@
 <li>link属于HTML标签，而@import是CSS提供的;</li>
 <li>页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;</li>
 <li>import只在IE5以上才能识别，而link是HTML标签，无兼容问题;</li>
-<li>link方式的样式的权重 高于@import的权重.</li>
+<li>link方式的样式的权重高于@import的权重.</li>
+<li>import规则一定要先于除了@charset的其他任何CSS规则</li>
 </ol>
 <h3 id="CSS-hack"><a href="#CSS-hack" class="headerlink" title="CSS hack"></a>CSS hack</h3><p>CSS hack是通过在CSS样式中加入一些特殊的符号，让不同的浏览器识别不同的符号，以达到应用不同的CSS样式的目的。(不同浏览器识别不同css样式)<br>比如IE6能识别下划线“<em>”和星号“<em>”，IE7能识别星号“</em>”，但不能识别下划线”</em> ”，而firefox两个都不能认识。</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    background:green;*background:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -968,14 +1469,23 @@
 </tr>
 </tbody></table>
 <h3 id="浏览器兼容问题"><a href="#浏览器兼容问题" class="headerlink" title="浏览器兼容问题"></a>浏览器兼容问题</h3><ol>
-<li>不同浏览器的标签默认的外补丁(margin)和内补丁(padding)不同<br>解决方案：css里增加通配符*{ margin: 0; padding: 0;}</li>
-<li>IE6双边距问题：在 IE6中块级元素设置了float属性， 同时又设置margin属性, 就会出现边距问题<br>解决方案：设置display:inline;</li>
-<li>当标签的高度设置小于10px，在IE6、IE7中会超出自己设置的高度<br>解决方案：超出高度的标签设置overflow:hidden，或者设置line-height的值小于你的设置高度</li>
-<li>图片默认有间距<br>解决方案：使用float为img布局</li>
-<li>IE9一下浏览器不能使用opacity<br>解决方案：opacity:0.5; filter:alpha(opacity = 50); filter:progid:DXImageTransform.Microsoft.Alpha(style = 0, opacity = 50);</li>
-<li>边距重叠问题：当相邻两个元素都设置了margin边距时，margin 将取最大值，舍弃最小值<br>解决方案：为了不让边重叠，可以给子元素增加一个父级元素，并设置父级元素为overflow:hidden</li>
-<li>cursor:hand显示手型在safari上不支持<br>解决方案：统一使用cursor:pointer</li>
-<li>两个块级元素，父元素设置了overflow:auto，子元素设置了position:relative，且高度大于父元素，在IE6、IE7会被隐藏而不是溢出；<br>解决方案：父级元素设置position:relative</li>
+<li><p>不同浏览器的标签默认的外补丁(margin)和内补丁(padding)不同<br>解决方案：css里增加通配符*{ margin:0; padding:0;}</p>
+</li>
+<li><p>IE6双边距问题：在IE6中块级元素设置了float属性，同时又设置margin属性, 就会出现双边距问题，margin为以前的2倍<br>解决方案：给块级元素设置display:inline;<code>_display:inline;</code>，IE6能识别下划线“_”</p>
+</li>
+<li><p>当标签的高度设置小于10px，在IE6、IE7中会超出自己设置的高度<br>解决方案：超出高度的标签设置<code>*overflow:hidden</code>，或者设置<code>*line-height</code>的值小于你的设置高度，IE6、IE7能识别“*”</p>
+</li>
+<li><p>图片默认有间距<br>解决方案：使用float为img布局</p>
+</li>
+<li><p>IE9一下浏览器不能使用opacity<br>解决方案：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.name</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">opacity</span>:<span class="number">0.5</span>; </span><br><span class="line">    <span class="attribute">filter</span>:<span class="built_in">alpha</span>(opacity = 50); </span><br><span class="line">    <span class="attribute">filter</span>:progid:DXImageTransform.Microsoft.<span class="built_in">Alpha</span>(style = 0, opacity = 50);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>边距重叠问题：当相邻两个元素都设置了margin边距时，margin 将取最大值，舍弃最小值，BFC问题<br>解决方案：为了不让边重叠，可以给子元素增加一个父级元素，并设置父级元素为<code>overflow:hidden</code></p>
+</li>
+<li><p>cursor:hand显示手型在safari上不支持<br>解决方案：统一使用<code>cursor:pointer</code></p>
+</li>
+<li><p>两个块级元素，父元素设置了<code>overflow:auto</code>，子元素设置了<code>position:relative</code>，且高度大于父元素，在IE6、IE7会被隐藏而不是溢出；<br>解决方案：父级元素设置<code>*position:relative</code></p>
+</li>
 </ol>
 
           
@@ -1827,10 +2337,10 @@
 <li><code>() =&gt; {}</code></li>
 </ul>
 </li>
-<li><p><code>template string</code>（模板字符串）用{<code>${name}</code>}嵌入</p>
+<li><p><code>template string</code>（模板字符串）用<code></code>${name}<code></code>嵌入</p>
 </li>
 <li><p><code>destructuring</code> （解构）解构能让我们从对象或者数组里取出数据存为变量</p>
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 对象和数组逐个对应表达式</span></span><br><span class="line"><span class="comment">//数组</span></span><br><span class="line"><span class="keyword">let</span> [a, b] = <span class="keyword">let</span> [<span class="string">'1'</span>, <span class="string">'2'</span>]一一对应，只多不少</span><br><span class="line"><span class="comment">//对象</span></span><br><span class="line"><span class="keyword">var</span> o = &#123;<span class="attr">p</span>: <span class="number">42</span>, <span class="attr">q</span>: <span class="literal">true</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> &#123;p, q&#125; = o;</span><br><span class="line"><span class="built_in">console</span>.log(p); <span class="comment">// 42</span></span><br><span class="line"><span class="built_in">console</span>.log(q); <span class="comment">// true</span></span><br><span class="line"><span class="comment">//嵌套解构</span></span><br><span class="line"><span class="comment">//解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 对象和数组逐个对应表达式</span></span><br><span class="line"><span class="comment">//数组</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line"><span class="keyword">var</span> [x,y] = arr <span class="comment">//一一对应，只多不少</span></span><br><span class="line"><span class="built_in">console</span>.log(x,y) <span class="comment">// 1, 2</span></span><br><span class="line"><span class="comment">//对象</span></span><br><span class="line"><span class="keyword">var</span> o = &#123;<span class="attr">p</span>: <span class="number">42</span>, <span class="attr">q</span>: <span class="literal">true</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> &#123;p, q&#125; = o;</span><br><span class="line"><span class="built_in">console</span>.log(p); <span class="comment">// 42</span></span><br><span class="line"><span class="built_in">console</span>.log(q); <span class="comment">// true</span></span><br><span class="line"><span class="comment">//嵌套解构</span></span><br><span class="line"><span class="comment">//解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>default</code>函数默认参数</p>
  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a, b = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br><span class="line">multiply(<span class="number">5</span>, <span class="number">2</span>); <span class="comment">// 10</span></span><br><span class="line">multiply(<span class="number">5</span>);  <span class="comment">// 5</span></span><br><span class="line">multiply(<span class="number">5</span>, <span class="literal">undefined</span>); <span class="comment">// 5 传undefined使用默认值</span></span><br></pre></td></tr></table></figure>
@@ -1864,647 +2374,19 @@
 
 <p>Map是有序的键值对，其中的键允许是任何类型<br>Map的方法有：<code>.has(key)</code> <code>.get(key)</code> <code>.set(key, value)</code> <code>.delete(key)</code> <code>.clear()</code> <code>.size</code></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Map初始化</span></span><br><span class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">    [<span class="string">"name"</span>, <span class="string">"cc"</span>],</span><br><span class="line">    [<span class="string">"age"</span>, <span class="number">26</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(map.has(<span class="string">"name"</span>));<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(map.get(<span class="string">"name"</span>));<span class="comment">//cc</span></span><br><span class="line"><span class="built_in">console</span>.log(map.has(<span class="string">"age"</span>));<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(map.get(<span class="string">"age"</span>));<span class="comment">//26</span></span><br><span class="line"><span class="built_in">console</span>.log(map.size);<span class="comment">//2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Map上的forEach()方法</span></span><br><span class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">    [<span class="string">"name"</span>, <span class="string">"cc"</span>],</span><br><span class="line">    [<span class="string">"age"</span>, <span class="number">26</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Map set方法</span></span><br><span class="line">map.set(key, value)</span><br><span class="line">map.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">value, key, source</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;key&#125;</span>的值是<span class="subst">$&#123;value&#125;</span>`</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(source === map);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>装饰器 Decorator<br>装饰器（Decorator）是一种与类（class）相关的语法，用来注释或修改类和类方法。装饰器是一种函数，写成<code>@ + 函数名</code>。它可以放在类和类方法的定义前面。装饰器是在编译阶段运行</p>
+</li>
+<li><p>类的装饰:装饰器可以用来装饰整个类。<br>装饰器是一个对类进行处理的函数。装饰器函数的第一个参数，就是所要装饰的目标类。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">@testable </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTestableClass</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testable</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">  target.isTestable = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MyTestableClass.isTestable <span class="comment">// true</span></span><br><span class="line"><span class="comment">/*@testable就是一个装饰器。它修改了MyTestableClass这个类的行为，为它加上了静态属性isTestable。testable函数的参数target是MyTestableClass类本身。*/</span></span><br><span class="line"></span><br><span class="line">@decorator</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;&#125;</span><br><span class="line">A = decorator(A) || A;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/19/js相关知识/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leixue">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rayshell's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/leixue-blog/2019/08/19/js相关知识/" itemprop="url">js相关知识</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T16:04:14+08:00">
-                2019-08-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="JS作用域和作用域链"><a href="#JS作用域和作用域链" class="headerlink" title="JS作用域和作用域链"></a><a href="https://www.cnblogs.com/hfxm/p/5547922.html" target="_blank" rel="noopener">JS作用域和作用域链</a></h3><h4 id="作用域就是变量和函数的可访问范围，或者说变量或函数起作用的区域。"><a href="#作用域就是变量和函数的可访问范围，或者说变量或函数起作用的区域。" class="headerlink" title="作用域就是变量和函数的可访问范围，或者说变量或函数起作用的区域。"></a>作用域就是变量和函数的可访问范围，或者说变量或函数起作用的区域。</h4><ol>
-<li>javascript函数的作用域：<br>函数内的区域，就是这个函数的作用域，变量和函数在这个区域都可以访问操作。最外层函数外的区域叫全局作用域，函数内的区域叫局部作用域。</li>
-<li>javascript变量的作用域：<br>在源代码中变量所在的区域，就是这个变量的作用域，变量在这个区域内可以被访问操作。在全局作用域上定义的变量叫全局变量，在函数内定义的变量叫局部变量。</li>
-</ol>
-<h4 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h4><p>作用域链（Scope Chain）是javascript内部中一种变量、函数查找机制，它决定了变量和函数的作用范围，即作用域。每个作用域都有一条对应的作用域链，链头是全局作用域，链尾是当前函数作用域。作用域链的作用是保证执行环境里有权访问的变量和函数是有序的，作用域链的变量只能向上访问，变量访问到<code>window</code>对象即被终止，作用域链向下访问变量是不被允许的。</p>
-<h3 id="JS原型和原型链"><a href="#JS原型和原型链" class="headerlink" title="JS原型和原型链"></a><a href="https://baijiahao.baidu.com/s?id=1594082266903998359&wfr=spider&for=pc" target="_blank" rel="noopener">JS原型和原型链</a></h3><ol>
-<li>函数对象<br>所有引用类型（函数，数组，对象）：拥有<code>__proto__</code>属性（隐式原型）<br>所有函数：拥有<code>prototype</code>属性（显式原型）（仅限函数）<br>原型对象：拥有prototype属性的对象，在定义函数时就被创建</li>
-<li>构造函数</li>
-</ol>
-<p><strong>实例p的隐式原型</strong>指向它<strong>构造函数Person()的显式原型</strong>，指向的意思是恒等于<br><code>p.__proto__ === Person.prototype</code></p>
-<ol start="3">
-<li>原型和原型链<br>查找属性，如果本身没有，通过<strong>proto</strong>向上进行查找，也就是它构造函数的prototype中调用查找，最终到null结束，如果没有则返回undefined。<ul>
-<li><code>p.__proto__.constructor == function Person(){}</code></li>
-<li><code>p.___proto__.__proto__== Object.prototype</code></li>
-<li><code>p.___proto__.__proto__.__proto__== Object.prototype.__proto__ == null</code></li>
-<li><strong>原型链</strong>通过<code>__proto__</code>形成而非<code>protrotype</code></li>
-</ul>
-</li>
-</ol>
-<h3 id="js闭包、继承"><a href="#js闭包、继承" class="headerlink" title="js闭包、继承"></a>js闭包、继承</h3><h4 id="1-闭包：闭包就是能够读取函数之外定义的变量或其他函数内部变量的函数。简单理解成“定义在一个函数内部的函数”。"><a href="#1-闭包：闭包就是能够读取函数之外定义的变量或其他函数内部变量的函数。简单理解成“定义在一个函数内部的函数”。" class="headerlink" title="1. 闭包：闭包就是能够读取函数之外定义的变量或其他函数内部变量的函数。简单理解成“定义在一个函数内部的函数”。"></a>1. 闭包：闭包就是能够读取函数之外定义的变量或其他函数内部变量的函数。简单理解成“定义在一个函数内部的函数”。</h4><h4 id="优点和缺点？"><a href="#优点和缺点？" class="headerlink" title="优点和缺点？"></a>优点和缺点？</h4><ol>
-<li>优点：<ul>
-<li>能够读取函数内部的变量 </li>
-<li>可以使变量长期保存在内存中，生命周期比较长。</li>
-</ul>
-</li>
-<li>缺点：<ul>
-<li>内存消耗：读取的变量一直存在于内存中，不会在调用结束后，被垃圾回收机制回收，内存消耗很大（解决办法是，退出函数之前，将不使用的局部变量删除，将引用变量指向null变成垃圾对象，等待回收。）</li>
-<li>性能问题：使用闭包时，会涉及到跨作用域访问，每次访问都会导致性能损失。（解决方法：通过把跨作用域变量存储在局部变量中，然后直接访问局部变量，来减轻对执行速度的影响。）<br>创建闭包最常见方式，就是在一个函数内部创建另一个函数。<br>闭包的简单实例<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params">m</span>) </span>&#123;<span class="comment">//闭包</span></span><br><span class="line">        <span class="keyword">return</span> n + m;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> inner;<span class="comment">//闭包函数</span></span><br><span class="line">&#125;</span><br><span class="line">outer(<span class="number">1</span>)(<span class="number">2</span>)<span class="comment">//3</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ol>
-<h4 id="2-继承：创建的子类将继承超类的所有属性和方法，包括构造函数及方法的实现。子类还可添加超类中没有的新属性和方法，也可以覆盖超类的属性和方法。继承的方式："><a href="#2-继承：创建的子类将继承超类的所有属性和方法，包括构造函数及方法的实现。子类还可添加超类中没有的新属性和方法，也可以覆盖超类的属性和方法。继承的方式：" class="headerlink" title="2. 继承：创建的子类将继承超类的所有属性和方法，包括构造函数及方法的实现。子类还可添加超类中没有的新属性和方法，也可以覆盖超类的属性和方法。继承的方式："></a>2. 继承：创建的子类将继承超类的所有属性和方法，包括构造函数及方法的实现。子类还可添加超类中没有的新属性和方法，也可以覆盖超类的属性和方法。继承的方式：</h4><ol>
-<li><p>借用构造函数继承：用.call()和.apply()将父类构造函数引入子类函数；call() 方法：<code>B.call(A, args1,args2)</code>;即A对象调用B对象的方法；apply() 方法：用作 this 的对象和要传递给函数的参数的数组 <code>B.apply(A, arguments)</code>;即A对象应用B对象的方法</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.species = <span class="string">'animal'</span>;</span><br><span class="line">    <span class="keyword">this</span>.jump = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    Animal.call(<span class="keyword">this</span>,args1,args2);<span class="comment">//Animal.apply(this,[])</span></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> cat1 = <span class="keyword">new</span> Cat(<span class="string">"大毛"</span>);　　</span><br><span class="line">alert(cat1.jump()); <span class="comment">// 动物</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>原型链继承</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.species = <span class="string">'animal'</span>;</span><br><span class="line">    <span class="keyword">this</span>.jump = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal();<span class="comment">//这样就能继承父类原型上的属性了，但是存在更改父类原型的问题</span></span><br><span class="line">Animal.prototype.color = <span class="string">"d"</span>;</span><br><span class="line"><span class="keyword">var</span> cat1=<span class="keyword">new</span> Cat(<span class="string">"张"</span>);  </span><br><span class="line">cat.jump(); </span><br><span class="line">cat.color;<span class="comment">//使用构造函数是继承不了的</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>混合方式：组合继承（组合原型链继承和借用构造函数继承）</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.species = <span class="string">'animal'</span>;</span><br><span class="line">    <span class="keyword">this</span>.jump = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    Animal.call(<span class="keyword">this</span>,args1,args2);</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat.prototype = <span class="built_in">Object</span>.create(Animal.prototype);<span class="comment">//创建一个父类的原型对象，并返回这个新对象</span></span><br><span class="line">Cat.prototype.constructor = Cat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> cat1=<span class="keyword">new</span> Cat(<span class="string">"张"</span>);  </span><br><span class="line">cat1.jump(); </span><br><span class="line">cat1.color;<span class="comment">//使用构造函数是继承不了的</span></span><br><span class="line"><span class="built_in">console</span>.log(cat1 <span class="keyword">instanceof</span> Animal) <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>对象冒充</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.species = <span class="string">'animal'</span>;</span><br><span class="line">    <span class="keyword">this</span>.jump = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.newMethod = Animal;<span class="comment">//为 Animal 赋予了方法 newMethod（请记住，函数名只是指向它的指针）。</span></span><br><span class="line">    <span class="keyword">this</span>.newMethod();<span class="comment">//        然后调用该方法</span></span><br><span class="line">    <span class="keyword">delete</span> <span class="keyword">this</span>.newMethod;<span class="comment">//所有新属性和新方法都必须在删除了新方法的代码行后定义。否则，可能会覆盖超类的相关属性和方法</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>寄生式继承<br>es5实现继承</p>
-</li>
-</ol>
-<h3 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h3><p>浅拷贝：是指只复制一层对象，当对象的属性是引用类型时，实质复制的是其引用，当引用指向的值改变时也会跟着变化（<code>就是假设B复制了A，当修改A时，B也变化了）</code><br>深拷贝：是指复制对象的所有层级<code>（当修改A时，B没变化）</code>。<br>实现方法</p>
-<ul>
-<li>通过递归实现，递归去复制所有层级属性</li>
-<li>通过JSON解析实现，借用JSON对象的parse和stringify</li>
-<li>借用JQuery的extend方法</li>
-</ul>
-<h3 id="click和onclick的区别"><a href="#click和onclick的区别" class="headerlink" title="click和onclick的区别"></a>click和onclick的区别</h3><p>click 是方法，由程序员写语句调用；onclick是事件；<br>click本身是方法作用是触发onclick事件，只要执行了元素的click()方法，就会触发onclick事件；<code>方法触发事件</code></p>
-<h3 id="JS-的引用赋值与传值赋值"><a href="#JS-的引用赋值与传值赋值" class="headerlink" title="JS 的引用赋值与传值赋值"></a>JS 的引用赋值与传值赋值</h3><p><code>number</code>,<code>string</code>类型都是基本类型是通过传值赋值的，而基本类型存放在栈区，访问时按值访问，赋值是按照普通方式赋值；<br><code>Object</code>和<code>Array</code>是通过引用来赋值的，所以改变arr1的同时arr2也会跟着改变;</p>
-<h3 id="js内存泄漏"><a href="#js内存泄漏" class="headerlink" title="js内存泄漏"></a>js内存泄漏</h3><p>内存泄漏可以定义为一个应用，由于某些原因不再需要的内存没有被操作系统或者空闲内存池回收。3种常见的JavaScript泄漏</p>
-<ol>
-<li>意外的全局变量 </li>
-<li>被遗忘的计时器<code>setTimeout</code>或回调<code>calback</code></li>
-<li>超出DOM引用</li>
-<li>闭包</li>
-</ol>
-<h3 id="js改变this指向的方法"><a href="#js改变this指向的方法" class="headerlink" title="js改变this指向的方法"></a>js改变this指向的方法</h3><h4 id="this的指向"><a href="#this的指向" class="headerlink" title="this的指向"></a><a href="https://www.cnblogs.com/pssp/p/5216085.html" target="_blank" rel="noopener"><code>this</code>的指向</a></h4><ol>
-<li><p>情况1：如果一个函数中有this，但是它没有被上一级的对象所调用，那么this指向的就是window。</p>
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>.x);<span class="comment">//输出 1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>);<span class="comment">////Window</span></span><br></pre></td></tr></table></figure>
-
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x=<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);<span class="comment">//输出 1</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);<span class="comment">////Window</span></span><br><span class="line">&#125;</span><br><span class="line">fn();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>情况2：如果一个函数中有this，这个函数有被上一级的对象所调用，那么this指向的就是上一级的对象。</p>
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">    user:<span class="string">"追梦子"</span>,</span><br><span class="line">    fn:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.user);  <span class="comment">//追梦子 </span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>);  <span class="comment">//this指向o这个对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">o.fn();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>情况3：如果一个函数中有this，这个函数中包含多个对象，尽管这个函数是被最外层的对象所调用，this指向的也只是它上一级的对象。</p>
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">    user:<span class="string">"追梦子"</span>,</span><br><span class="line">    fn:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.user); <span class="comment">//追梦子</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>);  <span class="comment">//this指向o这个对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.o.fn();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>情况4：如果返回值是一个对象，那么this指向的就是那个返回的对象，如果返回值不是一个对象或者不存在返回对象那么this还是指向函数的实例。</p>
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//有返回值，返回值不是对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">this</span>.user = <span class="string">'追梦子'</span>;  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> fn;  </span><br><span class="line"><span class="built_in">console</span>.log(a.user); <span class="comment">//追梦子 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//有返回值，返回值是对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">this</span>.user = <span class="string">'追梦子'</span>;  </span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> fn;  </span><br><span class="line"><span class="built_in">console</span>.log(a.user); <span class="comment">//undefined </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//无返回值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.user = <span class="string">"追梦子"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Fn();</span><br><span class="line"><span class="built_in">console</span>.log(a.user); <span class="comment">//追梦子</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p><code>补充</code>：在严格版中的默认的this不再是window，而是undefined。<br>例题：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> length = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.length)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    length:<span class="number">5</span>,</span><br><span class="line">    method:<span class="function"><span class="keyword">function</span> (<span class="params">fn</span>)</span>&#123;</span><br><span class="line">        fn(); <span class="comment">// 这里fn没有被上级调用, this指向window</span></span><br><span class="line">        <span class="built_in">arguments</span>[<span class="number">0</span>]()<span class="comment">//调用fn，这里this指向arguments，arguments.0()</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.method(fn)</span><br><span class="line">obj.method(fn,<span class="number">123</span>)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">arguments = &#123;</span></span><br><span class="line"><span class="comment">    0: fn, //也就是 functon() &#123;alert(this.length)&#125; </span></span><br><span class="line"><span class="comment">    1: 第二个参数, //没有 </span></span><br><span class="line"><span class="comment">    2: 第三个参数, //没有</span></span><br><span class="line"><span class="comment">    ..., </span></span><br><span class="line"><span class="comment">    length: 1 //只有一个参数</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="改变this指向的三种方法：call-apply-bind"><a href="#改变this指向的三种方法：call-apply-bind" class="headerlink" title="改变this指向的三种方法：call(), apply(),bind()"></a>改变this指向的三种方法：<code>call()</code>, <code>apply()</code>,<code>bind()</code></h4><ol>
-<li><p>bind:不会调用本函数,而是生成一个新的函数,这个函数的代码逻辑和原函数一样,但是this指向不一样，指向<code>.bind(window)</code>window</p>
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'sally'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">    <span class="string">'name'</span>:<span class="string">'John'</span>,</span><br><span class="line">    sayName:sayName,</span><br><span class="line">    sayName2:sayName2.bind(<span class="built_in">window</span>)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(o.sayName()); <span class="comment">//John</span></span><br><span class="line"><span class="built_in">console</span>.log(o.sayName2());<span class="comment">//sally</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>call和apply:</p>
-<ul>
-<li>相同点：call和apply均可以改变this指向，</li>
-<li>不同点：call接受的参数为一个一个的，但是apply接受的参数只能为一个严格的数组<code>test.call(obj,1,3);</code> <code>test.apply(obj,[1,3]);</code>都指向obj<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'sally'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">    <span class="string">'name'</span>:<span class="string">'John'</span>,</span><br><span class="line">    sayName:sayName</span><br><span class="line">&#125;;</span><br><span class="line">sayName();</span><br><span class="line">sayName.call(o,<span class="number">1</span>,<span class="number">3</span>);</span><br><span class="line">ayName.apply(o,[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="事件机制之冒泡、捕获、传播和委托。"><a href="#事件机制之冒泡、捕获、传播和委托。" class="headerlink" title="事件机制之冒泡、捕获、传播和委托。"></a>事件机制之冒泡、捕获、传播和委托。</h3><p>DOM事件流（event flow ）存在三个阶段：<code>事件捕获阶段</code>、<code>处于目标阶段</code>、<code>事件冒泡阶段</code>。<br><code>事件捕获</code>（event capturing）：通俗的理解就是，当鼠标点击或者触发dom事件时，浏览器会从根节点开始由外到内进行事件传播，即点击了子元素，如果父元素通过事件捕获方式注册了对应的事件的话，会先触发父元素绑定的事件。<br><code>事件冒泡</code>（dubbed bubbling）：与事件捕获恰恰相反，事件冒泡顺序是由内到外进行事件传播，直到根节点。<br>dom标准事件流的触发的先后顺序为：先捕获再冒泡，即当触发dom事件时，会先进行事件捕获，捕获到事件源之后通过事件传播进行事件冒泡。</p>
-<h3 id="js匿名函数与普通函数"><a href="#js匿名函数与普通函数" class="headerlink" title="js匿名函数与普通函数"></a>js匿名函数与普通函数</h3><pre><code><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//匿名函数</span></span><br><span class="line"><span class="keyword">var</span> getSize = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">getSize();</span><br><span class="line"><span class="comment">//普通函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSize</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="comment">//注意：普通函数可以在任意位置调用，匿名函数只能在函数声明之后调用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//立即调用函数</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(a + b);</span><br><span class="line">&#125;)(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></code></pre><h3 id="js同步和异步的区别"><a href="#js同步和异步的区别" class="headerlink" title="js同步和异步的区别"></a>js同步和异步的区别</h3><p>javascript语言是一门“单线程”的语言，所谓单线程就是按次序执行，执行完一个任务再执行下一个。同步和异步的差别就在于这单线程上各个流程的<code>执行顺序不同</code>。</p>
-<ul>
-<li>同步任务：在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；</li>
-<li>异步任务：不进入主线程、而进入”任务队列”（task queue）的任务，自己做自己的任务，只有等主线程任务执行完毕，自己下面的任务也做完了，”任务队列”开始通知主线程，请求执行任务，该任务才会进入主线程执行。</li>
-<li>在JS中，异步编程只有四种情况：<ul>
-<li>定时器都是异步编程的，<code>setTimeout</code>和<code>setInterval</code>函数；setTimeout(function(){ alert(“Hello”); }, 3000);</li>
-<li>所有的事件绑定都是异步编程的，<code>click</code>事件等；</li>
-<li><code>Ajax</code>读取数据都是异步编程的，我们一般设置为异步编程；</li>
-<li>回调函数<code>callback</code>都是异步编程的；</li>
-</ul>
-</li>
-</ul>
-<h3 id="浏览器的eventloop（javascript的执行机制new-Promise和setTimeout执行顺序）"><a href="#浏览器的eventloop（javascript的执行机制new-Promise和setTimeout执行顺序）" class="headerlink" title="浏览器的eventloop（javascript的执行机制new Promise和setTimeout执行顺序）"></a>浏览器的eventloop（javascript的执行机制new Promise和setTimeout执行顺序）</h3><p><code>event loop</code>顾名思义就是事件循环，为什么要有事件循环呢？因为javascript是单线程的，即同一时间只能干一件事情，一般先执行主线程里的同步任务，将异步任务加入到一个callback queue事件队列里(task), 等到同步任务事件完成时，会读取callback queue队列中的函数，进入主线程执行，上述过程会不断重复，也就是常说的Event Loop(事件循环)。</p>
-<p><code>setTimeout</code>和<code>Promise</code>调用的都是异步任务，都是通过任务队列进行管理／调度，任务队列分为：<code>MacroTask Queue(宏任务队列)</code>和<code>MicroTask Queue(微任务队列)</code><br>宏任务队列主要包括<code>setTimeout</code>,<code>setInterval</code>, <code>setImmediate</code>, <code>requestAnimationFrame</code>, NodeJS中的<code>I/O</code>,UI渲染等<br>微任务队列主要包括两类：<br>独立回调microTask：如<code>Promise</code>，其成功／失败回调函数相互独立；<br>复合回调microTask：如 Object.observe, MutationObserver 和NodeJs中的 <code>process.nextTick</code> ，不同状态回调在同一函数体；<br><code>先执行微任务，再执行宏任务</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> <span class="title">executor</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt; <span class="number">10000</span>; i += <span class="number">1</span>)&#123;</span><br><span class="line">        i == <span class="number">9999</span> &amp;&amp; resolve()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">&#125;)</span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">6</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line"><span class="comment">// 2 3 5 6 4 1</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>这段代码作为宏任务进入主线程，首先会遇到<code>setTimeout</code>，将其回调函数分发到宏任务的<code>event queue</code>上；</li>
-<li>然后回到<code>promise</code>，<code>new promise</code>会立即执行，<code>then</code>函数分发到微任务的<code>event queue</code>中， 记为<code>process 2</code>； process.nextTick 永远大于 promise.then</li>
-<li>接下来<code>process.nextTick</code>分发到微任务的<code>event queue</code>中，记为<code>process 1</code>；</li>
-<li>接下来遇到<code>console.log（）</code>立即执行；</li>
-<li>然后，整体script代码作为第一个宏任务执行结束，接下来判断是否有微任务，我们发现then在微任务event queue里，执行；</li>
-<li>第一轮循环事件结束，开始第二轮循环，当然是从宏任务的event queue开始，我们发现了宏任务event queue中的<code>setTimeout</code>对应的回调函数，则立即执行。<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'1'</span>); </span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'2'</span>);</span><br><span class="line">    process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'3'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'4'</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'5'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'6'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'7'</span>);</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'8'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'9'</span>);</span><br><span class="line">    process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'10'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'11'</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'12'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 1 7 6 8     2 4 3 5    9 11 10 12</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="JavaScript中Null和Undefined的区别"><a href="#JavaScript中Null和Undefined的区别" class="headerlink" title="JavaScript中Null和Undefined的区别"></a>JavaScript中Null和Undefined的区别</h4><p>null: null是js中的关键字，表示空值，null可以看作是object的一个特殊的值，如果一个object值为空，表示这个对象不是有效对象。<br>Undefined: undefined不是js中的关键字，其是一个全局变量，是Global的一个属性，以下情况会返回undefined:</p>
-<ul>
-<li>使用了一个未定义的变量；var i;</li>
-<li>使用了已定义但未声明的变量；</li>
-<li>使用了一个对象属性，但该属性不存在或者未赋值；</li>
-<li>调用函数时，该提供的参数没有提供：</li>
-<li>函数没有返回值时，默认返回undefined<br>Null和Undefined的区别<br>相同点：都是原始类型的值，保存在栈中变量本地<br>不同点：</li>
-</ul>
-<ol>
-<li><p>null表示定义并赋值为null，undifined表示定义未赋值</p>
-</li>
-<li><p>类型不一样：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(typeOf <span class="literal">undefined</span>);<span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(typeOf <span class="literal">null</span>);<span class="comment">//object</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>转化为值时不一样：undefined为NaN ,null为0</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="literal">undefined</span>));<span class="comment">//NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="number">10</span>+<span class="literal">undefined</span>));<span class="comment">//NaN</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="literal">null</span>));<span class="comment">//0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="number">10</span>+<span class="literal">null</span>));<span class="comment">//10</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span>===<span class="literal">null</span>);<span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span>==<span class="literal">null</span>);<span class="comment">//true)</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>null当使用完一个比较大的对象时，需要对其进行释放内存时，设置为null;</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[<span class="string">"aa"</span>,<span class="string">"bb"</span>,<span class="string">"cc"</span>];</span><br><span class="line">arr=<span class="literal">null</span>;<span class="comment">//释放指向数组的引用</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h3 id="async-await-来处理异步"><a href="#async-await-来处理异步" class="headerlink" title="async/await 来处理异步"></a>async/await 来处理异步</h3><p>async/是一个立即执行函数<br>async/ await来发送异步请求，从服务端请求接口，获取数据。<br>async是一个关键字，放到函数前面，用于表示函数是一个异步函数， 异步函数也就意味着该函数的执行不会阻塞后面代码的执行。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'hello'</span></span><br><span class="line">&#125;</span><br><span class="line">timeout();<span class="comment">//调用，不影响后面的代码执行；调用了但没执行</span></span><br><span class="line"><span class="built_in">console</span>.log(timeout()) <span class="comment">// 返回的是一个promise对象</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'hello,world!'</span>)</span><br><span class="line"><span class="comment">//要获取到promise返回值，我们应该用then 方法</span></span><br><span class="line">timeout().then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params">flag</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'hello world'</span> <span class="comment">// 返回一个值时，Promise 的 resolve 方法会负责传递这个值</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">'my god, failure'</span> <span class="comment">// 抛出异常时，Promise 的 reject 方法也会传递这个异常值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(timeout(<span class="literal">true</span>))  <span class="comment">// 调用Promise.resolve() 返回promise 对象。</span></span><br><span class="line"><span class="built_in">console</span>.log(timeout(<span class="literal">false</span>)); <span class="comment">// 调用Promise.reject() 返回promise 对象。</span></span><br><span class="line"><span class="comment">// 抛出错误用.catch()进行捕获</span></span><br><span class="line">timeout(<span class="literal">false</span>).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>await是等待的意思，能在async或是返回对象是Promise的一个函数里使用，使用await关键字是等待后面的Promise对象执行完毕，然后拿到promise resolve的值并进行返回，返回值拿到之后，它继续向下执行。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// async await promise 执行顺序</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'1'</span>)</span><br><span class="line">    <span class="keyword">await</span> async2()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'2'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'3'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'4'</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'5'</span>) </span><br><span class="line">&#125;,<span class="number">0</span>)  </span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'6'</span>)</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'7'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'8'</span>)</span><br><span class="line"><span class="comment">// 4 1 3 6 8 2 7 5</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="变量提升，函数提升"><a href="#变量提升，函数提升" class="headerlink" title="变量提升，函数提升"></a>变量提升，函数提升</h3><p>变量提升就是把变量的声明提升到所在作用域的顶端，赋值在代码原来的位置。所以var 声明的变量可以先使用再赋值。<br>var a = 2;实际上javascript引擎将这个声明分为var a和a = 2两个单独的声明，第一个是编译阶段的任务，而第二个则是执行阶段的任务。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"1"</span>, v1);</span><br><span class="line"><span class="keyword">var</span> v1 = <span class="number">100</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"2"</span>, v1);</span><br><span class="line">    <span class="keyword">var</span> v1 = <span class="number">200</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"3"</span>, v1);</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"4"</span>, v1);</span><br><span class="line"><span class="comment">// 1 undefined</span></span><br><span class="line"><span class="comment">// 2 undefined  </span></span><br><span class="line"><span class="comment">// 3 200</span></span><br><span class="line"><span class="comment">// 4 100</span></span><br><span class="line"><span class="comment">// 实际执行顺序</span></span><br><span class="line"><span class="keyword">var</span> v1;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"1"</span>, v1); <span class="comment">// undefined</span></span><br><span class="line">v1 = <span class="number">100</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> v1</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"2"</span>, v1);<span class="comment">// undefined</span></span><br><span class="line">    v1 = <span class="number">200</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"3"</span>, v1); <span class="comment">// 200</span></span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"4"</span>, v1); <span class="comment">//100</span></span><br></pre></td></tr></table></figure>
-
-<p>函数提升：<br>函数提升是整个代码块提升到它所在的作用域的最开始执行；函数提升所指的形式：function fn(){……}；不能是不能是函数表达式的形式</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(f1);    <span class="comment">//函数提升，整个代码块提升到文件的最开始&lt;br&gt;</span></span><br><span class="line">f1();</span><br><span class="line"><span class="built_in">console</span>.log(f2);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'我是函数f1。。。'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> f2 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'我是函数f2。。。'</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//函数提升的执行过程</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">function f1()&#123;</span></span><br><span class="line"><span class="comment">  console.log('我是函数f1。。。');</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">var f2;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">console.log(f1);</span></span><br><span class="line"><span class="comment">f1();</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">f2 = function()&#123;</span></span><br><span class="line"><span class="comment">  console.log('我是函数f2。。。');</span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/16/react相关/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leixue">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rayshell's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/leixue-blog/2019/08/16/react相关/" itemprop="url">react相关</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T13:18:12+08:00">
-                2019-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/leixue-blog/categories/前端学习/" itemprop="url" rel="index">
-                    <span itemprop="name">前端学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="react框架"><a href="#react框架" class="headerlink" title="react框架"></a>react框架</h4><ol>
-<li><p>创建容器，用于接受渲染虚拟DOM元素</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建虚拟DOM元素</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//参数一：创建的标签名；标签二：节点属性；参数三：子节点</span></span><br><span class="line"><span class="keyword">const</span> myh1 = React.createElement(<span class="string">'h1'</span>,&#123;<span class="attr">title</span>:<span class="string">'my is a div'</span>, <span class="attr">id</span>:<span class="string">'myh1'</span>&#125;, <span class="string">'this h1 content'</span>)</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line"><span class="keyword">const</span> myh1 = <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"myh1"</span> <span class="attr">title</span>=<span class="string">"my is a div"</span>&gt;</span>this h1 content<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>渲染虚拟DOM元素</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">React.render(myh1, <span class="built_in">document</span>.getElementById(<span class="string">'app'</span>))</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h4 id="react-生命周期函数"><a href="#react-生命周期函数" class="headerlink" title="react 生命周期函数"></a>react 生命周期函数</h4><ol>
-<li>初始化阶段：组件创建阶段：一辈子只执行一次<ul>
-<li>getDefaultProps:获取实例的默认属性</li>
-<li>getInitialState:获取每个实例的初始化状态</li>
-<li><code>componentWillMount</code>：组件即将被装载、渲染到页面上</li>
-<li><code>render</code>:组件在这里生成虚拟的 DOM 节点</li>
-<li><code>componentDidMount</code>:组件真正在被装载之后</li>
-</ul>
-</li>
-<li>运行中状态：组件运行阶段：按需执行，根据props和state的状态改变，有选择性的执行0-n次<ul>
-<li><code>componentWillReceiveProps</code>:组件将要接收到属性的时候调用</li>
-<li><code>shouldComponentUpdate</code>:组件接受到新属性或者新状态的时候（可以返回 false，接收数据后不更新，阻止 render 调用，后面的函数不会被继续执行了）</li>
-<li><code>componentWillUpdate</code>:组件即将更新不能修改属性和状态</li>
-<li><code>render</code>:组件重新描绘</li>
-<li><code>componentDidUpdate</code>:组件已经更新</li>
-</ul>
-</li>
-<li>销毁阶段：一辈子只执行一次<ul>
-<li><code>componentWillUnmount</code>:组件即将销毁</li>
-</ul>
-</li>
-</ol>
-<h4 id="setState"><a href="#setState" class="headerlink" title="setState"></a>setState</h4><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(&#123;<span class="attr">comment</span>: <span class="string">'Hello'</span>&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>状态更新可能是异步的：状态中使用了props传过来的值increment，让<code>setState()</code>来接受一个函数而不是一个对象。 该函数将接收先前的状态作为第一个参数counter，将此次更新被应用时的<code>props</code>做为第二个参数：</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正确的做法</span></span><br><span class="line"><span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState, props</span>) =&gt;</span> (&#123;</span><br><span class="line">  counter: prevState.counter + props.increment</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-
-<h4 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h4><h5 id="无状态组件"><a href="#无状态组件" class="headerlink" title="无状态组件"></a>无状态组件</h5><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Header</span>(<span class="params">props</span>)</span>&#123;</span><br><span class="line">           </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用情况：纯粹的渲染 html 内容，不需要对数据进行判断和处理；要么这个组件所需要的数据，都是来自于上层结构（父组件传递下来的数据，或者 <code>Redux</code> 的 <code>store</code> 中的数据。<br>引用props：<code>props.xx</code></p>
-<h5 id="有状态组件"><a href="#有状态组件" class="headerlink" title="有状态组件"></a>有状态组件</h5><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Header</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span>()</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>or</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Header</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">PureComponent</span>()</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用情况：要处理组件里的数据<br>引用props：<code>this.props.xx</code></p>
-<p>React中的就提供了一个<code>PureComponent</code>的类，当我们的组件继承于它时，组件更新时就会默认先比较新旧属性和状态，从而决定组件是否更新。值得注意的是，PureComponent进行的是浅比较，所以组件状态或属性改变时，都需要返回一个新的对象或数组</p>
-<h4 id="受控组件和非受控组件"><a href="#受控组件和非受控组件" class="headerlink" title="受控组件和非受控组件"></a>受控组件和非受控组件</h4><h5 id="受控组件"><a href="#受控组件" class="headerlink" title="受控组件"></a>受控组件</h5><p><code>input</code>的<code>value</code>值必须是我们设置在<code>constructor</code>构造函数的state中的值，然后，通过<code>onChange</code>触发事件来改变<code>state</code>中保存的<code>value</code>值，这样形成一个循环的回路影响。<code>input</code>中的<code>value</code>值通过<code>state</code>值获取，<code>onChange</code>事件改变state中的<code>value</code>值，<code>input</code>中的<code>value</code>值又从<code>state</code>中获取，也可以说是<code>React</code>负责渲染表单的组件仍然控制用户后续输入时所发生的变化。</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">handleChange(e)&#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        value: e.target.value</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br><span class="line">&lt;input type=<span class="string">"text"</span> value=&#123;<span class="keyword">this</span>.state.value&#125; onChange=&#123;<span class="keyword">this</span>.handleChange&#125; /&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="非受控组件"><a href="#非受控组件" class="headerlink" title="非受控组件"></a>非受控组件</h5><p>不需要设置它的<code>state</code>属性，而通过<code>ref</code>来操作真实的<code>DOM</code>。</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> ref=&#123;input =&gt; <span class="keyword">this</span>.textInput = input&#125; /&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="重构：显示和状态分离"><a href="#重构：显示和状态分离" class="headerlink" title="重构：显示和状态分离"></a>重构：显示和状态分离</h4><p>用<code>stateless组件</code>来负责显示，<code>class组件</code>来负责状态和逻辑</p>
-<h4 id="React-中-keys-的作用是什么？"><a href="#React-中-keys-的作用是什么？" class="headerlink" title="React 中 keys 的作用是什么？"></a>React 中 keys 的作用是什么？</h4><p><code>Keys</code> 是 React 用于追踪哪些列表中元素被修改、被添加或者被移除的辅助标识。在 <code>React Diff</code> 算法中 React 会借助元素的 Key 值来判断该元素是新近创建的还是被移动而来的元素，从而减少不必要的元素重渲染。此外，React 还需要借助 Key 值来判断元素与本地状态的关联关系，因此我们绝不可忽视转换函数中 Key 的重要性。</p>
-<h3 id="react常见面试题"><a href="#react常见面试题" class="headerlink" title="react常见面试题"></a>react常见面试题</h3><h4 id="调用-setState-之后发生了什么？"><a href="#调用-setState-之后发生了什么？" class="headerlink" title="调用 setState 之后发生了什么？"></a>调用 setState 之后发生了什么？</h4><p>在代码中调用 setState 函数之后，React 会将<strong>传入的参数对象与组件当前的状态合并</strong>，然后React 会以相对高效的方式根据新的状态构建 React 元素树并且着手重新渲染整个 UI 界面。在 React 得到元素树之后，React 会自动计算出新的树与老树的节点差异，然后根据差异对界面进行最小化重渲染。在差异计算算法中，React 能够相对精确地知道哪些位置发生了改变以及应该如何改变，这就保证了按需更新，而不是全部重新渲染。</p>
-<h4 id="为什么虚拟-dom-会提高性能-必考"><a href="#为什么虚拟-dom-会提高性能-必考" class="headerlink" title="为什么虚拟 dom 会提高性能?(必考)"></a>为什么虚拟 dom 会提高性能?(必考)</h4><p><code>虚拟 dom</code> 其实就是一个JavaScript对象。通过这个JavaScript对象来描述真实DOM。<br>真实DOM的操作，一般都会对某块元素的整体重新渲染，耗能大。<br>采用虚拟DOM的话，当数据变化的时候，只需要局部刷新变化的位置就好了。<br>在react中，当数据发生变化，生成虚拟DOM，利用 dom diff 算法进行对真实和虚拟DOM树进行层层对比，找出变化的位置，记录差异的地方，进行真实DOM的局部更新，来更新视图，避免了没有必要的 dom 操作，从而提高性能。</p>
-<h4 id="react-diff-原理（常考，大厂必考）"><a href="#react-diff-原理（常考，大厂必考）" class="headerlink" title="react diff 原理（常考，大厂必考）"></a>react diff 原理（常考，大厂必考）</h4><ul>
-<li>把树形结构按照层级分解，只比较同级元素。</li>
-<li>给列表结构的每个单元添加唯一的 key 属性，方便比较。</li>
-<li>React 只会匹配相同 class 的 component（这里面的 class 指的是组件的名字）</li>
-<li>合并操作，调用 component 的 setState 方法的时候, React标记有差异的节点，到每一个事件循环结束, 检查所有标记的节点 component 重新绘制.</li>
-<li>选择性子树渲染。开发人员可以重写 shouldComponentUpdate 提高 diff 的性能。</li>
-</ul>
-<h4 id="React-中-ref-的作用是什么？"><a href="#React-中-ref-的作用是什么？" class="headerlink" title="React 中 ref 的作用是什么？"></a>React 中 ref 的作用是什么？</h4><p>Ref 是 React 提供给我们的安全访问 <code>DOM 元素</code>或者某个组件实例的句柄。</p>
-<h4 id="为什么建议传递给-setState-的参数是一个-callback-而不是一个对象"><a href="#为什么建议传递给-setState-的参数是一个-callback-而不是一个对象" class="headerlink" title="为什么建议传递给 setState 的参数是一个 callback 而不是一个对象"></a>为什么建议传递给 setState 的参数是一个 callback 而不是一个对象</h4><p>因为 this.props 和 this.state 的更新可能是<code>异步</code>的，不能依赖它们的值去计算下一个 state。</p>
-<h4 id="应该在-React-组件的何处发起-Ajax-请求"><a href="#应该在-React-组件的何处发起-Ajax-请求" class="headerlink" title="应该在 React 组件的何处发起 Ajax 请求"></a>应该在 React 组件的何处发起 Ajax 请求</h4><p>在 React 组件中，应该在 <code>componentDidMount</code> 中发起网络请求</p>
-<h4 id="react-性能优化是哪个周期函数？"><a href="#react-性能优化是哪个周期函数？" class="headerlink" title="react 性能优化是哪个周期函数？"></a>react 性能优化是哪个周期函数？</h4><p><code>shouldComponentUpdate</code> 这个方法用来判断是否需要调用 render 方法重新描绘 dom。因为 dom 的描绘非常消耗性能，如果我们能在<code>shouldComponentUpdate</code> 方法中能够写出更优化的 dom diff 算法，可以极大的提高性能。</p>
-<h4 id="React-项目用过什么脚手架（本题是开放性题目）"><a href="#React-项目用过什么脚手架（本题是开放性题目）" class="headerlink" title="React 项目用过什么脚手架（本题是开放性题目）"></a>React 项目用过什么脚手架（本题是开放性题目）</h4><p><code>creat-react-app</code></p>
-<h4 id="简述-mobx-思想"><a href="#简述-mobx-思想" class="headerlink" title="简述 mobx 思想"></a>简述 mobx 思想</h4><h4 id="mobx与redux的不同"><a href="#mobx与redux的不同" class="headerlink" title="mobx与redux的不同"></a>mobx与redux的不同</h4><h4 id="react边界错误"><a href="#react边界错误" class="headerlink" title="react边界错误"></a>react边界错误</h4><p>React 16 引入了一个新的概念 —— 错误边界<br>错误边界是一种 React 组件，这种组件可以捕获并打印发生在其子组件树任何位置的 JavaScript 错误，并且，它会渲染出备用 UI，而不是渲染那些崩溃了的子组件树。错误边界在渲染期间、生命周期方法和整个组件树的构造函数中捕获错误。<br>如果一个 <code>class</code> 组件中定义了 <code>static getDerivedStateFromError()</code>或 <code>componentDidCatch()</code> 这两个生命周期方法中的任意一个（或两个）时，那么它就变成一个错误边界。当抛出错误后，请使用 <code>static getDerivedStateFromError()</code> 渲染备用 UI ，使用 <code>componentDidCatch()</code>打印错误信息。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.rayshell.work/leixue-blog/leixue-blog/2019/08/16/js中的树/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leixue">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/leixue-blog/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Rayshell's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/leixue-blog/2019/08/16/js中的树/" itemprop="url">js中的树</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T13:17:50+08:00">
-                2019-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/leixue-blog/categories/前端学习/" itemprop="url" rel="index">
-                    <span itemprop="name">前端学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="js树"><a href="#js树" class="headerlink" title="js树"></a><a href="https://juejin.im/entry/59979aaaf265da24817a5928" target="_blank" rel="noopener">js树</a></h4><p>树是一种<strong>非顺序数据结构</strong>（节点，根节点，内部节点，外部节点，子树，深度）</p>
-<p><strong>节点</strong>包括（key left right）</p>
-<p><strong>二叉搜索树</strong>是二叉树的一种，左节点key值<code>&lt;</code>父节点key值，右节点key值<code>&gt;=</code>父节点key值</p>
-<p>四种遍历的主要思想：<br>前序遍历：根左右;<br>中序遍历：左根右;<br>后序遍历：左右根;<br>广度遍历：按照层次一层层遍历;</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建一个树节点</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Node</span>(<span class="params">key</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.key = key;</span><br><span class="line">    <span class="keyword">this</span>.left = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">this</span>.right = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建树的类</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">treeList</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.root = <span class="keyword">new</span> Node(<span class="string">'root'</span>); <span class="comment">// 根节点</span></span><br><span class="line">    <span class="keyword">this</span>.insertNode = insertNode; <span class="comment">// 插入节点</span></span><br><span class="line">    <span class="keyword">this</span>.findNode = findNode; <span class="comment">// 查找节点</span></span><br><span class="line">    <span class="keyword">this</span>.removeNode = removeNode; <span class="comment">// 删除节点</span></span><br><span class="line">    <span class="keyword">this</span>.finMaxNode = findMaxNode; <span class="comment">// 这棵树中的最小值在最后一层最左侧的节点</span></span><br><span class="line">    <span class="keyword">this</span>.findMinNode = findMinNode; <span class="comment">// 最大值在最右端的节点。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//先序遍历 主左右 先序遍历的一种应用是打印一个结构化的文档。</span></span><br><span class="line">    <span class="keyword">this</span>.preOrderTraverseNode = preOrderTraverseNode;</span><br><span class="line">    <span class="comment">// 中序遍历 左主右 是一种上行访问BST所有节点的遍历方式，也就是从最小到最大的顺序访问所有节点。中序遍历的一种应用就是对树进行排序操作。</span></span><br><span class="line">    <span class="keyword">this</span>.inOrderTraverseNode = inOrderTraverseNode;</span><br><span class="line">    <span class="comment">// 后序遍历 左右主 后序遍历的一种应用是计算一个目录和它的子目录中所有文件所占用空间的大小。</span></span><br><span class="line">    <span class="keyword">this</span>.postOrderTraverseNode = postOrderTraverseNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertNode</span>(<span class="params">node, root</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root === <span class="literal">null</span>)&#123;</span><br><span class="line">        root = node;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node.key &lt; root.key)&#123;</span><br><span class="line">            <span class="keyword">if</span> (root.left == <span class="literal">null</span>)&#123;</span><br><span class="line">                root.left = node</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                insertNode(node, root.left)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (root.right == <span class="literal">null</span>)&#123;</span><br><span class="line">                root.right = node</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                insertNode(node, root.right)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findNode</span>(<span class="params">node, key</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (key &lt; node.key)&#123;</span><br><span class="line">            <span class="keyword">return</span> findNode(node.left, key)</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(key &gt; node.key) &#123;</span><br><span class="line">            <span class="keyword">return</span> findNode(node.right, key)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findMaxNode</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node)&#123;</span><br><span class="line">        <span class="keyword">while</span>(node &amp;&amp; node.right !== <span class="literal">null</span>)&#123;</span><br><span class="line">            node = node.right</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node.key</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findMinNode</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node)&#123;</span><br><span class="line">        <span class="keyword">while</span>(node &amp;&amp; node.left !== <span class="literal">null</span>)&#123;</span><br><span class="line">            node = node.left</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 三种情况：删除节点没有子节点，删除节点有一个子节点，删除节点有两个子节点，从node来删除</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeNode</span>(<span class="params">node, key</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node === <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (key &lt; node.key)&#123;</span><br><span class="line">        node.left = removeNode(node.left, key)</span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (key &gt; node.key)&#123;</span><br><span class="line">        node.right = removeNode(node.right, key)</span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 找到删除的节点，删除，分三种情况</span></span><br><span class="line">        <span class="comment">// case1 删除节点没有子节点</span></span><br><span class="line">        <span class="keyword">if</span> (node.left === <span class="literal">null</span> &amp;&amp; node.right === <span class="literal">null</span>)&#123;</span><br><span class="line">            node = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//case 2 删除节点有一个子节点</span></span><br><span class="line">        <span class="keyword">if</span> (node.left === <span class="literal">null</span>)&#123;</span><br><span class="line">            node = node.right;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.right === <span class="literal">null</span>)&#123;</span><br><span class="line">            node = node.left;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//case 3 删除节点有两个子节点，最复杂，用该右子树的最小节点aux的值代替删除节点值de，并删除aux</span></span><br><span class="line">        <span class="keyword">var</span> aux = findMinNode(node.right);<span class="comment">// findMinNode返回的是节点</span></span><br><span class="line">        node.key = aux.key;</span><br><span class="line">        node.right = removeNode(node.right, aux.key);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 回调函数用来定义我们对遍历到的每个节点进行操作</span></span><br><span class="line"><span class="comment">// 先序中左右</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">preOrderTraverseNode</span>(<span class="params">node, callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;</span><br><span class="line">        callback(node.key)</span><br><span class="line">        preOrderTraverseNode(node.left, callback)</span><br><span class="line">        preOrderTraverseNode(node.right, callback)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 中序遍历左中右</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inOrderTraverseNode</span>(<span class="params">node, callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;</span><br><span class="line">        inOrderTraverseNode(node.left, callback);</span><br><span class="line">        callback(node.key)</span><br><span class="line">        inOrderTraverseNode(node.right, callback)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 后序遍历左右中</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">postOrderTraverseNode</span>(<span class="params">node, callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;</span><br><span class="line">        postOrderTraverseNode(node.left, callback);</span><br><span class="line">        postOrderTraverseNode(node.right, callback)</span><br><span class="line">        callback(node.key)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 用例测试，树用object来表示</span></span><br><span class="line"><span class="comment">// 普通二叉树</span></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    key: <span class="number">10</span>,</span><br><span class="line">    left: &#123;</span><br><span class="line">        key: <span class="number">11</span>, </span><br><span class="line">        left: &#123;</span><br><span class="line">            key: <span class="number">21</span>, </span><br><span class="line">            left: &#123;</span><br><span class="line">                key: <span class="number">31</span>, </span><br><span class="line">                left: <span class="literal">null</span>,</span><br><span class="line">                right: <span class="literal">null</span></span><br><span class="line">            &#125;,</span><br><span class="line">            right: &#123;</span><br><span class="line">                key: <span class="number">32</span>,</span><br><span class="line">                left: <span class="literal">null</span>,</span><br><span class="line">                right: <span class="literal">null</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, </span><br><span class="line">        right: &#123;</span><br><span class="line">            key: <span class="number">22</span>,</span><br><span class="line">            left: <span class="literal">null</span>,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    right: &#123;</span><br><span class="line">        key: <span class="number">12</span>,</span><br><span class="line">        left: &#123;</span><br><span class="line">            key: <span class="number">23</span>,</span><br><span class="line">            left: <span class="literal">null</span>,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;,</span><br><span class="line">        right: &#123;</span><br><span class="line">            key: <span class="number">24</span>,</span><br><span class="line">            left: <span class="literal">null</span>,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 搜索二叉树</span></span><br><span class="line"><span class="keyword">let</span> treeObj = &#123;</span><br><span class="line">    key: <span class="number">14</span>,</span><br><span class="line">    left: &#123;</span><br><span class="line">        key: <span class="number">12</span>, </span><br><span class="line">        left: &#123;</span><br><span class="line">            key: <span class="number">9</span>, </span><br><span class="line">            left: &#123;</span><br><span class="line">                key: <span class="number">6</span>, </span><br><span class="line">                left: <span class="literal">null</span>,</span><br><span class="line">                right: <span class="literal">null</span></span><br><span class="line">            &#125;,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;, </span><br><span class="line">        right: &#123;</span><br><span class="line">            key: <span class="number">13</span>,</span><br><span class="line">            left: <span class="literal">null</span>,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    right: &#123;</span><br><span class="line">        key: <span class="number">16</span>,</span><br><span class="line">        left: &#123;</span><br><span class="line">            key: <span class="number">10</span>,</span><br><span class="line">            left: <span class="literal">null</span>,</span><br><span class="line">            right: <span class="literal">null</span></span><br><span class="line">        &#125;,</span><br><span class="line">        right: &#123;</span><br><span class="line">            key: <span class="number">20</span>,</span><br><span class="line">            left: &#123;<span class="attr">key</span>: <span class="number">18</span>, <span class="attr">left</span>: <span class="literal">null</span>, <span class="attr">right</span>: <span class="literal">null</span>&#125;,</span><br><span class="line">            right: &#123;<span class="attr">key</span>: <span class="number">21</span>, <span class="attr">left</span>: <span class="literal">null</span>, <span class="attr">right</span>: <span class="literal">null</span>&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> tree = <span class="keyword">new</span> treeList();</span><br><span class="line"><span class="comment">// tree.preOrderTraverseNode(obj, console.log)</span></span><br><span class="line"><span class="comment">// tree.inOrderTraverseNode(obj, console.log)</span></span><br><span class="line"><span class="comment">// tree.postOrderTraverseNode(obj, console.log)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// console.log(tree.findMinNode(treeObj)) // 6</span></span><br><span class="line"><span class="comment">// console.log(tree.findNode(treeObj, 6)) // true</span></span><br><span class="line"><span class="keyword">var</span> node = <span class="keyword">new</span> Node(<span class="number">30</span>)</span><br><span class="line"><span class="comment">// tree.insertNode(node, treeObj)</span></span><br><span class="line"><span class="comment">// tree.inOrderTraverseNode(treeObj, console.log)</span></span><br><span class="line">tree.removeNode(treeObj, <span class="number">20</span>)</span><br><span class="line">tree.inOrderTraverseNode(treeObj, <span class="built_in">console</span>.log)</span><br><span class="line"><span class="comment">// console.log(treeObj)</span></span><br></pre></td></tr></table></figure>
+<p>传递参数的修饰器函数，可以在装饰器外面再封装一层函数。</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testable</span>(<span class="params">isTestable</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">    target.isTestable = isTestable;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@testable</span>(<span class="literal">true</span>)</span><br><span class="line"><span class="keyword">class</span> MyTestableClass &#123;&#125;</span><br><span class="line">MyTestableClass.isTestable <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@testable</span>(<span class="literal">false</span>)</span><br><span class="line"><span class="keyword">class</span> MyClass &#123;&#125;</span><br><span class="line">MyClass.isTestable <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>添加实例属性，可以通过目标类的prototype对象操作。</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testable</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">  target.prototype.isTestable = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@testable</span></span><br><span class="line"><span class="keyword">class</span> MyTestableClass &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> MyTestableClass();</span><br><span class="line">obj.isTestable <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
           
         
       
@@ -2543,7 +2425,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/leixue-blog/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/leixue-blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/leixue-blog/page/3/">3</a><a class="extend next" rel="next" href="/leixue-blog/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/leixue-blog/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/leixue-blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/leixue-blog/page/3/">3</a><a class="page-number" href="/leixue-blog/page/4/">4</a><a class="extend next" rel="next" href="/leixue-blog/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2593,7 +2475,7 @@
               
                 <a href="/leixue-blog/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
