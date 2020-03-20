@@ -130,8 +130,9 @@ console.log(num.valueOf()); // 输出：10
 ```
 
 #### 数字、字符串、数组
-基本数据类型：
-基本类型（保存值）：`Number` `String` `boolean`  `undefined` `null` 和 引用类型（保存地址）：`Object` `Function` `Array`
+数据类型：
+基本类型（保存值）：`Number` `String` `boolean`  `undefined` `null` 
+引用类型（保存地址）：`Object` `Function` `Array`
 1. 判断数据类型：`typeof()` 可以判断`number` `string` `boolean` `undefined` `function`；不可以判断：`array`与`object`、`null`与`object`；返回数据类型是字符串表达式
 ``` js
 //typeof 可判断number string boolean function undifined

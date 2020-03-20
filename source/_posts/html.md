@@ -10,10 +10,10 @@ tags:
 2. 浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体.
 3. DOM Tree 和样式结构体组合后构建render tree，render tree不包含隐藏的节点(比如display:none的节点，还有head节点)，`DOM Tree+ CSS = render tree`。
 
-#### Repaint（重绘）和Reflow（回流）
+#### Repaint（重绘）和Reflow（重排）
 - `repaint`：重绘render tree中的一些元素需要更新属性触发的浏览器行为，这些属性只是影响元素的外观，风格，而不会影响布局的。例如改变`background-color`、`visibility`、`outline`、透明度等属性。浏览器会根据元素的新属性重新绘制，使元素呈现新的外观。重绘不会带来重新布局，并不一定伴随回流。
 
-- `reflow`：回流是更明显的一种改变，元素的内容、结构、位置、布局，隐藏、动画、尺寸发生了变化，**需要重新计算样式和render tree**，这个过程称为Reflow。重排一定会引起浏览器的重绘，会影响排版。对脱离文档流的元素和隐藏的元素`display:none`操作不会引起回流。
+- `reflow`：重排是更明显的一种改变，元素的内容、结构、位置、布局，隐藏、动画、尺寸发生了变化，**需要重新计算样式和render tree**，这个过程称为Reflow。重排一定会引起浏览器的重绘，会影响排版。对脱离文档流的元素和隐藏的元素`display:none`操作不会引起重排。
 
 - 常见的引起回流的具体操作：
     1. Initial，网页初始化的时候
@@ -92,7 +92,7 @@ tags:
     - 通过四次挥手关闭连接(FIN ACK, ACK, FIN ACK, ACK)。
 
 #### HTML5那些新增属性
-html5新增：`canvas`绘画，本地离线存储`localStorage`，`sessionStorage`，`video`和`audio`元素，语义化元素，表单类型（`date`，`time`，`email`等），地理定位等等
+html5新增：`canvas`绘画，本地离线存储`localStorage`，`sessionStorage`，跨域`window.postMessage`API，`video`和`audio`元素，语义化元素，表单类型（`date`，`time`，`email`等），地理定位等等
 
 #### 前端一般主要的一些漏洞或者是场景
 1. SQL 注入攻击(SQL Injection)
@@ -117,4 +117,4 @@ referer 验证。
 #### 懒加载的原理
 核心原理是：
 1. 设置一个定时器，计算每张图片是否会随着滚动条的滚动，而出现在视口（也就是浏览器中的 展现网站的空白部分 ）中；
-2. 为<img>标签设置一个暂存图片URL的自定义属性（例如loadpic），当图片出现在视口时，再将loadpic的值赋给图片的src属性；
+2. 为`<img>`标签设置一个暂存图片URL的自定义属性（例如loadpic），当图片出现在视口时，再将loadpic的值赋给图片的src属性；

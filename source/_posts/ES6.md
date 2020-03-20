@@ -27,7 +27,7 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
 4. `arrow functions `（箭头函数）不需要 function 关键字来创建函数，省略 return 关键字，继承当前上下文的 this 关键字
     - 相当于函数使用bind()
     - `() => {}`
-5. `template string `（模板字符串）用{` ${name}`}嵌入
+5. `template string `（模板字符串）用` `${name}` `嵌入
 6. `destructuring` （解构）解构能让我们从对象或者数组里取出数据存为变量
     ``` js
     // 对象和数组逐个对应表达式
@@ -59,7 +59,7 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
     // ...
     }
     ```
-9. `Spread Operator `（展开运算符）(...person)对数组而言
+9. `Spread Operator`（展开运算符）(...person)对数组而言
     ``` js
     var arr1=['a','b','c'];
     var arr2=[...arr1,'d','e']; //['a','b','c','d','e']
@@ -190,3 +190,54 @@ ECMAScript 6 简称 ES6，是 JavaScript 语言的下一代标准，已经在201
         console.log(source === map);
     })
     ```
+14. 装饰器 Decorator
+装饰器（Decorator）是一种与类（class）相关的语法，用来注释或修改类和类方法。装饰器是一种函数，写成`@ + 函数名`。它可以放在类和类方法的定义前面。装饰器是在编译阶段运行
+1. 类的装饰:装饰器可以用来装饰整个类。
+装饰器是一个对类进行处理的函数。装饰器函数的第一个参数，就是所要装饰的目标类。
+``` js
+@testable 
+class MyTestableClass {
+  // ...
+}
+
+function testable(target) {
+  target.isTestable = true;
+}
+
+MyTestableClass.isTestable // true
+/*@testable就是一个装饰器。它修改了MyTestableClass这个类的行为，为它加上了静态属性isTestable。testable函数的参数target是MyTestableClass类本身。*/
+
+@decorator
+class A {}
+// 等同于
+class A {}
+A = decorator(A) || A;
+```
+传递参数的修饰器函数，可以在装饰器外面再封装一层函数。
+``` ts
+function testable(isTestable) {
+  return function(target) {
+    target.isTestable = isTestable;
+  }
+}
+
+@testable(true)
+class MyTestableClass {}
+MyTestableClass.isTestable // true
+
+@testable(false)
+class MyClass {}
+MyClass.isTestable // false
+```
+添加实例属性，可以通过目标类的prototype对象操作。
+``` ts
+function testable(target) {
+  target.prototype.isTestable = true;
+}
+
+@testable
+class MyTestableClass {}
+
+let obj = new MyTestableClass();
+obj.isTestable // true
+```
